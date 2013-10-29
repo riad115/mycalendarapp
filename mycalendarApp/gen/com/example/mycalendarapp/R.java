@@ -36,34 +36,42 @@ public final class R {
         public static final int cal_left_arrow_on=0x7f020003;
         public static final int cal_right_arrow_off=0x7f020004;
         public static final int cal_right_arrow_on=0x7f020005;
-        public static final int calendar_bar=0x7f020006;
-        public static final int calendar_bg_orange=0x7f020007;
-        public static final int calendar_button_selector=0x7f020008;
-        public static final int calendar_centralheader=0x7f020009;
-        public static final int calendar_left_arrow_selector=0x7f02000a;
-        public static final int calendar_right_arrow_selector=0x7f02000b;
-        public static final int calendar_tile=0x7f02000c;
-        public static final int calendar_tile_small=0x7f02000d;
-        public static final int calendar_top_header=0x7f02000e;
-        public static final int calendar_view=0x7f02000f;
-        public static final int ic_launcher=0x7f020010;
-        public static final int icon=0x7f020011;
+        public static final int calendar_add_event=0x7f020006;
+        public static final int calendar_bar=0x7f020007;
+        public static final int calendar_bg_orange=0x7f020008;
+        public static final int calendar_button_selector=0x7f020009;
+        public static final int calendar_centralheader=0x7f02000a;
+        public static final int calendar_left_arrow_selector=0x7f02000b;
+        public static final int calendar_right_arrow_selector=0x7f02000c;
+        public static final int calendar_tile=0x7f02000d;
+        public static final int calendar_tile_small=0x7f02000e;
+        public static final int calendar_top_header=0x7f02000f;
+        public static final int calendar_view=0x7f020010;
+        public static final int cg=0x7f020011;
+        public static final int cg_sel=0x7f020012;
+        public static final int daily_view=0x7f020013;
+        public static final int ic_launcher=0x7f020014;
+        public static final int icon=0x7f020015;
+        public static final int monthly_view=0x7f020016;
+        public static final int weekly_view=0x7f020017;
     }
     public static final class id {
-        public static final int action_settings=0x7f090008;
-        public static final int calendar=0x7f090007;
+        public static final int action_settings=0x7f090009;
+        public static final int calendar=0x7f090008;
         public static final int calendar_day_gridcell=0x7f090000;
-        public static final int calendarheader=0x7f090006;
-        public static final int currentMonth=0x7f090004;
-        public static final int nextMonth=0x7f090005;
+        public static final int calendarheader=0x7f090007;
+        public static final int currentMonth=0x7f090005;
+        public static final int nextMonth=0x7f090006;
         public static final int num_events_per_day=0x7f090001;
-        public static final int prevMonth=0x7f090003;
-        public static final int selectedDayMonthYear=0x7f090002;
+        public static final int prevMonth=0x7f090004;
+        public static final int selectedDayMonthYear=0x7f090003;
+        public static final int tabhost=0x7f090002;
     }
     public static final class layout {
         public static final int activity_main=0x7f030000;
         public static final int calendar_day_gridcell=0x7f030001;
-        public static final int calendar_view=0x7f030002;
+        public static final int calendar_tab_view=0x7f030002;
+        public static final int calendar_view=0x7f030003;
     }
     public static final class menu {
         public static final int main=0x7f080000;

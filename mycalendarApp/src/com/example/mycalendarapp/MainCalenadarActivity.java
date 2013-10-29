@@ -5,6 +5,10 @@ import java.util.Locale;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.app.LocalActivityManager;
+import android.app.TabActivity;
+import android.content.Intent;
+import android.content.res.Resources;
 import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.Menu;
@@ -13,6 +17,9 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.TabHost;
+import android.widget.TabHost.TabSpec;
+
 
 public class MainCalenadarActivity extends Activity implements OnClickListener{
 	private static final String tag = "SimpleCalendarViewActivity";
@@ -31,32 +38,49 @@ public class MainCalenadarActivity extends Activity implements OnClickListener{
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.calendar_view);
+		setContentView(R.layout.calendar_tab_view);
 		
+		Resources ressources = getResources(); 
+		TabHost tabHost = (TabHost) findViewById(R.id.tabhost);
+		LocalActivityManager mLocalActivityManager = new LocalActivityManager(this, false);
+		mLocalActivityManager.dispatchCreate(savedInstanceState);
+		tabHost.setup(mLocalActivityManager);
 		
-		_calendar = Calendar.getInstance(Locale.getDefault());
-		month = _calendar.get(Calendar.MONTH) + 1;
-		year = _calendar.get(Calendar.YEAR);
-		Log.d(tag, "Calendar Instance:= " + "Month: " + month + " " + "Year: " + year);
-
-		selectedDayMonthYearButton = (Button) this.findViewById(R.id.selectedDayMonthYear);
-		selectedDayMonthYearButton.setText("Selected: ");
-
-		prevMonth = (ImageView) this.findViewById(R.id.prevMonth);
-		prevMonth.setOnClickListener(this);
-
-		currentMonth = (Button) this.findViewById(R.id.currentMonth);
-		currentMonth.setText(dateFormatter.format(dateTemplate, _calendar.getTime()));
-
-		nextMonth = (ImageView) this.findViewById(R.id.nextMonth);
-		nextMonth.setOnClickListener(this);
-
-		calendarView = (GridView) this.findViewById(R.id.calendar);
-
-		// Initialised
-		adapter = new SimpleCalendarView(getApplicationContext(), R.id.calendar_day_gridcell, month, year);
-		adapter.notifyDataSetChanged();
-		calendarView.setAdapter(adapter);
+		//Monthly
+		Intent intentMonthly = new Intent().setClass(this, MonthlyView.class);
+		TabSpec tabSpecMonthly = tabHost
+		  .newTabSpec("Month")
+		  .setIndicator("", ressources.getDrawable(R.drawable.monthly_view))
+		  .setContent(intentMonthly);
+		
+		Intent intentWeekly = new Intent().setClass(this, WeeklyView.class);
+		TabSpec tabSpecWeekly = tabHost
+		  .newTabSpec("Week")
+		  .setIndicator("", ressources.getDrawable(R.drawable.weekly_view))
+		  .setContent(intentWeekly);
+		
+		Intent intentDaily = new Intent().setClass(this, DailyView.class);
+		TabSpec tabSpecDaily = tabHost
+		  .newTabSpec("Day")
+		  .setIndicator("", ressources.getDrawable(R.drawable.daily_view))
+		  .setContent(intentDaily);
+		
+		Intent intentEvent = new Intent().setClass(this, EventActivity.class);
+		TabSpec tabSpecEvent = tabHost
+		  .newTabSpec("Event")
+		  .setIndicator("", ressources.getDrawable(R.drawable.calendar_add_event))
+		  .setContent(intentEvent);
+		
+		//addIng Tab
+		tabHost.addTab(tabSpecMonthly);
+		tabHost.addTab(tabSpecWeekly);
+		tabHost.addTab(tabSpecDaily);
+		tabHost.addTab(tabSpecEvent);
+		
+		//deafualt tab
+		
+		tabHost.setCurrentTab(0);
+		
 	}
 
 	@Override
