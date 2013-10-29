@@ -158,33 +158,15 @@ public String getItem(int position)
 			{
 				gridcell.setTextColor(Color.WHITE);
 			}
+		if (day_color[1].equals("RED"))
+		{
+			gridcell.setTextColor(Color.RED);
+		}
 		if (day_color[1].equals("BLUE"))
 			{
 				gridcell.setTextColor(_context.getResources().getColor(R.color.static_text_color));
 			}
 		return row;
-	}
-
-	@Override
-	public void onClick(View view) {
-		// TODO Auto-generated method stub
-		String date_month_year = (String) view.getTag();
-		selectedDayMonthYearButton.setText("Selected: " + date_month_year);
-
-		try
-			{
-				Date parsedDate = dateFormatter.parse(date_month_year);
-				Log.d(tag, "Parsed Date: " + parsedDate.toString());
-
-			}
-		catch (ParseException e)
-			{
-				e.printStackTrace();
-			} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
 	}
 	
 	
@@ -222,6 +204,7 @@ public String getItem(int position)
 		int prevYear = 0;
 		int nextMonth = 0;
 		int nextYear = 0;
+		List <Integer> listWeekend = new ArrayList<Integer>();
 
 		int currentMonth = mm - 1;
 		String currentMonthName = getMonthAsString(currentMonth);
@@ -231,6 +214,7 @@ public String getItem(int position)
 
 		// Gregorian Calendar : MINUS 1, set to FIRST OF MONTH
 		GregorianCalendar cal = new GregorianCalendar(yy, currentMonth, 1);
+		GregorianCalendar calWknd = new GregorianCalendar(yy, currentMonth, 1);
 		Log.d(tag, "Gregorian Calendar:= " + cal.getTime().toString());
 
 		if (currentMonth == 11)
@@ -270,7 +254,21 @@ public String getItem(int position)
 		Log.d(tag, "Week Day:" + currentWeekDay + " is " + getWeekDayAsString(currentWeekDay));
 		Log.d(tag, "No. Trailing space to Add: " + trailingSpaces);
 		Log.d(tag, "No. of Days in Previous Month: " + daysInPrevMonth);
-
+		
+		do {
+		    // get the day of the week for the current day
+		    int day = calWknd.get(Calendar.DAY_OF_WEEK);
+		    // check if it is a Saturday or Sunday
+		    if (day == Calendar.SATURDAY || day == Calendar.SUNDAY) {
+		        // print the day - but you could add them to a list or whatever
+		        listWeekend.add(calWknd.get(Calendar.DAY_OF_MONTH));
+		       // System.out.println(calWknd.get(Calendar.DAY_OF_MONTH));
+		    }
+		    // advance to the next day
+		    calWknd.add(Calendar.DAY_OF_YEAR, 1);
+		    
+		}  while (calWknd.get(Calendar.MONTH) == currentMonth);
+		
 		if (cal.isLeapYear(cal.get(Calendar.YEAR)) && mm == 1)
 			{
 				++daysInMonth;
@@ -291,6 +289,10 @@ public String getItem(int position)
 					{
 						list.add(String.valueOf(i) + "-BLUE" + "-" + getMonthAsString(currentMonth) + "-" + yy);
 					}
+				else if(listWeekend.contains(i)){
+					list.add(String.valueOf(i) + "-RED" + "-" + getMonthAsString(currentMonth) + "-" + yy);
+					//System.out.println(listWeekend.get(i));
+				}
 				else
 					{
 						list.add(String.valueOf(i) + "-WHITE" + "-" + getMonthAsString(currentMonth) + "-" + yy);
@@ -327,4 +329,32 @@ public String getItem(int position)
 		// }
 		return map;
 	}
+	
+	
+	
+
+	@Override
+	public void onClick(View view) {
+		// TODO Auto-generated method stub
+		String date_month_year = (String) view.getTag();
+		System.out.println(date_month_year);
+		selectedDayMonthYearButton.setText("Selected: " + date_month_year);
+
+		try{
+				Date parsedDate = dateFormatter.parse(date_month_year);
+				Log.d(tag, "Parsed Date: " + parsedDate.toString());
+
+			}
+		//catch (ParseException e)
+			//{
+				//e.printStackTrace();
+			//} 
+		
+		catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+
 }

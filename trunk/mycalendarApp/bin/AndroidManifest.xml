@@ -22,6 +22,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        
+        <!--  Month Activity -->
+        <activity android:name=".MonthlyView" />
+         
+        <!--  Weekly Activity -->
+        <activity android:name=".WeeklyView" />
+         
+        <!--  Daily Activity -->
+        <activity android:name=".DailyView" />
+        
+        <!--  Event Activity -->
+        <activity android:name=".EventActivity" />
     </application>
 
 </manifest>
