@@ -12,7 +12,7 @@ public class EventActivity extends Activity implements OnClickListener{
  
         TextView textview = new TextView(this);
         textview.setText("This is Event tab");
-        setContentView(textview);
+        setContentView(R.layout.calendar_event);
     }
 	@Override
 	public void onClick(View arg0) {
