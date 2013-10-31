@@ -29,7 +29,7 @@ public class MonthlyView extends Activity implements OnClickListener{
 	private Calendar _calendar;
 	private int month, year;
 	private final DateFormat dateFormatter = new DateFormat();
-	private static final String dateTemplate = "MMMM yyyy";
+	private static final String dateTemplate = "hh mm";
 	private final SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MMM-yyyy");
 	
 	public void onCreate(Bundle savedInstanceState) {

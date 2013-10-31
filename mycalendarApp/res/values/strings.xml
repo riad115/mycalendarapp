@@ -36,5 +36,7 @@
     <string name="time10pm">10pm</string>
     <string name="time11pm">11pm</string>
     <string name="updating">Updating</string>
+    <string name="title_activity_date_picker">DatePickerActivity</string>
+    <string name="title_activity_time_picker">TimePickerActivity</string>
 
 </resources>
