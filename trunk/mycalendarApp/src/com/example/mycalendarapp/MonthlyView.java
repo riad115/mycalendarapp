@@ -1,6 +1,8 @@
 package com.example.mycalendarapp;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 
 import android.app.Activity;
@@ -15,7 +17,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 public class MonthlyView extends Activity implements OnClickListener{
-	private static final String tag = "SimpleCalendarViewActivity";
+	private static final String tag = "MonthlyView";
 
 	private ImageView calendarToJournalButton;
 	private Button selectedDayMonthYearButton;
@@ -28,6 +30,7 @@ public class MonthlyView extends Activity implements OnClickListener{
 	private int month, year;
 	private final DateFormat dateFormatter = new DateFormat();
 	private static final String dateTemplate = "MMMM yyyy";
+	private final SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MMM-yyyy");
 	
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -98,6 +101,12 @@ public class MonthlyView extends Activity implements OnClickListener{
 			Log.d(tag, "Setting Next Month in GridCellAdapter: " + "Month: " + month + " Year: " + year);
 			setGridCellAdapterToDate(month, year);
 		}
+	
+	
+	
+	
+	
+		
 	}
 
 }

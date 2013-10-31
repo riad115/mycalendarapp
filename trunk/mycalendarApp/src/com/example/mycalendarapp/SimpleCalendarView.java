@@ -26,19 +26,15 @@ import android.graphics.Color;
 
 public class SimpleCalendarView extends BaseAdapter implements OnClickListener{
 	
-	private ImageView calendarToJournalButton;
-	private Button selectedDayMonthYearButton;
-	private Button currentMonth;
-	private ImageView prevMonth;
-	private ImageView nextMonth;
-	private GridView calendarView;
-	private Calendar _calendar;
+	
+	
+	
 	
 	
 	
 	private static final String tag = "SimpleCalendarView";
 	private final Context _context;
-
+	private Button selectedDayMonthYearButton;
 	private final List<String> list;
 	private static final int DAY_OFFSET = 1;
 	private final String[] weekdays = new String[]{"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"};
@@ -73,7 +69,7 @@ public class SimpleCalendarView extends BaseAdapter implements OnClickListener{
 
 		// Print Month
 		printMonth(month, year);
-
+		
 		// Find Number of Events
 		eventsPerMonthMap = findNumberOfEventsPerMonth(year, month);
 	}
@@ -127,6 +123,9 @@ public String getItem(int position)
 		// Get a reference to the Day gridcell
 		gridcell = (Button) row.findViewById(R.id.calendar_day_gridcell);
 		gridcell.setOnClickListener(this);
+		
+		selectedDayMonthYearButton = (Button) row.findViewById(R.id.selectedDayMonthYear);
+		
 
 		// ACCOUNT FOR SPACING
 
@@ -338,10 +337,13 @@ public String getItem(int position)
 		// TODO Auto-generated method stub
 		String date_month_year = (String) view.getTag();
 		System.out.println(date_month_year);
-		selectedDayMonthYearButton.setText("Selected: " + date_month_year);
+		//selectedDayMonthYearButton = (Button) view.findViewById(R.id.selectedDayMonthYear);
+		//selectedDayMonthYearButton.setOnClickListener(this);
+		
 
 		try{
 				Date parsedDate = dateFormatter.parse(date_month_year);
+				selectedDayMonthYearButton.setText("Selected: ");
 				Log.d(tag, "Parsed Date: " + parsedDate.toString());
 
 			}
