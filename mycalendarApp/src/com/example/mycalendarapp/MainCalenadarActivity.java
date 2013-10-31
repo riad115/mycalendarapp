@@ -91,19 +91,19 @@ public class MainCalenadarActivity extends Activity implements OnClickListener{
 	}
 	
 	
-	private void setGridCellAdapterToDate(int month, int year)
+	/*private void setGridCellAdapterToDate(int month, int year)
 	{
 		adapter = new SimpleCalendarView(getApplicationContext(), R.id.calendar_day_gridcell, month, year);
 		_calendar.set(year, month - 1, _calendar.get(Calendar.DAY_OF_MONTH));
 		currentMonth.setText(dateFormatter.format(dateTemplate, _calendar.getTime()));
 		adapter.notifyDataSetChanged();
 		calendarView.setAdapter(adapter);
-	}
+	}*/
 
 	@Override
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
-		if (v == prevMonth)
+		/*if (v == prevMonth)
 		{
 			if (month <= 1)
 				{
@@ -130,7 +130,7 @@ public class MainCalenadarActivity extends Activity implements OnClickListener{
 				}
 			Log.d(tag, "Setting Next Month in GridCellAdapter: " + "Month: " + month + " Year: " + year);
 			setGridCellAdapterToDate(month, year);
-		}
+		}*/
 	}
 	
 	
