@@ -11,6 +11,8 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
@@ -31,6 +33,7 @@ public class WeeklyView extends Activity implements OnClickListener{
 	private int month, year , week;
 	private int i =0;
 	private int j = 0;
+	private int hour, hourdp, min;
 	private static final String dateTemplate = "MMM dd";
 	private final SimpleDateFormat dateFormat = new SimpleDateFormat("MMM dd");
 	private final SimpleDateFormat dateFormat1 = new SimpleDateFormat("dd");
@@ -45,6 +48,8 @@ public class WeeklyView extends Activity implements OnClickListener{
 		month = _calendar.get(Calendar.MONTH) + 1;
 		year = _calendar.get(Calendar.YEAR);
 		week = _calendar.get(Calendar.WEEK_OF_YEAR);
+		hour = _calendar.get(Calendar.HOUR_OF_DAY);
+		min = _calendar.get(Calendar.MINUTE);
 		Log.d(tag, "Calendar Instance:= " + "Month: " + month + " " + "Year: " + year);
         ScrollView sv = (ScrollView)findViewById(R.id.calendarScrollView);
         sv.scrollTo(0, sv.getBottom());
@@ -93,6 +98,13 @@ public class WeeklyView extends Activity implements OnClickListener{
 		
 		nextMonth = (ImageView) this.findViewById(R.id.nextMonth);
 		nextMonth.setOnClickListener(this);
+		
+		hourdp = ((hour - 1) * 120) + (min * 1)   ;
+		LinearLayout currentTimeMarkerLinearLayout1 = (LinearLayout) findViewById(R.id.currentTimeMarkerLinearLayout);
+		//currentTimeMarkerLinearLayout.setId(100);
+		//currentTimeMarkerLinearLayout.setOrientation(LinearLayout.HORIZONTAL);
+		android.widget.RelativeLayout.LayoutParams layoutParams2 = (RelativeLayout.LayoutParams)currentTimeMarkerLinearLayout1.getLayoutParams();
+		layoutParams2.setMargins(0, hourdp, 0, 0);
     }
 	@Override
 	public void onClick(View v) {
