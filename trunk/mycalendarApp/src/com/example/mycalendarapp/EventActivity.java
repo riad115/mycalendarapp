@@ -5,6 +5,7 @@ import java.util.Calendar;
 import java.util.Locale;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.format.DateFormat;
 import android.util.Log;
@@ -15,12 +16,18 @@ import android.widget.TextView;
 
 public class EventActivity extends Activity implements OnClickListener{
 	private static final String tag = "EventActivity";
+	public static String to_Date;
+	public static String from_Date;
+	public static String to_Time;
+	public static String from_Time;
 	
-	private Button toTodaysDate;
-	private Button fromTodaysDate;
+	 private String date;
+	// private String to_date;
+	public static Button toTodaysDate;
+	public static Button fromTodaysDate;
 	
-	private Button toCurrentTime;
-	private Button fromCurrentTime;
+	public static Button toCurrentTime;
+	public static Button fromCurrentTime;
 	
 	private Button saveButton;
 	private Button cancelButton;
@@ -56,10 +63,10 @@ public class EventActivity extends Activity implements OnClickListener{
         fromCurrentTime.setText(sdf.format(_calendar.getTime()));
         fromCurrentTime.setOnClickListener(this);
         
-        saveButton = (Button) this.findViewById(R.id.fromTodaysDate);
+        saveButton = (Button) this.findViewById(R.id.saveButton);
         saveButton.setOnClickListener(this);
         
-        cancelButton = (Button) this.findViewById(R.id.fromTodaysDate);
+        cancelButton = (Button) this.findViewById(R.id.cancelButton);
         cancelButton.setOnClickListener(this);
     }
 	@Override
@@ -68,18 +75,40 @@ public class EventActivity extends Activity implements OnClickListener{
 		
 		if(v== toTodaysDate )
 		{
-			Log.d(tag,"Inside to todays date");
+			Intent intent = new Intent(this, DatePickerActivity.class);
+
+		    intent.putExtra("Caller", "To_Date");
+			startActivityForResult(intent, 0);
+
+
+			Log.d(tag,"Inside to todays date" );
 		}
 		else 	if(v== fromTodaysDate )
 		{
+			Intent intent = new Intent(this, DatePickerActivity.class);
+
+		    intent.putExtra("Caller", "From_Date");
+			startActivityForResult(intent, 0);
+			
 			Log.d(tag,"Inside from todays date");
 		}
 		else 	if(v== toCurrentTime )
 		{
+			Intent intent = new Intent(this, TimePickerActivity.class);
+
+		    intent.putExtra("Caller", "To_Time");
+			startActivityForResult(intent, 0);
+
+
 			Log.d(tag,"Inside to current time");
 		}
 		else 	if(v== fromCurrentTime )
 		{
+			Intent intent = new Intent(this, TimePickerActivity.class);
+
+		    intent.putExtra("Caller", "From_Time");
+			startActivityForResult(intent, 0);
+			
 			Log.d(tag,"Inside from current time");
 		}
 		
@@ -91,6 +120,10 @@ public class EventActivity extends Activity implements OnClickListener{
 		{
 			Log.d(tag,"Inside save button");
 		}
+	}
+	/* Called when the second activity's finished */
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		 Log.d(tag, " in parent " + to_Date);
 	}
 
 }

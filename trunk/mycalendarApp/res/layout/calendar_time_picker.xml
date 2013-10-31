@@ -4,8 +4,8 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <DatePicker
-        android:id="@+id/datePicker1"
+    <TimePicker
+        android:id="@+id/timePicker"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="0.36" />
@@ -15,13 +15,13 @@
         android:layout_height="wrap_content" >
 
         <Button
-            android:id="@+id/button1"
+            android:id="@+id/okbutton_TimePicker"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="OK" />
 
         <Button
-            android:id="@+id/button2"
+            android:id="@+id/cancel_timepicker"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Cancel" />
