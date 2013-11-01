@@ -21,8 +21,7 @@ public class EventActivity extends Activity implements OnClickListener{
 	public static String to_Time;
 	public static String from_Time;
 	
-	 private String date;
-	// private String to_date;
+	private String date;
 	public static Button toTodaysDate;
 	public static Button fromTodaysDate;
 	
@@ -76,7 +75,6 @@ public class EventActivity extends Activity implements OnClickListener{
 		if(v== toTodaysDate )
 		{
 			Intent intent = new Intent(this, DatePickerActivity.class);
-
 		    intent.putExtra("Caller", "To_Date");
 			startActivityForResult(intent, 0);
 
@@ -86,7 +84,6 @@ public class EventActivity extends Activity implements OnClickListener{
 		else 	if(v== fromTodaysDate )
 		{
 			Intent intent = new Intent(this, DatePickerActivity.class);
-
 		    intent.putExtra("Caller", "From_Date");
 			startActivityForResult(intent, 0);
 			
@@ -95,7 +92,6 @@ public class EventActivity extends Activity implements OnClickListener{
 		else 	if(v== toCurrentTime )
 		{
 			Intent intent = new Intent(this, TimePickerActivity.class);
-
 		    intent.putExtra("Caller", "To_Time");
 			startActivityForResult(intent, 0);
 
@@ -105,7 +101,6 @@ public class EventActivity extends Activity implements OnClickListener{
 		else 	if(v== fromCurrentTime )
 		{
 			Intent intent = new Intent(this, TimePickerActivity.class);
-
 		    intent.putExtra("Caller", "From_Time");
 			startActivityForResult(intent, 0);
 			
@@ -121,9 +116,6 @@ public class EventActivity extends Activity implements OnClickListener{
 			Log.d(tag,"Inside save button");
 		}
 	}
-	/* Called when the second activity's finished */
-	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		 Log.d(tag, " in parent " + to_Date);
-	}
+
 
 }

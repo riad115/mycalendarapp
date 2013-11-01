@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
@@ -25,10 +26,6 @@ public class DatePickerActivity extends Activity  implements OnClickListener{
 	
     String formatedDate;
     
-	private String res;
-	int month;
-	int day;
-	int year;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -61,13 +58,10 @@ public class DatePickerActivity extends Activity  implements OnClickListener{
 		if(v== okButton )
 		{
 			
-			day  = dp.getDayOfMonth();
-			month= dp.getMonth();
-			year = dp.getYear();
 
-			SimpleDateFormat sdf = new SimpleDateFormat("MM/DD/yyyy");
-			formatedDate = sdf.format(new Date(year, month, day));
-			
+			 Date selectedDate = new Date((dp.getYear()-1900), dp.getMonth(), dp.getDayOfMonth());
+             SimpleDateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
+             formatedDate = dateFormatter.format(selectedDate);
 
 
 			 Log.d(tag, " in ok " + formatedDate);
@@ -98,6 +92,4 @@ public class DatePickerActivity extends Activity  implements OnClickListener{
 		} 
 	}
 	
-
-	
-	}
+}
