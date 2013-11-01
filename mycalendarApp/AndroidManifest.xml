@@ -22,18 +22,26 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        
-        <!--  Month Activity -->
-        <activity android:name=".MonthlyView" />
-         
-        <!--  Weekly Activity -->
-        <activity android:name=".WeeklyView" />
-         
-        <!--  Daily Activity -->
-        <activity android:name=".DailyView" />
-        
-        <!--  Event Activity -->
-        <activity android:name=".EventActivity" />
+
+        <!-- Month Activity -->
+        <activity android:name="com.example.mycalendarapp.MonthlyView" />
+
+        <!-- Weekly Activity -->
+        <activity android:name="com.example.mycalendarapp.WeeklyView" />
+
+        <!-- Daily Activity -->
+        <activity android:name="com.example.mycalendarapp.DailyView" />
+
+        <!-- Event Activity -->
+        <activity android:name="com.example.mycalendarapp.EventActivity" />
+        <activity
+            android:name="com.example.mycalendarapp.DatePickerActivity"
+            android:label="@string/title_activity_date_picker" >
+        </activity>
+        <activity
+            android:name="com.example.mycalendarapp.TimePickerActivity"
+            android:label="@string/title_activity_time_picker" >
+        </activity>
     </application>
 
 </manifest>
