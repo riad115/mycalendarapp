@@ -59,9 +59,6 @@ public class TimePickerActivity extends Activity implements OnClickListener {
 			
 			formatedTime = hour + ":" + min;
 			
-	       // SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
-
-			//formatedTime = sdf.format(new Date(hour, min));
 			
 			 Log.d(tag, " in ok " + formatedTime);
 			 if(getIntent().getStringExtra("Caller").equals("To_Time"))
