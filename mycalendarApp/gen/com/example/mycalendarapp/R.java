@@ -60,8 +60,8 @@ public final class R {
         public static final int weekly_view=0x7f020018;
     }
     public static final class id {
-        public static final int action_settings=0x7f090062;
-        public static final int add_event=0x7f090065;
+        public static final int action_settings=0x7f090063;
+        public static final int add_event=0x7f090066;
         public static final int calendar=0x7f09003b;
         public static final int calendarRelativeLayout=0x7f09000a;
         public static final int calendarScrollView=0x7f090009;
@@ -80,18 +80,19 @@ public final class R {
         public static final int currentYearTextView=0x7f09003f;
         public static final int datePicker1=0x7f090000;
         public static final int dayLabelsLinearLayout=0x7f09003c;
-        public static final int delete_event=0x7f090064;
+        public static final int delete_event=0x7f090065;
         public static final int dividerView=0x7f090008;
         public static final int editText1=0x7f090028;
         public static final int editText6=0x7f090030;
-        public static final int edit_event=0x7f090063;
+        public static final int edit_event=0x7f090064;
+        public static final int eventDescription=0x7f09005c;
         public static final int fridayDateTextView=0x7f090050;
         public static final int fridayHeaderRelativeLayout=0x7f09004f;
         public static final int fridayRelativeLayout=0x7f09005a;
         public static final int fridayTextView=0x7f090051;
         public static final int fromCurrentTime=0x7f09002e;
         public static final int fromTodaysDate=0x7f09002d;
-        public static final int grid_event=0x7f090061;
+        public static final int grid_event=0x7f090062;
         public static final int hoursRelativeLayout=0x7f09000c;
         public static final int mondayDateTextView=0x7f090044;
         public static final int mondayHeaderRelativeLayout=0x7f090043;
@@ -118,11 +119,11 @@ public final class R {
         public static final int textView2=0x7f09002c;
         public static final int textView3=0x7f09002f;
         public static final int textView4=0x7f090031;
-        public static final int textView5=0x7f09005c;
-        public static final int textView6=0x7f09005d;
-        public static final int textView7=0x7f09005e;
-        public static final int textView8=0x7f09005f;
-        public static final int textView9=0x7f090060;
+        public static final int textView5=0x7f09005d;
+        public static final int textView6=0x7f09005e;
+        public static final int textView7=0x7f09005f;
+        public static final int textView8=0x7f090060;
+        public static final int textView9=0x7f090061;
         public static final int thursdayDateTextView=0x7f09004d;
         public static final int thursdayHeaderRelativeLayout=0x7f09004c;
         public static final int thursdayRelativeLayout=0x7f090059;
