@@ -5,6 +5,7 @@ import java.util.Calendar;
 import java.util.Locale;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -25,6 +26,7 @@ public class DailyView extends Activity implements OnClickListener{
 	private Button currentMonth;
 	private ImageView prevMonth;
 	private ImageView nextMonth;
+	private TextView txt1;
 	private int month, year , week;
 	private int i =0;
 	private int j =0;
@@ -81,7 +83,7 @@ public class DailyView extends Activity implements OnClickListener{
 		calendarRelativeLayout.addView(currentTimeMarkerLinearLayout);*/
 		
 		
-		hourdp = ((hour-1) * 120) + (min * 1)  ;
+		hourdp = ((hour-1) * 120) + (min * 2);
 		LinearLayout currentTimeMarkerLinearLayout1 = (LinearLayout) findViewById(R.id.currentTimeMarkerLinearLayout);
 		//currentTimeMarkerLinearLayout.setId(100);
 		//currentTimeMarkerLinearLayout.setOrientation(LinearLayout.HORIZONTAL);
@@ -90,6 +92,16 @@ public class DailyView extends Activity implements OnClickListener{
 		//currentTimeMarkerLinearLayout.setLayoutParams(layoutParams);
 		//currentTimeMarkerLinearLayout.setBaselineAligned(false);
 		//currentTimeMarkerLinearLayout.setPadding(0, 0, 0, 0);
+		
+		 txt1 = new TextView(this);
+		LinearLayout.LayoutParams txtParams1 = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 240);
+		txt1.setLayoutParams(txtParams1);
+		txt1.setText("Coding");
+		RelativeLayout currentDateRelativeLayout = (RelativeLayout) findViewById(R.id.currentDateRelativeLayout);
+		currentDateRelativeLayout.addView(txt1);
+		txt1.setOnClickListener(this);
+		
+		
 	
 		
     }
@@ -134,6 +146,15 @@ public class DailyView extends Activity implements OnClickListener{
 			Log.d(tag, "Setting Next Date in GridCellAdapter: " + first.getTime());
 			
 		}
+	
+		if(v==txt1){
+			Intent ev= new Intent(this, EventDetailsActivity.class);
+            startActivity(ev);      
+            //finish();
+		}
+	
 	}
-
+	
+	
+	
 }
