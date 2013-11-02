@@ -39,7 +39,7 @@ public class EventActivity extends Activity implements OnClickListener{
 	
 	///////////////////////////////////////////////////////////RossY Start
 	
-	 MySQLiteHelper db;
+	 private MySQLiteHelper db;
 	 
 	////////////////////////////////////////////////////////// RossY End
 	public void onCreate(Bundle savedInstanceState) {

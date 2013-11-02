@@ -419,6 +419,32 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
                 new String[] { String.valueOf(i) });
       }
   
+	
+	////get event by name
+	public Event getEvent(String title) {
+    	
+        SQLiteDatabase db = this.getReadableDatabase();
      
+        String selectQuery = "SELECT  * FROM " + TABLE_EVENT + " WHERE "
+                + KEY_EVENT_TITLE + " = " + title;
+     
+        Log.e(LOG, selectQuery);
+     
+        Cursor c = db.rawQuery(selectQuery, null);
+     
+        if (c != null)
+            c.moveToFirst();
+     
+        Event ev = new Event();
+        ev.setId(c.getInt(c.getColumnIndex(KEY_ID)));
+        ev.setTitle((c.getString(c.getColumnIndex(KEY_EVENT_TITLE))));
+        ev.setStartDate((c.getString(c.getColumnIndex(KEY_EVENT_STARTDATE))));
+        ev.setEndDate((c.getString(c.getColumnIndex(KEY_EVENT_ENDDATE))));
+        ev.setStartTime((c.getString(c.getColumnIndex(KEY_EVENT_STARTTIME))));
+        ev.setEndTime((c.getString(c.getColumnIndex(KEY_EVENT_ENDTIME))));
+        ev.setDescription((c.getString(c.getColumnIndex(KEY_EVENT_DESCRIPTION))));
+            
+        return ev;
+    }
 /////////////////////////// Not Sure....
 }
