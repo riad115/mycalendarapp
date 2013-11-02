@@ -38,5 +38,9 @@
     <string name="updating">Updating</string>
     <string name="title_activity_date_picker">DatePickerActivity</string>
     <string name="title_activity_time_picker">TimePickerActivity</string>
+    <string name="edit_Event">Edit Event</string>
+    <string name="delete_Event">Delete Event</string>
+    <string name="event_details">Event Details</string>
+    <string name="event_add">Add Event</string>
 
 </resources>

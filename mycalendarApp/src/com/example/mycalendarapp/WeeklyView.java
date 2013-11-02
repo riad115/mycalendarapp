@@ -99,7 +99,7 @@ public class WeeklyView extends Activity implements OnClickListener{
 		nextMonth = (ImageView) this.findViewById(R.id.nextMonth);
 		nextMonth.setOnClickListener(this);
 		
-		hourdp = ((hour - 1) * 120) + (min * 1)   ;
+		hourdp = ((hour - 1) * 120) + (min * 2)   ;
 		LinearLayout currentTimeMarkerLinearLayout1 = (LinearLayout) findViewById(R.id.currentTimeMarkerLinearLayout);
 		//currentTimeMarkerLinearLayout.setId(100);
 		//currentTimeMarkerLinearLayout.setOrientation(LinearLayout.HORIZONTAL);

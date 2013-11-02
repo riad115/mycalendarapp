@@ -42,6 +42,12 @@
             android:name="com.example.mycalendarapp.TimePickerActivity"
             android:label="@string/title_activity_time_picker" >
         </activity>
+        <activity
+            android:name="com.example.mycalendarapp.EventDetailsActivity"
+            android:label="@string/event_details" >
+        </activity>
+        
+        <activity android:name="com.example.mycalendarapp.EventList" />
     </application>
 
 </manifest>

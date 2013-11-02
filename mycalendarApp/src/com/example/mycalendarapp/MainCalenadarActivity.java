@@ -12,6 +12,7 @@ import android.content.res.Resources;
 import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -65,7 +66,7 @@ public class MainCalenadarActivity extends Activity implements OnClickListener{
 		  .setIndicator("", ressources.getDrawable(R.drawable.daily_view))
 		  .setContent(intentDaily);
 		
-		Intent intentEvent = new Intent().setClass(this, EventActivity.class);
+		Intent intentEvent = new Intent().setClass(this, EventList.class);
 		TabSpec tabSpecEvent = tabHost
 		  .newTabSpec("Event")
 		  .setIndicator("", ressources.getDrawable(R.drawable.calendar_add_event))
@@ -102,37 +103,23 @@ public class MainCalenadarActivity extends Activity implements OnClickListener{
 
 	@Override
 	public void onClick(View v) {
-		// TODO Auto-generated method stub
-		/*if (v == prevMonth)
-		{
-			if (month <= 1)
-				{
-					month = 12;
-					year--;
-				}
-			else
-				{
-					month--;
-				}
-			Log.d(tag, "Setting Prev Month in GridCellAdapter: " + "Month: " + month + " Year: " + year);
-			setGridCellAdapterToDate(month, year);
-		}
-	if (v == nextMonth)
-		{
-			if (month > 11)
-				{
-					month = 1;
-					year++;
-				}
-			else
-				{
-					month++;
-				}
-			Log.d(tag, "Setting Next Month in GridCellAdapter: " + "Month: " + month + " Year: " + year);
-			setGridCellAdapterToDate(month, year);
-		}*/
+		
 	}
 	
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+	    // Handle item selection
+	    switch (item.getItemId()) {
+	    case R.id.add_event:
+	    	Intent ev= new Intent(this, EventActivity.class);
+            startActivity(ev); 
+	        return true;
+	    
+	    default:
+	        return super.onOptionsItemSelected(item);
+	    }
+	}
 	
 	@Override
 	public void onDestroy()
