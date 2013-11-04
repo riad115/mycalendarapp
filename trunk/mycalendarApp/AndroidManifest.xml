@@ -46,8 +46,11 @@
             android:name="com.example.mycalendarapp.EventDetailsActivity"
             android:label="@string/event_details" >
         </activity>
-        
         <activity android:name="com.example.mycalendarapp.EventList" />
+        <activity
+            android:name="com.example.mycalendarapp.EditEventActivity"
+            android:label="@string/title_activity_edit_event" >
+        </activity>
     </application>
 
 </manifest>
