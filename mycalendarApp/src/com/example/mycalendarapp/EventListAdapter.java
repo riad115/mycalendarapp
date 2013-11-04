@@ -13,7 +13,7 @@ import android.widget.TextView;
 public class EventListAdapter extends BaseAdapter{
 	
 	private Context eContext;
-	private MySQLiteHelper db;
+	//private MySQLiteHelper db;
 	private TextView[] txtEvent; 
 	private final List<Event> allEvents;
 	
@@ -28,12 +28,12 @@ public class EventListAdapter extends BaseAdapter{
 	
 	public EventListAdapter (Context c){
 		eContext =c;
-		db = new  MySQLiteHelper(eContext);
+	//	db = new  MySQLiteHelper(eContext);
 		
 		// Getting all Events
 	    Log.d("Get Events", "Getting All Events");
 
-	    allEvents = db.getAllEvents();
+	    allEvents = EventActivity.db.getAllEvents();
 	    for (Event event : allEvents) {
 	        Log.d("Event:"+event.getTitle(),"ID:"+ event.getId()+"Description:"+event.getDescription());
 	    }
