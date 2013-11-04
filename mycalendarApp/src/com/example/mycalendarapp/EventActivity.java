@@ -86,15 +86,15 @@ public class EventActivity extends Activity implements OnClickListener{
         }
        
         // Creating events
-        Event event1 = new Event("Walmart","10/31/2013","10/31/2013","17:30","19:00","Need to bye some tortilla");
-        Event event2 = new Event("RIM","11/02/2013","11/02/2013","17:00","19:00","Need to bye some Cosmetics");
+        Event event1 = new Event("Walmart","2013-10-31","2013-10-31","17:30","19:00","Need to bye some tortilla");
+        Event event2 = new Event("RIM","2013-11-02","2013-11-02","17:00","19:00","Need to bye some Cosmetics");
         
-        Event event3 = new Event("Phone","11/01/2013","11/01/2013","22:00","22:15","I will call my mom");
-        Event event4 = new Event("Money","11/01/2013","11/01/2013","20:00","22:05","send money to fahad vai");
-        Event event5 = new Event("Time Warner","11/01/2013","11/01/2013","22:05","22:10","Have to change internet line");
+        Event event3 = new Event("Phone","2013-11-01","2013-11-01","22:00","22:15","I will call my mom");
+        Event event4 = new Event("Money","2013-11-01","2013-11-01","20:00","22:05","send money to fahad vai");
+        Event event5 = new Event("Time Warner","2013-11-01","2013-11-01","22:05","22:10","Have to change internet line");
         
-        Event event6 = new Event("Elysium","11/08/2013","11/08/2013","22:00","23:45","wanna watch this movie");
-        Event event7 = new Event("HomeLand","11/09/2013","11/09/2013","19:00","22:00","can't wait to see this series!!!");
+        Event event6 = new Event("Elysium","2013-11-08","2013-11-08","22:00","23:45","wanna watch this movie");
+        Event event7 = new Event("HomeLand","2013-11-09","2013-11-09","19:00","22:00","can't wait to see this series!!!");
           
         // Inserting events in db
         // Inserting events under "Shopping" category
@@ -141,19 +141,19 @@ public class EventActivity extends Activity implements OnClickListener{
         }
         
      // Deleting an Event
-        Log.d("Delete Event6", "Deleting an Event");
-        Log.d("Event Count", "Event Count Before Deleting: " + db.getEventCount());
+        //Log.d("Delete Event6", "Deleting an Event");
+        //Log.d("Event Count", "Event Count Before Deleting: " + db.getEventCount());
  
-        db.deleteEvent(event6_id);
+       // db.deleteEvent(event6_id);
  
-        Log.d("Event Count", "Event Count After Deleting: " + db.getEventCount());
+        //Log.d("Event Count", "Event Count After Deleting: " + db.getEventCount());
         
      // Deleting all Events under "Shopping" tag
-        Log.d("Event Count", "Event Count Before Deleting Shoping Category: " + db.getEventCount());
+        //Log.d("Event Count", "Event Count Before Deleting Shoping Category: " + db.getEventCount());
  
-        db.deleteCategory(ctg1, true);
+        //db.deleteCategory(ctg1, true);
  
-        Log.d("Event Count", "Event Count after Deleting Shoping Category: " + db.getEventCount());
+       // Log.d("Event Count", "Event Count after Deleting Shoping Category: " + db.getEventCount());
            
        
         Category ctg4 = new Category("Travel", "GREEN");
@@ -180,7 +180,7 @@ public class EventActivity extends Activity implements OnClickListener{
         	Log.d("Category Name:"+category.getName(), "ID:"+category.getId()+"Color:"+category.getColor());
       }
       
-        Event event8 = new Event("ROSS","11/02/2013","11/05/2013","17:00","19:00","Dhumaia beramu!!");
+        Event event8 = new Event("ROSS","2013-11-03","2013-11-03","17:00","19:00","Dhumaia beramu!!");
         long event8_id = db.createEvent(event8, new long[] { ctg4_id });
         event8.setId(event8_id);
       
@@ -204,9 +204,8 @@ public class EventActivity extends Activity implements OnClickListener{
         } 
         
   
-
-        /**Test purpose
-         *  
+        /**
+         
         // Getting all Events
         Log.d("Events ", "Getting All Events ");
  
@@ -215,7 +214,7 @@ public class EventActivity extends Activity implements OnClickListener{
         	 Log.d("Event"+event.getTitle(),""+ event.getId()+event.getDescription());
         } 
         
-        
+       
         // Getting all category names
         Log.d(" after update", "Getting All categories after update");
  
@@ -224,15 +223,15 @@ public class EventActivity extends Activity implements OnClickListener{
         	 Log.d("Category Name:"+category.getName(), ""+category.getId()+category.getColor());
       }
         
-       db.deleteCategoryByID(10);
-       db.deleteCategoryByID(11);
-       db.deleteCategoryByID(12);
+       db.deleteCategoryByID(2);
+       db.deleteCategoryByID(3);
+       db.deleteCategoryByID(4);
        
-       db.deleteEvent(17);
-       db.deleteEvent(20);
-       db.deleteEvent(21);
-       db.deleteEvent(23);
-       db.deleteEvent(24);
+       db.deleteEvent(3);
+       db.deleteEvent(4);
+       db.deleteEvent(5);
+       db.deleteEvent(8);
+       //db.deleteEvent(24);
         
        // Getting all Events
        Log.d("Events ", "Getting All Events ");
@@ -250,7 +249,7 @@ public class EventActivity extends Activity implements OnClickListener{
        	 Log.d("Category Name:"+category.getName(), ""+category.getId()+category.getColor());
      }
        
-    */
+  */
         // Don't forget to close database connection
         db.closeDB();
         
