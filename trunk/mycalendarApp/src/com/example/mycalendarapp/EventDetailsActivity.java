@@ -14,12 +14,12 @@ import android.widget.TextView;
 
 public class EventDetailsActivity extends Activity implements OnClickListener{
 	private EventListAdapter listAdapter;
-	private MySQLiteHelper db;
+	//private MySQLiteHelper db;
 	private TextView[] txtEvent; 
 	private List<Event> allEvents;
 	private Event selEvent;
 	private String eventTitle;
-	private long eventID;
+	public static long eventID;
 	private int position;
 	private TextView title;
 	private TextView description;
@@ -34,12 +34,12 @@ public class EventDetailsActivity extends Activity implements OnClickListener{
         //TextView textview = new TextView(this);
         //textview.setText("This is Daily tab");
         setContentView(R.layout.event_details_view);
-        db = new  MySQLiteHelper(this);
+      //  db = new  MySQLiteHelper(this);
 		
 		// Getting all Events
 	    Log.d("Get Events", "Getting All Events");
 
-	    allEvents = db.getAllEvents();
+	    allEvents = EventActivity.db.getAllEvents();
 	    for (Event event : allEvents) {
 	        Log.d("Event:"+event.getTitle(),"ID:"+ event.getId()+"Description:"+event.getDescription());
 	    }
@@ -95,11 +95,18 @@ public class EventDetailsActivity extends Activity implements OnClickListener{
 	    // Handle item selection
 	    switch (item.getItemId()) {
 	    case R.id.delete_event:
-	        db.deleteEvent(eventID);
+	        EventActivity.db.deleteEvent(eventID);
 	        Intent del = new Intent(this, EventList.class);
 	        startActivity(del);
 	        return true;
 	    
+	    case R.id.edit_event:
+			Intent intent = new Intent(this, EditEventActivity.class);
+			startActivity(intent);
+			
+
+			return true;
+			
 	    default:
 	        return super.onOptionsItemSelected(item);
 	    }

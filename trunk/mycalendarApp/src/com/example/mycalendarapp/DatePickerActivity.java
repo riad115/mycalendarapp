@@ -60,7 +60,7 @@ public class DatePickerActivity extends Activity  implements OnClickListener{
 			
 
 			 Date selectedDate = new Date((dp.getYear()-1900), dp.getMonth(), dp.getDayOfMonth());
-             SimpleDateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
+             SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
              formatedDate = dateFormatter.format(selectedDate);
 
 

@@ -9,11 +9,13 @@ import java.util.Locale;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 public class EventActivity extends Activity implements OnClickListener{
@@ -30,16 +32,23 @@ public class EventActivity extends Activity implements OnClickListener{
 	public static Button toCurrentTime;
 	public static Button fromCurrentTime;
 	
+	public static long ctg1_id;
+	public static Event event2; 
+	
+	
 	private Button saveButton;
 	private Button cancelButton;
 	
+	private EditText edittext_eventTitle;
+	private EditText edittext_description;
+	
 	private Calendar _calendar;
 	private final DateFormat dateFormatter = new DateFormat();
-	private static final String dateTemplate = "dd MMMM yyyy";
+	private static final String dateTemplate = "yyyy-MM-dd";
 	
 	///////////////////////////////////////////////////////////RossY Start
 	
-	 private MySQLiteHelper db;
+	 public static MySQLiteHelper db;
 	 
 	////////////////////////////////////////////////////////// RossY End
 	public void onCreate(Bundle savedInstanceState) {
@@ -86,8 +95,8 @@ public class EventActivity extends Activity implements OnClickListener{
         }
        
         // Creating events
-        Event event1 = new Event("Walmart","2013-10-31","2013-10-31","17:30","19:00","Need to bye some tortilla");
-        Event event2 = new Event("RIM","2013-11-02","2013-11-02","17:00","19:00","Need to bye some Cosmetics");
+      
+        event2 = new Event("RIM","2013-11-02","2013-11-02","17:00","19:00","Need to bye some Cosmetics");
         
         Event event3 = new Event("Phone","2013-11-01","2013-11-01","22:00","22:15","I will call my mom");
         Event event4 = new Event("Money","2013-11-01","2013-11-01","20:00","22:05","send money to fahad vai");
@@ -98,30 +107,31 @@ public class EventActivity extends Activity implements OnClickListener{
           
         // Inserting events in db
         // Inserting events under "Shopping" category
-       
-        long event1_id = db.createEvent(event1, new long[] { ctg1_id });
-        event1.setId(event1_id);
-        long event2_id = db.createEvent(event2, new long[] { ctg1_id });
-        event2.setId(event2_id);    
+        Event event1 = new Event("Walmart","2013-10-31","2013-10-31","17:30","19:00","Need to bye some tortilla");
+     //   long event1_id = db.createEvent(event1, new long[] { ctg1_id });
+        
+        //event1.setId(event1_id);
+       // long event2_id = db.createEvent(event2, new long[] { ctg1_id });
+       // event2.setId(event2_id);    
      // Inserting events under "Important" category
         
-        long event3_id = db.createEvent(event3, new long[] { ctg2_id });
-        event3.setId(event3_id);
-        long event4_id = db.createEvent(event4, new long[] { ctg2_id });
-        event4.setId(event4_id);
-        long event5_id = db.createEvent(event5, new long[] { ctg2_id });
-        event5.setId(event5_id);
+       // long event3_id = db.createEvent(event3, new long[] { ctg2_id });
+        //event3.setId(event3_id);
+        //long event4_id = db.createEvent(event4, new long[] { ctg2_id });
+        //event4.setId(event4_id);
+        //long event5_id = db.createEvent(event5, new long[] { ctg2_id });
+        //event5.setId(event5_id);
         
      // Inserting events under "Watchlist" category
         
-        long event6_id = db.createEvent(event6, new long[] { ctg3_id });
-        event6.setId(event6_id);
-        long event7_id = db.createEvent(event7, new long[] { ctg3_id });
-        event7.setId(event7_id);
+       // long event6_id = db.createEvent(event6, new long[] { ctg3_id });
+       // event6.setId(event6_id);
+       // long event7_id = db.createEvent(event7, new long[] { ctg3_id });
+       // event7.setId(event7_id);
  
         Log.e("Event Count", "Event count: " + db.getEventCount());
        
-        db.createEventCategory(event7_id, ctg2_id);
+      //  db.createEventCategory(event7_id, ctg2_id);
         
          
      // Getting all Events
@@ -181,8 +191,8 @@ public class EventActivity extends Activity implements OnClickListener{
       }
       
         Event event8 = new Event("ROSS","2013-11-03","2013-11-03","17:00","19:00","Dhumaia beramu!!");
-        long event8_id = db.createEvent(event8, new long[] { ctg4_id });
-        event8.setId(event8_id);
+     //   long event8_id = db.createEvent(event8, new long[] { ctg4_id });
+       // event8.setId(event8_id);
       
         // Getting all Events
         Log.d("Get Events before", "Getting All Events before ");
@@ -258,18 +268,22 @@ public class EventActivity extends Activity implements OnClickListener{
         
         toTodaysDate = (Button) this.findViewById(R.id.toTodaysDate);
         toTodaysDate.setText(dateFormatter.format(dateTemplate, _calendar.getTime()));
+        to_Date = dateFormatter.format(dateTemplate, _calendar.getTime()).toString();
         toTodaysDate.setOnClickListener(this);
         
         fromTodaysDate = (Button) this.findViewById(R.id.fromTodaysDate);
         fromTodaysDate.setText(dateFormatter.format(dateTemplate, _calendar.getTime()));
+        from_Date = dateFormatter.format(dateTemplate, _calendar.getTime()).toString();
         fromTodaysDate.setOnClickListener(this);
         
         toCurrentTime = (Button) this.findViewById(R.id.toCurrentTime);
         toCurrentTime.setText(sdf.format(_calendar.getTime()));
+        to_Time = sdf.format(_calendar.getTime()).toString();
         toCurrentTime.setOnClickListener(this);
         
         fromCurrentTime = (Button) this.findViewById(R.id.fromCurrentTime);
         fromCurrentTime.setText(sdf.format(_calendar.getTime()));
+        from_Time = sdf.format(_calendar.getTime()).toString();
         fromCurrentTime.setOnClickListener(this);
         
         saveButton = (Button) this.findViewById(R.id.saveButton);
@@ -277,6 +291,9 @@ public class EventActivity extends Activity implements OnClickListener{
         
         cancelButton = (Button) this.findViewById(R.id.cancelButton);
         cancelButton.setOnClickListener(this);
+        
+        edittext_eventTitle = (EditText) this.findViewById(R.id.editText1);
+        edittext_description = (EditText) this.findViewById(R.id.editText6);
     }
 	@Override
 	public void onClick(View v) {
@@ -319,11 +336,20 @@ public class EventActivity extends Activity implements OnClickListener{
 		
 		else 	if(v== cancelButton )
 		{
+
+			this.finish();
 			Log.d(tag,"Inside cancel buttun");
 		}
 		else 	if(v== saveButton )
 		{
-			Log.d(tag,"Inside save button");
+	        Event event_new = new Event(edittext_eventTitle.getText().toString(),
+	        		to_Date,from_Date,to_Time,from_Time,
+	        		edittext_description.getText().toString());
+	        long event_current_id = db.createEvent(event_new, new long[] { ctg1_id });
+	        
+			Log.d(tag,"Inside save button: created event ID: "+ event_current_id);
+			
+			this.finish();
 		}
 	}
 	
