@@ -42,5 +42,6 @@
     <string name="delete_Event">Delete Event</string>
     <string name="event_details">Event Details</string>
     <string name="event_add">Add Event</string>
+    <string name="title_activity_edit_event">EditEventActivity</string>
 
 </resources>
