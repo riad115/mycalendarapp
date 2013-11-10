@@ -454,6 +454,8 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
      * */  
   ///////////////////////////// Not Sure....
     
+    //calling method-> int ck = db.updateEventCategory(db.getCatEvByEvent(56), 14); // here 56 is event id and 14 is category id  
+    
     /*
      * Updating an event category
      */
@@ -464,10 +466,32 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
         values.put(KEY_CATEGORY_ID, category_id);
  
         // updating row
-        return db.update(TABLE_CATEGORY_EVENT, values, KEY_ID + " = ?", /// confusion whether it is TABLE_EVENT or TABLE_EVENT_CATEGORY and others
+        return db.update(TABLE_CATEGORY_EVENT, values, KEY_ID + " = ?",
                 new String[] { String.valueOf(id) });
-    }    
- 
+    }
+    
+    /*
+     *  It will provide the third table id by event id
+     */
+    public long  getCatEvByEvent(long event_id) {        
+        
+        String selectQuery = "SELECT  * FROM " + TABLE_CATEGORY_EVENT + " ce, "
+        		+ TABLE_CATEGORY + " tc, "
+        		+ TABLE_EVENT + " te WHERE te." + KEY_ID + " = " + event_id 
+        		+ " AND tc." + KEY_ID + " = " + "ce." + KEY_CATEGORY_ID 
+                + " AND te." + KEY_ID + " = " + "ce." + KEY_EVENT_ID;            
+     
+        Log.e("In getCatEvByEvent" , selectQuery);
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor c = db.rawQuery(selectQuery, null);
+        
+       long catEvId = 0 ;
+        if (c.moveToFirst())             	
+        	catEvId =c.getLong((c.getColumnIndex(KEY_ID)));     
+   	
+   	 return  catEvId;     
+       
+    }
   
     /*
      * Deleting an event category
