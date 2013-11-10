@@ -61,7 +61,7 @@ public class EditEventActivity extends Activity implements OnClickListener, OnIt
 	
 	private Event event_1;
 	public static Category ctg;
-	private long categary;
+
 	
 
 	public void onCreate(Bundle savedInstanceState) {
@@ -114,7 +114,18 @@ public class EditEventActivity extends Activity implements OnClickListener, OnIt
      // Specify the layout to use when the list of choices appears
             spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             spinn.setAdapter(spinnerArrayAdapter);
-        
+        String cat = EventActivity.db.getCategoryByEvent(event_1.getId()).getName();
+        int index = 0;
+        for(String s : EventActivity.spinnerArray)
+        {
+        	if(s.equals(cat))
+        		break;
+        	index++;
+        }
+        spinn.setSelection(index);
+       
+
+		Log.d(tag,"Index: " + index + "Cat: "  + cat);
         spinn.setOnItemSelectedListener(this);
         
         cancelButton = (Button) this.findViewById(R.id.cancelButton);
@@ -188,6 +199,7 @@ public class EditEventActivity extends Activity implements OnClickListener, OnIt
 			event_1.setStartTime(to_Time);
 			event_1.setEndDate(from_Date);
 			event_1.setEndTime(from_Time);
+			//event_1.
 	        if(EventActivity.categary_from_Spinner.equalsIgnoreCase("Add Category"))
 	        {
 	            ctg = new Category(category_name.getText().toString(), EventActivity.categary_color);  
@@ -195,7 +207,8 @@ public class EditEventActivity extends Activity implements OnClickListener, OnIt
 	            ctg.setId(ctg1_id);
 	        	
 	        }
-	      //  event_1.seTCategory
+	        
+	        //event_1.seTCategory
 			int update = EventActivity.db.updateEvent(event_1);
 			Log.d(tag,"Inside edit button: created event ID: "+ update);
 			
