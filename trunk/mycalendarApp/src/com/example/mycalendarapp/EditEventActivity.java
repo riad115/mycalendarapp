@@ -14,11 +14,15 @@ import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 
-public class EditEventActivity extends Activity implements OnClickListener{
+public class EditEventActivity extends Activity implements OnClickListener, OnItemSelectedListener{
 	private static final String tag = "EditActivity";
 	public static String to_Date;
 	public static String from_Date;
@@ -35,6 +39,7 @@ public class EditEventActivity extends Activity implements OnClickListener{
 	public static long ctg1_id;
 	
 	
+	private Spinner spinn;
 	private Button saveButton;
 	private Button cancelButton;
 	
@@ -91,6 +96,17 @@ public class EditEventActivity extends Activity implements OnClickListener{
         saveButton = (Button) this.findViewById(R.id.saveButton);
         saveButton.setOnClickListener(this);
         saveButton.setText("Edit");
+        
+        spinn = (Spinner) findViewById(R.id.spinner1);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.categary_array, android.R.layout.simple_spinner_item);
+
+     // Specify the layout to use when the list of choices appears
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        // Apply the adapter to the spinner
+        spinn.setAdapter(adapter);
+
+        spinn.setOnItemSelectedListener(this);
         
         cancelButton = (Button) this.findViewById(R.id.cancelButton);
         cancelButton.setOnClickListener(this);
@@ -170,6 +186,16 @@ public class EditEventActivity extends Activity implements OnClickListener{
 		}
 	}
 	
-	
+    public void onItemSelected(AdapterView<?> parent, View view, 
+            int pos, long id) {
+        // An item was selected. You can retrieve the selected item using
+    	EventActivity.categary_from_Spinner =  parent.getItemAtPosition(pos).toString();
+    	Log.d("SpinnerListener :", EventActivity.categary_from_Spinner);
+    }
+
+    public void onNothingSelected(AdapterView<?> parent) {
+        // Another interface callback
+    	EventActivity.categary_from_Spinner = "Random";
+    }
 
 }
