@@ -40,7 +40,7 @@ public class EventList extends Activity implements OnClickListener{
  
                 
                 Intent i = new Intent(getApplicationContext(), EventDetailsActivity.class);
-                
+                i.putExtra("activity", (int)1);
                 i.putExtra("id", position);
                 startActivity(i);
             }
