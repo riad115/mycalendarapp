@@ -44,10 +44,14 @@
     <string name="event_add">Add Event</string>
 
     <string name="title_activity_edit_event">EditEventActivity</string>
-     <string-array name="categary_array">
-        <item>Random</item>
-        <item>Travel</item>
-        <item>Shopping</item>
+     <string-array name="categary_color">
+        <item>Red</item>
+        <item>Blue</item>
+        <item>Green</item>        
+        <item>Yellow</item>
+        <item>Orange</item>
+        <item>White</item>
+        
     </string-array>
     
 
