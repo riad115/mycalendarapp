@@ -6,7 +6,10 @@ public class Category {
     private String name;
     private String color;
  
-    public Category(){}
+    public Category(){
+    	this.name = null;
+    	this.color = null;
+    }
  
     public Category(String name, String color) {
         super();

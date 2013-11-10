@@ -1,6 +1,7 @@
 package com.example.mycalendarapp;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
@@ -29,7 +30,12 @@ public class EditEventActivity extends Activity implements OnClickListener, OnIt
 	public static String to_Time;
 	public static String from_Time;
 	
-	private String date;
+	public static String categary_from_Spinner;
+	public static String categary_color;
+	public static  List<Category> allCategory;
+	public static ArrayList<String> spinnerArray;
+	
+
 	public static Button toTodaysDate;
 	public static Button fromTodaysDate;
 	
@@ -46,12 +52,15 @@ public class EditEventActivity extends Activity implements OnClickListener, OnIt
 	private EditText edittext_eventTitle;
 	private EditText edittext_description;
 	
+	private EditText category_name;
+	private Spinner spinn_category_color;
+	
 	private Calendar _calendar;
 	private final DateFormat dateFormatter = new DateFormat();
 	private static final String dateTemplate = "yyyy-MM-dd";
 	
 	private Event event_1;
-	//private long event_ID;
+	public static Category ctg;
 	private long categary;
 	
 
@@ -98,14 +107,14 @@ public class EditEventActivity extends Activity implements OnClickListener, OnIt
         saveButton.setText("Edit");
         
         spinn = (Spinner) findViewById(R.id.spinner1);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.categary_array, android.R.layout.simple_spinner_item);
-
+        ArrayAdapter spinnerArrayAdapter = new ArrayAdapter(this,
+                android.R.layout.simple_spinner_dropdown_item,
+                    EventActivity.spinnerArray);
+        
      // Specify the layout to use when the list of choices appears
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        // Apply the adapter to the spinner
-        spinn.setAdapter(adapter);
-
+            spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            spinn.setAdapter(spinnerArrayAdapter);
+        
         spinn.setOnItemSelectedListener(this);
         
         cancelButton = (Button) this.findViewById(R.id.cancelButton);
@@ -117,7 +126,12 @@ public class EditEventActivity extends Activity implements OnClickListener, OnIt
         edittext_description = (EditText) this.findViewById(R.id.editText6);
         edittext_description.setText(event_1.getDescription());
         
-
+        category_name = (EditText) this.findViewById(R.id.editText12);
+        category_name.setVisibility(View.INVISIBLE);
+        category_name.setText("Name");
+        spinn_category_color = (Spinner) this.findViewById(R.id.spinner2);
+        spinn_category_color.setVisibility(View.INVISIBLE);
+        spinn_category_color.setOnItemSelectedListener(this);
         
     }
 	@Override
@@ -174,7 +188,14 @@ public class EditEventActivity extends Activity implements OnClickListener, OnIt
 			event_1.setStartTime(to_Time);
 			event_1.setEndDate(from_Date);
 			event_1.setEndTime(from_Time);
-	        
+	        if(EventActivity.categary_from_Spinner.equalsIgnoreCase("Add Category"))
+	        {
+	            ctg = new Category(category_name.getText().toString(), EventActivity.categary_color);  
+	            long ctg1_id = EventActivity.db.createCategory(ctg);
+	            ctg.setId(ctg1_id);
+	        	
+	        }
+	      //  event_1.seTCategory
 			int update = EventActivity.db.updateEvent(event_1);
 			Log.d(tag,"Inside edit button: created event ID: "+ update);
 			
@@ -186,16 +207,47 @@ public class EditEventActivity extends Activity implements OnClickListener, OnIt
 		}
 	}
 	
-    public void onItemSelected(AdapterView<?> parent, View view, 
-            int pos, long id) {
-        // An item was selected. You can retrieve the selected item using
-    	EventActivity.categary_from_Spinner =  parent.getItemAtPosition(pos).toString();
-    	Log.d("SpinnerListener :", EventActivity.categary_from_Spinner);
-    }
+	   public void onItemSelected(AdapterView<?> parent, View view, 
+	            int pos, long id) {
+	        // An item was selected. You can retrieve the selected item using
+	    	int idnum = parent.getId();
 
-    public void onNothingSelected(AdapterView<?> parent) {
-        // Another interface callback
-    	EventActivity.categary_from_Spinner = "Random";
-    }
+	    	if(idnum == R.id.spinner1)
+	    	{
+	    	EventActivity.categary_from_Spinner =  parent.getItemAtPosition(pos).toString();
+	    	Log.d("SpinnerListener :", EventActivity.categary_from_Spinner);
+	    	ctg = EventActivity.db.getCategoryID(EventActivity.categary_from_Spinner); 
+	    	
+	    	if(EventActivity.categary_from_Spinner.equalsIgnoreCase("Add category"))
+	    	{
+	            category_name.setVisibility(View.VISIBLE);
+	            Spinner spinner = (Spinner) findViewById(R.id.spinner2);
+	         // Create an ArrayAdapter using the string array and a default spinner layout
+	         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+	                 R.array.categary_color, android.R.layout.simple_spinner_item);
+	         // Specify the layout to use when the list of choices appears
+	         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+	         // Apply the adapter to the spinner
+	         	spinner.setAdapter(adapter);
+	         	spinn_category_color.setVisibility(View.VISIBLE);
+	            
+	    	}
+	    	}
+	    	else     	if(idnum == R.id.spinner2)
+	    	{
+	        	EventActivity.categary_color =  parent.getItemAtPosition(pos).toString();
+	        	Log.d("SpinnerListener2 :", EventActivity.categary_from_Spinner);
+	    	}
+	    	
+	    	
+	    }
+
+	    public void onNothingSelected(AdapterView<?> parent) {
+	        // Another interface callb{ack
+	    	if(parent.getId() == R.id.spinner1){
+	    	EventActivity.categary_from_Spinner = "Random";
+	    	ctg = EventActivity.db.getCategoryID(EventActivity.categary_from_Spinner); 
+	    	}
+	    }
 
 }

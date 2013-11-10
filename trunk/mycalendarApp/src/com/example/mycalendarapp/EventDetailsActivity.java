@@ -60,7 +60,7 @@ public class EventDetailsActivity extends Activity implements OnClickListener{
         		printEventDetails(Id);
         	}
         }
-        /*Log.d("Event:"+ position, "");
+        Log.d("Event:"+ position, "");
         eventID = allEvents.get(position).getId();
      
        
@@ -80,10 +80,10 @@ public class EventDetailsActivity extends Activity implements OnClickListener{
         repeat.setText("No");
         
         category = (TextView) findViewById(R.id.textView7);
-        category.setText("Random");
+        category.setText(EventActivity.db.getCategoryByEvent(allEvents.get(position).getId()).getName().toString());
         
         status = (TextView) findViewById(R.id.textView9);
-        status.setText("Busy");*/
+        status.setText("Busy");
 	}
 	
 	
