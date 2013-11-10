@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import com.practise.practise.Category;
+import com.example.mycalendarapp.Category;
 
 
 
@@ -319,6 +319,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
         return categories;
     }
     
+
     /*
      * Updating a category
      */
