@@ -464,9 +464,10 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
         values.put(KEY_CATEGORY_ID, category_id);
  
         // updating row
-        return db.update(TABLE_EVENT, values, KEY_ID + " = ?", /// confusion whether it is TABLE_EVENT or TABLE_EVENT_CATEGORY and others
+        return db.update(TABLE_CATEGORY_EVENT, values, KEY_ID + " = ?", /// confusion whether it is TABLE_EVENT or TABLE_EVENT_CATEGORY and others
                 new String[] { String.valueOf(id) });
-    }
+    }    
+ 
   
     /*
      * Deleting an event category
@@ -543,4 +544,6 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
        return events;
     }
 /////////////////////////// Not Sure....
+	
+	
 }
