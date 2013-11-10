@@ -1,5 +1,6 @@
 package com.example.mycalendarapp;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -8,6 +9,8 @@ import java.util.Locale;
 
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -197,11 +200,49 @@ public class EventActivity extends Activity implements OnClickListener, OnItemSe
 	            ctg.setId(ctg1_id);
 	        	
 	        }
-	        long event_current_id = db.createEvent(event_new, new long[] { ctg.getId() });
+	        try {
+				if(EventActivity.db.checkConflictinEvents(event_new))
+				{
+					Log.d(tag,"Inside save button:no conflict ");
+					long event_current_id = db.createEvent(event_new, new long[] { ctg.getId() });
+					
+					this.finish();
+				}
+				else
+					{Log.d(tag,"Inside save button: conflict ");
+					// Creating alert Dialog with one Button
+					 
+		            AlertDialog alertDialog1 = new AlertDialog.Builder(
+		                    this).create();
+		 
+		            // Setting Dialog Title
+		            alertDialog1.setTitle("Alert Dialog");
+		 
+		            // Setting Dialog Message
+		            alertDialog1.setMessage("Events conflict: Change the time!");
+		 
+		            // Setting Icon to Dialog
+		        //    alertDialog1.setIcon(R.drawable.tick);
+		 
+		            // Setting OK Button
+		            alertDialog1.setButton("OK", new DialogInterface.OnClickListener() {
+		 
+		                public void onClick(DialogInterface dialog, int which) {
+		                    // Write your code here to execute after dialog
+		                    // closed
+		                	//alertDialog1.
+		                }
+		            });
+		            alertDialog1.show();
+					}
+					
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 	        
-			Log.d(tag,"Inside save button: created event ID: "+ event_current_id);
-			
-			this.finish();
+			//Log.d(tag,"Inside save button: created event ID: "+ event_current_id);
+
 		}
 	}
 	
@@ -248,4 +289,6 @@ public class EventActivity extends Activity implements OnClickListener, OnItemSe
     	ctg = db.getCategoryID(EventActivity.categary_from_Spinner); 
     	}
     }
+    
+    
 }
