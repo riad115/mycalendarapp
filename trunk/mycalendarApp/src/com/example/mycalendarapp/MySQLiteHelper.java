@@ -1,13 +1,15 @@
 package com.example.mycalendarapp;
 
 
+import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 import com.example.mycalendarapp.Category;
-
-
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -569,5 +571,45 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
     }
 /////////////////////////// Not Sure....
 	
+	public boolean checkConflictinEvents(Event newEvent ) throws ParseException{
+		
+		SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm");
+		
+		String sTime = newEvent.getStartTime();
+		String sDate = newEvent.getStartDate();
+		String eTime = newEvent.getEndTime();
+		String eDate = newEvent.getEndDate();		
+    	
+    	Date parsedStartTime = timeFormat.parse(sTime);
+    	Timestamp newStartTime = new Timestamp(parsedStartTime.getTime());    	
+    	Date parsedEndTime = timeFormat.parse(eTime);
+    	Timestamp newEndTime = new Timestamp(parsedEndTime.getTime());
+	
+		List<Event> allEvents = getEvent(sDate,eDate);
+        for (Event prevEvent : allEvents) {
+        	 
+        	Log.d("Event: "+prevEvent.getTitle(),""+ prevEvent.getId()+"  "+prevEvent.getDescription());
+        	
+        	Date parsedPreviousStartTime = timeFormat.parse(prevEvent.getStartTime());
+        	Timestamp previousStartTime = new Timestamp(parsedPreviousStartTime.getTime());    	
+        	Date parsedPreviousEndTime = timeFormat.parse(prevEvent.getEndTime());
+        	Timestamp previousEndTime = new Timestamp(parsedPreviousEndTime.getTime());
+        	
+        	if( newStartTime.after(previousStartTime)  &&  newStartTime.before(previousEndTime)  ||
+        		newEndTime.after(previousStartTime)    &&  newEndTime.before(previousEndTime)    ||
+        		previousStartTime.after(newStartTime)  &&  previousStartTime.before(newEndTime)  ||
+        		previousEndTime.after(newStartTime)  &&  previousEndTime.before(newEndTime) )        		   		
+        		
+        			Log.e("Conflict","Can not insert new event");        			
+        			return false;        	      
+        	
+        	/* D:10   11
+        	 * newTime  : 23   02
+        	 * already  : 5     8        	  
+        	 */   	 
+        }         
+        return true;   
+				
+	}
 	
 }
