@@ -4,6 +4,9 @@ package com.example.mycalendarapp;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+import com.practise.practise.Category;
+
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -328,6 +331,30 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
         // updating row
         return db.update(TABLE_CATEGORY, values, KEY_ID + " = ?",
                 new String[] { String.valueOf(category.getId()) });
+    }
+  /*
+   * Get Category by Category Name
+   */
+    
+    public Category getCategoryID(String categoryName){
+    	
+    	Category ct = new Category();
+    	String selectQuery = "SELECT  * FROM " + TABLE_CATEGORY + " tc WHERE tc." + KEY_CATEGORY_NAME + " = '" + categoryName+ "'" ;
+    	
+    	 Log.e(LOG, selectQuery);
+         
+         SQLiteDatabase db = this.getReadableDatabase();
+         Cursor c = db.rawQuery(selectQuery, null);
+         
+         if (c.moveToFirst()) {          
+             	
+                 ct.setId(c.getInt((c.getColumnIndex(KEY_ID))));
+                 ct.setName(c.getString(c.getColumnIndex(KEY_CATEGORY_NAME)));
+                 ct.setColor(c.getString(c.getColumnIndex(KEY_CATEGORY_COLOR)));         
+           
+         }
+    	
+    	 return  ct;
     }
     
     /*
