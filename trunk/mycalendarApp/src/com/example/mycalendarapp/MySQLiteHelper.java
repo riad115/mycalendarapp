@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import com.practise.practise.Category;
+
 
 
 import android.content.ContentValues;
@@ -361,30 +363,30 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
      * For a given event id it will provide corresponding category
      * 
      */
+
     public Category  getCategoryByEvent(long event_id) {
-        
-    	Category ct = new Category();     
-        String selectQuery = "SELECT  * FROM " + TABLE_CATEGORY + " tc, "
-        		+ TABLE_EVENT + " te, "                 
-        		+ TABLE_CATEGORY_EVENT + " ce WHERE te." + KEY_EVENT_ID + " = " + event_id 
-        		+ " AND tc." + KEY_ID + " = " + "ce." + KEY_CATEGORY_ID 
-                + " AND te." + KEY_ID + " = " + "ce." + KEY_EVENT_ID;            
-     
-        Log.e("In getCategoryByEvent" , selectQuery);
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor c = db.rawQuery(selectQuery, null);
-        
-        if (c.moveToFirst()) {          
-            	
-                ct.setId(c.getInt((c.getColumnIndex(KEY_ID))));
-                ct.setName(c.getString(c.getColumnIndex(KEY_CATEGORY_NAME)));
-                ct.setColor(c.getString(c.getColumnIndex(KEY_CATEGORY_COLOR)));             
-        }
-   	
-   	 return  ct;     
        
-    }
+   	Category ct = new Category();     
+       String selectQuery = "SELECT  * FROM " + TABLE_CATEGORY + " tc, "
+       		+ TABLE_EVENT + " te, "                 
+       		+ TABLE_CATEGORY_EVENT + " ce WHERE te." + KEY_ID + " = " + event_id 
+       		+ " AND tc." + KEY_ID + " = " + "ce." + KEY_CATEGORY_ID 
+               + " AND te." + KEY_ID + " = " + "ce." + KEY_EVENT_ID;            
     
+       Log.e("In getCategoryByEvent" , selectQuery);
+       SQLiteDatabase db = this.getReadableDatabase();
+       Cursor c = db.rawQuery(selectQuery, null);
+       
+       if (c.moveToFirst()) {          
+           	
+               ct.setId(c.getInt((c.getColumnIndex(KEY_ID))));
+               ct.setName(c.getString(c.getColumnIndex(KEY_CATEGORY_NAME)));
+               ct.setColor(c.getString(c.getColumnIndex(KEY_CATEGORY_COLOR)));             
+       }
+  	
+  	 return  ct;     
+      
+   }
     /*
      * Deleting a category
      */
