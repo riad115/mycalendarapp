@@ -199,6 +199,7 @@ public class EditEventActivity extends Activity implements OnClickListener, OnIt
 			event_1.setStartTime(to_Time);
 			event_1.setEndDate(from_Date);
 			event_1.setEndTime(from_Time);
+			ctg = EventActivity.db.getCategoryByEvent(event_1.getId());
 			//event_1.
 	        if(EventActivity.categary_from_Spinner.equalsIgnoreCase("Add Category"))
 	        {
@@ -207,7 +208,7 @@ public class EditEventActivity extends Activity implements OnClickListener, OnIt
 	            ctg.setId(ctg1_id);
 	        	
 	        }
-	        
+	        int ck = EventActivity.db.updateEventCategory(EventActivity.db.getCatEvByEvent(event_1.getId()), ctg.getId());
 	        //event_1.seTCategory
 			int update = EventActivity.db.updateEvent(event_1);
 			Log.d(tag,"Inside edit button: created event ID: "+ update);
