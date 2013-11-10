@@ -76,9 +76,9 @@ public class EventActivity extends Activity implements OnClickListener, OnItemSe
         // Creating categories
 
       
-        Category ctg1 = new Category("Shopping", "WHITE");
-        Category ctg2 = new Category("Important", "RED");
-        Category ctg3 = new Category("Watchlist", "LTGRAY");
+       /* Category ctg1 = new Category("Shopping", "WHITE");
+       Category ctg2 = new Category("Important", "RED");
+      Category ctg3 = new Category("Watchlist", "LTGRAY");
         
         // Inserting categories in db
         
@@ -87,21 +87,21 @@ public class EventActivity extends Activity implements OnClickListener, OnItemSe
         long ctg2_id = db.createCategory(ctg2);
         ctg2.setId(ctg2_id);
         long ctg3_id = db.createCategory(ctg3);
-        ctg3.setId(ctg3_id);
+        ctg3.setId(ctg3_id);*/
        
-        Log.d("Category Count", "Category Count: " + db.getAllCategories().size());
+        //Log.d("Category Count", "Category Count: " + db.getAllCategories().size());
         
      // Getting all category names
-        Log.d("Categories", "Getting All categories");
+        /*Log.d("Categories", "Getting All categories");
  
         List<Category> allCategory = db.getAllCategories();
         for (Category category : allCategory) {
             Log.d("Category Name:"+category.getName(), "ID:"+category.getId()+"Color:"+category.getColor());
-        }
+        }*/
        
         // Creating events
       
-        event2 = new Event("RIM","2013-11-02","2013-11-02","17:00","19:00","Need to bye some Cosmetics");
+      /* event2 = new Event("RIM","2013-11-02","2013-11-02","17:00","19:00","Need to bye some Cosmetics");
         
         Event event3 = new Event("Phone","2013-11-01","2013-11-01","22:00","22:15","I will call my mom");
         Event event4 = new Event("Money","2013-11-01","2013-11-01","20:00","22:05","send money to fahad vai");
@@ -109,51 +109,51 @@ public class EventActivity extends Activity implements OnClickListener, OnItemSe
         
         Event event6 = new Event("Elysium","2013-11-08","2013-11-08","22:00","23:45","wanna watch this movie");
         Event event7 = new Event("HomeLand","2013-11-09","2013-11-09","19:00","22:00","can't wait to see this series!!!");
-          
+         
         // Inserting events in db
         // Inserting events under "Shopping" category
-        Event event1 = new Event("Walmart","2013-10-31","2013-10-31","17:30","19:00","Need to bye some tortilla");
-     //   long event1_id = db.createEvent(event1, new long[] { ctg1_id });
+       Event event1 = new Event("Walmart","2013-10-31","2013-10-31","17:30","19:00","Need to bye some tortilla");
+      long event1_id = db.createEvent(event1, new long[] { ctg1_id });
         
-        //event1.setId(event1_id);
-       // long event2_id = db.createEvent(event2, new long[] { ctg1_id });
-       // event2.setId(event2_id);    
+        event1.setId(event1_id);
+       long event2_id = db.createEvent(event2, new long[] { ctg1_id });
+        event2.setId(event2_id);   */
      // Inserting events under "Important" category
         
-       // long event3_id = db.createEvent(event3, new long[] { ctg2_id });
-        //event3.setId(event3_id);
-        //long event4_id = db.createEvent(event4, new long[] { ctg2_id });
-        //event4.setId(event4_id);
-        //long event5_id = db.createEvent(event5, new long[] { ctg2_id });
-        //event5.setId(event5_id);
+        /*long event3_id = db.createEvent(event3, new long[] { ctg2_id });
+        event3.setId(event3_id);
+        long event4_id = db.createEvent(event4, new long[] { ctg2_id });
+        event4.setId(event4_id);
+        long event5_id = db.createEvent(event5, new long[] { ctg2_id });
+        event5.setId(event5_id);*
         
      // Inserting events under "Watchlist" category
         
-       // long event6_id = db.createEvent(event6, new long[] { ctg3_id });
-       // event6.setId(event6_id);
-       // long event7_id = db.createEvent(event7, new long[] { ctg3_id });
-       // event7.setId(event7_id);
+        /*long event6_id = db.createEvent(event6, new long[] { ctg3_id });
+       event6.setId(event6_id);
+       long event7_id = db.createEvent(event7, new long[] { ctg3_id });
+        event7.setId(event7_id);*/
  
-        Log.e("Event Count", "Event count: " + db.getEventCount());
+        //Log.e("Event Count", "Event count: " + db.getEventCount());
        
       //  db.createEventCategory(event7_id, ctg2_id);
         
          
      // Getting all Events
-        Log.d("Get Events", "Getting All Events");
+        /*Log.d("Get Events", "Getting All Events");
  
         List<Event> allEvents = db.getAllEvents();
         for (Event event : allEvents) {
             Log.d("Event:"+event.getTitle(),"ID:"+ event.getId()+"Description:"+event.getDescription());
-        }
+        }*/
         
      // Getting events under "Watchlist" tag name
-        Log.d("Event", "Get events under single category name");
+        //Log.d("Event", "Get events under single category name");
  
-        List<Event> categoryWatchlist = db.getAllEventsByCategory(ctg3.getName());
+        /*List<Event> categoryWatchlist = db.getAllEventsByCategory(ctg3.getName());
         for (Event event : categoryWatchlist) {
             Log.d("Events Watchlist", "title"+event.getTitle()+"ID:"+ event.getId()+"Description:"+event.getDescription());
-        }
+        }*/
         
      // Deleting an Event
         //Log.d("Delete Event6", "Deleting an Event");
@@ -171,52 +171,47 @@ public class EventActivity extends Activity implements OnClickListener, OnItemSe
        // Log.d("Event Count", "Event Count after Deleting Shoping Category: " + db.getEventCount());
            
        
-        Category ctg4 = new Category("Travel", "GREEN");
+        /*Category ctg4 = new Category("Travel", "GREEN");
         long ctg4_id = db.createCategory(ctg4);
-        ctg4.setId(ctg4_id);
+        ctg4.setId(ctg4_id);*/
         
      // Getting all category names
-        Log.d("Get Categories before update", "Getting All categories before update");
+        //Log.d("Get Categories before update", "Getting All categories before update");
  
-        List<Category> allCategoryNew = db.getAllCategories();
+        /*List<Category> allCategoryNew = db.getAllCategories();
         for (Category category : allCategoryNew) {
         	Log.d("Category Name:"+category.getName(), "ID:"+category.getId()+"Color:"+category.getColor());
-      }
+      }*/
         
      // Updating category name
-        ctg4.setName("Tour");
-        db.updateCategory(ctg4);
+        //ctg4.setName("Tour");
+        //db.updateCategory(ctg4);
         
      // Getting all category names
-        Log.d(" after update", "Getting All categories after update");
+        /*Log.d(" after update", "Getting All categories after update");
  
         List<Category> allCategoryNew1 = db.getAllCategories();
         for (Category category : allCategoryNew1) {
         	Log.d("Category Name:"+category.getName(), "ID:"+category.getId()+"Color:"+category.getColor());
-      }
+      }*/
       
-        Event event8 = new Event("ROSS","2013-11-03","2013-11-03","17:00","19:00","Dhumaia beramu!!");
-     //   long event8_id = db.createEvent(event8, new long[] { ctg4_id });
-       // event8.setId(event8_id);
+        /*Event event8 = new Event("ROSS","2013-11-03","2013-11-03","17:00","19:00","Dhumaia beramu!!");
+       long event8_id = db.createEvent(event8, new long[] { ctg4_id });
+       event8.setId(event8_id);*/
       
         // Getting all Events
-        Log.d("Get Events before", "Getting All Events before ");
+        /*Log.d("Get Events before", "Getting All Events before ");
  
         List<Event> allEvents2 = db.getAllEvents();
         for (Event event : allEvents2) {
         	 Log.d("Event:"+event.getTitle(),"ID:"+ event.getId()+"Description:"+event.getDescription());
-        }  
-        
+        } */
+        /*
         event8.setTitle("Corpus Cristi");
-        db.updateEvent(event8);
+        db.updateEvent(event8);*/
 
      // Getting all Events
-        Log.d("Events after", "Getting All Events after update ");
- 
-        List<Event> allEvents3 = db.getAllEvents();
-        for (Event event : allEvents3) {
-        	 Log.d("Event:"+event.getTitle(),"ID:"+ event.getId()+"Description:"+event.getDescription());
-        } 
+       
         
   
         /**
@@ -309,6 +304,13 @@ public class EventActivity extends Activity implements OnClickListener, OnItemSe
         
         edittext_eventTitle = (EditText) this.findViewById(R.id.editText1);
         edittext_description = (EditText) this.findViewById(R.id.editText6);
+        
+        Log.d("Events after", "Getting All Events for a Specific date ");
+        
+        List<Event> allEvents3 =  db.getEvent(to_Date,from_Date);
+        for (Event event : allEvents3) {
+        	 Log.d("Event:"+event.getTitle(),"ID:"+ event.getId()+"Description:"+event.getDescription());
+        } 
     }
 	@Override
 	public void onClick(View v) {

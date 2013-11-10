@@ -16,4 +16,5 @@
 <color name="medium_gray">#E2E4D7</color> 
 <color name="strong_blue">#0000FF</color>
 <color name="dark_grey">#656565</color>  
+<color name="red">#FF0000</color>  
 </resources>
