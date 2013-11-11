@@ -37,7 +37,9 @@ public class EventActivity extends Activity implements OnClickListener, OnItemSe
 	private static  List<Category> allCategory;
 	private static ArrayList<String> spinnerArray;
 	
-
+	private Spinner spinn_repeat;
+	private String repeat;
+	
 	public static Button toTodaysDate;
 	public static Button fromTodaysDate;
 	
@@ -82,7 +84,7 @@ public class EventActivity extends Activity implements OnClickListener, OnItemSe
 
         db = new  MySQLiteHelper(getApplicationContext());
            
-
+       // db.clearDatebase();
         db.closeDB();
         
         
@@ -107,6 +109,17 @@ public class EventActivity extends Activity implements OnClickListener, OnItemSe
         fromCurrentTime.setText(sdf.format(_calendar.getTime()));
         from_Time = sdf.format(_calendar.getTime()).toString();
         fromCurrentTime.setOnClickListener(this);
+        
+        spinn_repeat = (Spinner) findViewById(R.id.spinner_repeat);
+        
+       ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.repeat, android.R.layout.simple_spinner_item);
+        // Specify the layout to use when the list of choices appears
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        // Apply the adapter to the spinner
+        spinn_repeat.setAdapter(adapter);
+        spinn_repeat.setOnItemSelectedListener(this);
+        
         
         spinn = (Spinner) findViewById(R.id.spinner1);
         
@@ -193,16 +206,17 @@ public class EventActivity extends Activity implements OnClickListener, OnItemSe
 	        Event event_new = new Event(edittext_eventTitle.getText().toString(),
 	        		to_Date,from_Date,to_Time,from_Time,
 	        		edittext_description.getText().toString());
-	        if(EventActivity.categary_from_Spinner.equalsIgnoreCase("Add Category"))
-	        {
-	            ctg = new Category(category_name.getText().toString(), EventActivity.categary_color);  
-	            long ctg1_id = db.createCategory(ctg);
-	            ctg.setId(ctg1_id);
-	        	
-	        }
+
 	        try {
 				if(EventActivity.db.checkConflictinEvents(event_new))
 				{
+			        if(EventActivity.categary_from_Spinner.equalsIgnoreCase("Add Category"))
+			        {
+			            ctg = new Category(category_name.getText().toString(), EventActivity.categary_color);  
+			            long ctg1_id = db.createCategory(ctg);
+			            ctg.setId(ctg1_id);
+			        	
+			        }
 					Log.d(tag,"Inside save button:no conflict ");
 					long event_current_id = db.createEvent(event_new, new long[] { ctg.getId() });
 					
@@ -261,14 +275,14 @@ public class EventActivity extends Activity implements OnClickListener, OnItemSe
     	if(EventActivity.categary_from_Spinner.equalsIgnoreCase("Add category"))
     	{
             category_name.setVisibility(View.VISIBLE);
-            Spinner spinner = (Spinner) findViewById(R.id.spinner2);
+         //   Spinner spinner = (Spinner) findViewById(R.id.spinner2);
          // Create an ArrayAdapter using the string array and a default spinner layout
          ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                  R.array.categary_color, android.R.layout.simple_spinner_item);
          // Specify the layout to use when the list of choices appears
          adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
          // Apply the adapter to the spinner
-         	spinner.setAdapter(adapter);
+         	spinn_category_color.setAdapter(adapter);
          	spinn_category_color.setVisibility(View.VISIBLE);
             
     	}
@@ -276,7 +290,12 @@ public class EventActivity extends Activity implements OnClickListener, OnItemSe
     	else     	if(idnum == R.id.spinner2)
     	{
         	EventActivity.categary_color =  parent.getItemAtPosition(pos).toString();
-        	Log.d("SpinnerListener2 :", EventActivity.categary_from_Spinner);
+        	Log.d("SpinnerListener2 :", EventActivity.categary_color);
+    	}
+    	else     	if(idnum == R.id.spinner_repeat)
+    	{
+        	repeat =  parent.getItemAtPosition(pos).toString();
+        	Log.d("Repeat Spinner :", repeat);
     	}
     	
     	

@@ -38,6 +38,8 @@ public class EditEventActivity extends Activity implements OnClickListener, OnIt
 	private static  List<Category> allCategory;
 	private static ArrayList<String> spinnerArray;
 	
+	private Spinner spinn_repeat;
+	private static ArrayList<String> spinnerRepeatArray;
 
 	public static Button toTodaysDate;
 	public static Button fromTodaysDate;
@@ -109,6 +111,16 @@ public class EditEventActivity extends Activity implements OnClickListener, OnIt
         saveButton = (Button) this.findViewById(R.id.saveButton);
         saveButton.setOnClickListener(this);
         saveButton.setText("Edit");
+        
+        spinn_repeat = (Spinner) findViewById(R.id.spinner_repeat);
+        spinnerRepeatArray= new ArrayList<String>();
+
+    	spinnerRepeatArray.add("Repeat");
+    	
+        ArrayAdapter spinnerRepeatAdapter = new ArrayAdapter(this,
+                android.R.layout.simple_spinner_dropdown_item,
+                    spinnerRepeatArray);        
+    	spinn_repeat.setAdapter(spinnerRepeatAdapter);
         
         spinn = (Spinner) findViewById(R.id.spinner1);
         spinnerArray = new ArrayList<String>();
@@ -229,12 +241,12 @@ public class EditEventActivity extends Activity implements OnClickListener, OnIt
 
 			        	
 			        }
-			        int ck = EventActivity.db.updateEventCategory(EventActivity.db.getCatEvByEvent(event_1.getId()), ctg.getId());
+			   int ck = EventActivity.db.updateEventCategory(EventActivity.db.getCatEvByEvent(event_1.getId()), ctg.getId());
 
-					Log.d(tag,"Inside save button: no conflict " + ctg.getName() );
+				Log.d(tag,"Inside save button: no conflict " + ctg.getName() );
 					
 				int update = EventActivity.db.updateEvent(event_1);
-				Log.d(tag,"Inside edit button: created event ID: "+ update);
+				Log.d(tag,"Inside edit button: category: "+ EventActivity.db.getCategoryByEvent(event_1.getId()).getName());
 				
 				Intent list_new = new Intent(this, EventList.class);
 				startActivity(list_new);
@@ -290,14 +302,14 @@ public class EditEventActivity extends Activity implements OnClickListener, OnIt
 	    	if(categary_from_Spinner.equalsIgnoreCase("Add category"))
 	    	{
 	            category_name.setVisibility(View.VISIBLE);
-	            Spinner spinner = (Spinner) findViewById(R.id.spinner2);
+	          //  Spinner spinner = (Spinner) findViewById(R.id.spinner2);
 	         // Create an ArrayAdapter using the string array and a default spinner layout
 	         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
 	                 R.array.categary_color, android.R.layout.simple_spinner_item);
 	         // Specify the layout to use when the list of choices appears
 	         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 	         // Apply the adapter to the spinner
-	         	spinner.setAdapter(adapter);
+	         	spinn_category_color.setAdapter(adapter);
 	         	spinn_category_color.setVisibility(View.VISIBLE);
 	            
 	    	}

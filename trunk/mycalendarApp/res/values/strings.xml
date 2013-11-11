@@ -54,6 +54,10 @@
         
     </string-array>
     
-
+     <string-array name="repeat">
+        <item>Repeat-ON</item>
+        <item>Repeat-OFF</item>
+        
+    </string-array>
 
 </resources>
