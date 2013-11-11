@@ -612,5 +612,12 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
         return true;   
 				
 	}
-	
+	  public void clearDatebase(){
+		   
+		  SQLiteDatabase db = this.getWritableDatabase();
+		  db.delete(TABLE_EVENT, "1",null);	 
+		  db.delete(TABLE_CATEGORY, "1",null);	
+		  db.delete(TABLE_CATEGORY_EVENT, "1",null);	
+		    	
+		    }
 }
