@@ -21,6 +21,7 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 
 
@@ -36,6 +37,7 @@ public class SimpleCalendarView extends BaseAdapter implements OnClickListener{
 	private final Context _context;
 	private Button selectedDayMonthYearButton;
 	private final List<String> list;
+	private List<Event> monthlyEvent;
 	private static final int DAY_OFFSET = 1;
 	private final String[] weekdays = new String[]{"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"};
 	private final String[] months = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
@@ -48,8 +50,9 @@ public class SimpleCalendarView extends BaseAdapter implements OnClickListener{
 	private TextView num_events_per_day;
 	private final HashMap eventsPerMonthMap;
 	private final SimpleDateFormat dateFormatter = new SimpleDateFormat("dd-MMM-yyyy");
+	private final SimpleDateFormat dateFormatSQl = new SimpleDateFormat("yyyy-MM-dd");
 	
-	
+	public static MySQLiteHelper db;
 	
 	public SimpleCalendarView(Context context, int textViewResourceId, int month, int year)
 	{
@@ -58,7 +61,7 @@ public class SimpleCalendarView extends BaseAdapter implements OnClickListener{
 		this.list = new ArrayList<String>();
 		this.month = month;
 		this.year = year;
-
+		this.monthlyEvent = new ArrayList<Event>();
 		Log.d(tag, "==> Passed in Date FOR Month: " + month + " " + "Year: " + year);
 		Calendar calendar = Calendar.getInstance();
 		setCurrentDayOfMonth(calendar.get(Calendar.DAY_OF_MONTH));
@@ -66,7 +69,7 @@ public class SimpleCalendarView extends BaseAdapter implements OnClickListener{
 		Log.d(tag, "New Calendar:= " + calendar.getTime().toString());
 		Log.d(tag, "CurrentDayOfWeek :" + getCurrentWeekDay());
 		Log.d(tag, "CurrentDayOfMonth :" + getCurrentDayOfMonth());
-
+		db = new  MySQLiteHelper(_context);
 		// Print Month
 		printMonth(month, year);
 		
@@ -134,6 +137,7 @@ public String getItem(int position)
 		String theday = day_color[0];
 		String themonth = day_color[2];
 		String theyear = day_color[3];
+		String event = day_color[4];
 		if ((!eventsPerMonthMap.isEmpty()) && (eventsPerMonthMap != null))
 			{
 				if (eventsPerMonthMap.containsKey(theday))
@@ -146,9 +150,38 @@ public String getItem(int position)
 
 		// Set the Day GridCell
 		gridcell.setText(theday);
-		gridcell.setTag(theday + "-" + themonth + "-" + theyear);
+		if(Integer.parseInt(theday)<=9){
+			gridcell.setTag("0"+theday + "-" + themonth + "-" + theyear);
+		}
+		
+		else{
+			gridcell.setTag(theday + "-" + themonth + "-" + theyear);
+		}
+		//String dt = theday + "-" + themonth + "-" + theyear;
+		//String calDate = theyear+"-"+Integer.toString(month)+"-"+theday;
+		/*try {
+			Date parseDt = dateFormatSQl.parse(dt);
+			calDate = dateFormatSQl.format(parseDt);
+		} catch (java.text.ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}*/
+		
+		//Log.d(tag, "Setting GridCell " + calDate);
+		
 		Log.d(tag, "Setting GridCell " + theday + "-" + themonth + "-" + theyear);
-
+		
+		//monthlyEvent = MainCalenadarActivity.db.getEvent(calDate,calDate);
+		
+		//Log.d(tag, "Setting GridCell " + Integer.toString(monthlyEvent.size()));
+		
+		if(day_color[4].equals("Y")){
+			gridcell.setBackgroundColor(Color.parseColor("#008000"));
+		}
+		
+		if(day_color[1].equals("GREEN")){
+			gridcell.setTextColor(Color.parseColor("#008000"));
+		}
 		if (day_color[1].equals("GREY"))
 			{
 				gridcell.setTextColor(Color.LTGRAY);
@@ -277,24 +310,75 @@ public String getItem(int position)
 		for (int i = 0; i < trailingSpaces; i++)
 			{
 				Log.d(tag, "PREV MONTH:= " + prevMonth + " => " + getMonthAsString(prevMonth) + " " + String.valueOf((daysInPrevMonth - trailingSpaces + DAY_OFFSET) + i));
-				list.add(String.valueOf((daysInPrevMonth - trailingSpaces + DAY_OFFSET) + i) + "-GREY" + "-" + getMonthAsString(prevMonth) + "-" + prevYear);
+				list.add(String.valueOf((daysInPrevMonth - trailingSpaces + DAY_OFFSET) + i) + "-GREY" + "-" + getMonthAsString(prevMonth) + "-" + prevYear+"-N");
 			}
 
 		// Current Month Days
 		for (int i = 1; i <= daysInMonth; i++)
 			{
+				String date = null;
+				String month= null;
+				if(mm<=9){
+					month = "0"+Integer.toString(mm);
+				}
+				
+				else{
+					month = Integer.toString(mm);
+				}
+				
+				if(i<=9){
+					date = Integer.toString(yy)+"-"+month+"-0"+Integer.toString(i);
+					Log.d(tag, "Setting GridCell " + date);
+				//monthlyEvent = MainCalenadarActivity.db.getEvent(date,date);
+				}
+				else{
+					date = Integer.toString(yy)+"-"+month+"-"+Integer.toString(i);
+				}
+				int size = MonthlyView.eventCount(date);
+				
+				//for (Event event : monthlyEvent) {
+		           // Log.d(tag+"  "+event.getTitle(),"ID:"+ event.getId()+"Description:"+event.getDescription());
+		        //}
+				Log.d(tag, "Setting GridCell " + date +"   "+ Integer.toString(size));
 				Log.d(currentMonthName, String.valueOf(i) + " " + getMonthAsString(currentMonth) + " " + yy);
-				if (i == getCurrentDayOfMonth())
-					{
-						list.add(String.valueOf(i) + "-BLUE" + "-" + getMonthAsString(currentMonth) + "-" + yy);
+				
+				if(findHoliday(date)){
+					if(size==0){
+						list.add(String.valueOf(i) + "-GREEN" + "-" + getMonthAsString(currentMonth) + "-" + yy+"-N");
+					}
+					
+					else{
+						list.add(String.valueOf(i) + "-GREEN" + "-" + getMonthAsString(currentMonth) + "-" + yy+"-Y");
+					}
+				}
+				
+				else if (i == getCurrentDayOfMonth())
+					{  
+						if(size==0){
+							list.add(String.valueOf(i) + "-BLUE" + "-" + getMonthAsString(currentMonth) + "-" + yy+"-N");
+						}
+						
+						else{
+							list.add(String.valueOf(i) + "-BLUE" + "-" + getMonthAsString(currentMonth) + "-" + yy+"-Y");
+						}
 					}
 				else if(listWeekend.contains(i)){
-					list.add(String.valueOf(i) + "-RED" + "-" + getMonthAsString(currentMonth) + "-" + yy);
+					if(size==0){
+						list.add(String.valueOf(i) + "-RED" + "-" + getMonthAsString(currentMonth) + "-" + yy+"-N");
+					}
 					//System.out.println(listWeekend.get(i));
+					else{
+						list.add(String.valueOf(i) + "-BLUE" + "-" + getMonthAsString(currentMonth) + "-" + yy+"-Y");
+					}
 				}
 				else
 					{
-						list.add(String.valueOf(i) + "-WHITE" + "-" + getMonthAsString(currentMonth) + "-" + yy);
+					if(size==0){
+						list.add(String.valueOf(i) + "-WHITE" + "-" + getMonthAsString(currentMonth) + "-" + yy+"-N");
+					}
+						else{
+							list.add(String.valueOf(i) + "-BLUE" + "-" + getMonthAsString(currentMonth) + "-" + yy+"-Y");
+						}
 					}
 			}
 
@@ -302,7 +386,7 @@ public String getItem(int position)
 		for (int i = 0; i < list.size() % 7; i++)
 			{
 				Log.d(tag, "NEXT MONTH:= " + getMonthAsString(nextMonth));
-				list.add(String.valueOf(i + 1) + "-GREY" + "-" + getMonthAsString(nextMonth) + "-" + nextYear);
+				list.add(String.valueOf(i + 1) + "-GREY" + "-" + getMonthAsString(nextMonth) + "-" + nextYear+"-N");
 			}
 	}
 
@@ -329,7 +413,40 @@ public String getItem(int position)
 		return map;
 	}
 	
-	
+	public boolean findHoliday(String date){
+		HashMap<String, Integer> map= new HashMap<String, Integer>();
+		map.put("2013-09-02", 1);
+		map.put("2013-11-28", 1);
+		map.put("2013-11-29", 1);
+		map.put("2013-12-23", 1);
+		map.put("2013-12-24", 1);
+		map.put("2013-12-25", 1);
+		map.put("2013-12-26", 1);
+		map.put("2013-12-27", 1);
+		map.put("2013-12-30", 1);
+		map.put("2013-12-31", 1);
+		map.put("2014-01-01", 1);
+		map.put("2014-01-02", 1);
+		map.put("2014-01-20", 1);
+		map.put("2014-05-26", 1);
+		map.put("2014-07-04", 1);
+		map.put("2013-01-01", 1);
+		map.put("2013-01-21", 1);
+		map.put("2013-05-27", 1);
+		map.put("2012-09-03", 1);
+		map.put("2012-11-22", 1);
+		map.put("2012-11-23", 1);
+		map.put("2012-12-28", 1);
+		map.put("2012-12-24", 1);
+		map.put("2012-12-25", 1);
+		map.put("2012-12-26", 1);
+		map.put("2012-12-27", 1);
+		map.put("2012-12-30", 1);
+		map.put("2012-12-31", 1);
+		boolean holiday = map.containsKey(date);
+		return holiday;
+		
+	}
 	
 
 	@Override
@@ -337,14 +454,16 @@ public String getItem(int position)
 		// TODO Auto-generated method stub
 		String date_month_year = (String) view.getTag();
 		System.out.println(date_month_year);
+		String date = null;
 		//selectedDayMonthYearButton = (Button) view.findViewById(R.id.selectedDayMonthYear);
 		//selectedDayMonthYearButton.setOnClickListener(this);
 		
 
 		try{
-				Date parsedDate = dateFormatter.parse(date_month_year);
-				selectedDayMonthYearButton.setText("Selected: ");
-				Log.d(tag, "Parsed Date: " + parsedDate.toString());
+				//Date parsedDate = dateFormatSQl.parse(date_month_year);
+				//selectedDayMonthYearButton.setText("Selected: ");
+				date = dateFormatSQl.format(dateFormatter.parse(date_month_year));
+				Log.d(tag, "Parsed Date: " + date.toString());
 
 			}
 		//catch (ParseException e)
@@ -356,6 +475,12 @@ public String getItem(int position)
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		Intent i = new Intent(_context, DailyView.class);
+        i.putExtra("activity", (int)1);
+        i.putExtra("Date", date);
+        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        _context.startActivity(i);
 		
 	}
 

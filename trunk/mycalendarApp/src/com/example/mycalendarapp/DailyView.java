@@ -1,19 +1,25 @@
 package com.example.mycalendarapp;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
+import android.view.ViewStub;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -27,6 +33,9 @@ public class DailyView extends Activity implements OnClickListener{
 	private Button currentMonth;
 	private ImageView prevMonth;
 	private ImageView nextMonth;
+	private RelativeLayout currentDateRelativeLayout;
+	private LayoutInflater layoutInflater;
+	private ViewStub stub;
 	private TextView txt1;
 	private TextView[] dailytxt;
 	private int month, year , week;
@@ -35,6 +44,7 @@ public class DailyView extends Activity implements OnClickListener{
 	private int hour, hourdp, min;
 	private Long id;
 	private String currentDate;
+	private Date dt = null;
 	private List<Event> dailyEvent;
 	//private MySQLiteHelper db;
 	private final SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MMM-yyyy");
@@ -55,13 +65,18 @@ public class DailyView extends Activity implements OnClickListener{
 		Log.d(tag, "Calendar Instance:= " + "Month: " + month + " " + "Year: " + year);
 		
 		currentMonth = (Button) this.findViewById(R.id.currentMonth);
-		currentMonth.setText(dateFormat.format(_calendar.getTime()));
+		//currentMonth.setText(dateFormat.format(_calendar.getTime()));
 		
 		prevMonth = (ImageView) this.findViewById(R.id.prevMonth);
 		prevMonth.setOnClickListener(this);
 		
 		nextMonth = (ImageView) this.findViewById(R.id.nextMonth);
 		nextMonth.setOnClickListener(this);
+		currentDateRelativeLayout = (RelativeLayout) findViewById(R.id.currentDateRelativeLayout);
+		layoutInflater = (LayoutInflater) 
+		        this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);    
+		
+		//currentDateRelativeLayout.removeAllViews();
 		
 		currentDate = dateFormatSQl.format(_calendar.getTime()).toString();
 		
@@ -74,20 +89,38 @@ public class DailyView extends Activity implements OnClickListener{
 		//currentTimeMarkerLinearLayout.setOrientation(LinearLayout.HORIZONTAL);
 		android.widget.RelativeLayout.LayoutParams layoutParams2 = (RelativeLayout.LayoutParams)currentTimeMarkerLinearLayout1.getLayoutParams();
 		layoutParams2.setMargins(0, hourdp, 0, 0);
-		//currentTimeMarkerLinearLayout.setLayoutParams(layoutParams);
-		//currentTimeMarkerLinearLayout.setBaselineAligned(false);
-		//currentTimeMarkerLinearLayout.setPadding(0, 0, 0, 0);
 		
-		 /*txt1 = new TextView(this);
-		LinearLayout.LayoutParams txtParams1 = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 240);
-		txt1.setLayoutParams(txtParams1);
-		txt1.setText("Coding");
-		RelativeLayout currentDateRelativeLayout = (RelativeLayout) findViewById(R.id.currentDateRelativeLayout);
-		currentDateRelativeLayout.addView(txt1);
-		txt1.setOnClickListener(this);*/
-		//dailyEvent =  EventActivity.db.getEvent(currentDate,currentDate);
-		printDailyEvent(currentDate);
-	
+		
+		Bundle extras = getIntent().getExtras();
+        // Selected image id
+        if(extras!=null){
+        	int activity = extras.getInt("activity");
+        	if(activity ==1){
+        		
+        		currentDate = extras.getString("Date");
+        		
+				/*try {
+					dt = new SimpleDateFormat("dd-MMM-yyyy",Locale.ENGLISH).parse(currentDate);
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}*/
+        		try {
+					currentMonth.setText(dateFormat.format(dateFormatSQl.parse(currentDate)));
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+        		printDailyEvent(currentDate);
+        	}
+        	
+        	
+        }
+        
+        else{
+        	currentMonth.setText(dateFormat.format(_calendar.getTime()));
+        	printDailyEvent(currentDate);
+        }
 		
     }
 	@Override
@@ -108,9 +141,16 @@ public class DailyView extends Activity implements OnClickListener{
 				i=i+1;
 				first.add(Calendar.DATE, -i); 
 			}
-			 
+			
+			
+			
 			currentMonth.setText(dateFormat.format(first.getTime()));
-			currentDate = dateFormatSQl.format(first.getTime());
+			  currentDate = dateFormatSQl.format(first.getTime());
+			//Intent i = new Intent(getApplicationContext(), DailyView.class);
+            ///i.putExtra("activity", (int)1);
+            //i.putExtra("Date", currentDate);
+            //finish();
+            //startActivity(i);
 			printDailyEvent(currentDate);
 			Log.d(tag, "Setting Prev Date in GridCellAdapter: " + first.getTime());
 			
@@ -131,14 +171,19 @@ public class DailyView extends Activity implements OnClickListener{
 		  //first.add(Calendar.DATE, i);  
 		  currentMonth.setText(dateFormat.format(first.getTime()));
 		  currentDate = dateFormatSQl.format(first.getTime());
+		  //Intent i = new Intent(getApplicationContext(), DailyView.class);
+          //i.putExtra("activity", (int)1);
+          //i.putExtra("Date", currentDate);
+          //finish();
+          //startActivity(i);
 		  printDailyEvent(currentDate);
-			Log.d(tag, "Setting Next Date in GridCellAdapter: " + first.getTime());
+		  Log.d(tag, "Setting Next Date in GridCellAdapter: " + first.getTime());
 			
 		}
 		//for(int txt=0;txt<dailyEvent.size();txt++){
 			//if(v==tx){
-			Intent ev= new Intent(this, EventDetailsActivity.class);
-            startActivity(ev);      
+			//Intent ev= new Intent(this, EventDetailsActivity.class);
+            //startActivity(ev);      
             //finish();
 			//}
 		//}
@@ -147,8 +192,15 @@ public class DailyView extends Activity implements OnClickListener{
 	
 	public void printDailyEvent(String date){
 		int txtView = 0;
-		
-		dailyEvent =  EventActivity.db.getEvent(date,date);
+		String[] startTime;
+		String[] endTime;
+		String color;
+		int start;
+		int end;
+		int top;
+		currentDateRelativeLayout.removeAllViews();
+		currentDateRelativeLayout.addView(layoutInflater.inflate(R.layout.calendar_zebra, null, false),0 );		
+		dailyEvent =  SimpleCalendarView.db.getEvent(date,date);
 		if(!dailyEvent.isEmpty()){
 			TextView[] dailytxt = new TextView[dailyEvent.size()];
 			for(int i = 0;i<dailyEvent.size();i++ ){
@@ -156,12 +208,20 @@ public class DailyView extends Activity implements OnClickListener{
 			}
 			for (Event event : dailyEvent) {
 				id =event.getId();
-				LinearLayout.LayoutParams txtParams1 = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 240);
+				color = SimpleCalendarView.db.getCategoryByEvent(id).getName().toString();
+				startTime = event.getStartTime().split(":");
+				endTime = event.getEndTime().split(":");
+				start = Integer.parseInt(startTime[0])*60 + Integer.parseInt(startTime[1]);
+				end = Integer.parseInt(endTime[0])*60 + Integer.parseInt(endTime[1]);
+				top = (start)*2;
+				android.widget.RelativeLayout.LayoutParams txtParams1 = new android.widget.RelativeLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, ((end*2)-(start*2)));
+				txtParams1.setMargins(0, top, 0, 0);
 				dailytxt[txtView].setLayoutParams(txtParams1);
 				dailytxt[txtView].setText(event.getTitle());
-				RelativeLayout currentDateRelativeLayout = (RelativeLayout) findViewById(R.id.currentDateRelativeLayout);
+				//RelativeLayout currentDateRelativeLayout = (RelativeLayout) findViewById(R.id.currentDateRelativeLayout);
 				currentDateRelativeLayout.addView(dailytxt[txtView]);
-				dailytxt[txtView].setBackgroundColor(Color.parseColor("#FF0000"));
+				//dailytxt[txtView].setBackgroundColor(Color.parseColor("#FF0000"));
+				dailytxt[txtView].setBackgroundColor(Color.parseColor(findColor(color)));
 				//dailytxt[txtView].setTextColor(getResources().getColor(R.color.some_color));
 				dailytxt[txtView].setOnClickListener(new OnClickListener() {
 				    public void onClick(View view) {
@@ -177,6 +237,29 @@ public class DailyView extends Activity implements OnClickListener{
 				txtView++;
 			}
 		}
+	}
+	
+	
+	public static String findColor(String color){
+		HashMap<String, String> map = new HashMap<String, String>();
+		
+		map.put("Yellow", "#FFFF00");
+		map.put("Black", "#000000");
+		map.put("Blue", "#2B65EC");
+		map.put("Red", "#FF0000");
+		map.put("Green","#008000");
+		map.put("Violet", "#8D38C9");
+		map.put("Maroon", "#810541");
+		map.put("Brown", "#806517");
+		map.put("Olive", "#808000");
+		
+		if(map.containsKey(color)){
+			return map.get(color);
+		}
+		else{
+			return "#25383C";
+		}
+		
 	}
 	
 }

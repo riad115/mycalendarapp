@@ -85,7 +85,7 @@ public class EditEventActivity extends Activity implements OnClickListener, OnIt
 
 		Log.d(tag,"Inside edit on create: created event ID: "+ EventDetailsActivity.eventID);
 		
-        event_1 = EventActivity.db.getEvent(EventDetailsActivity.eventID);
+        event_1 = SimpleCalendarView.db.getEvent(EventDetailsActivity.eventID);
         
      
         toTodaysDate = (Button) this.findViewById(R.id.toTodaysDate);
@@ -124,7 +124,7 @@ public class EditEventActivity extends Activity implements OnClickListener, OnIt
         
         spinn = (Spinner) findViewById(R.id.spinner1);
         spinnerArray = new ArrayList<String>();
-        allCategory = EventActivity.db.getAllCategories();
+        allCategory = SimpleCalendarView.db.getAllCategories();
         for (Category category : allCategory) {
             //Log.d("Category Name:"+category.getName(), "ID:"+category.getId()+"Color:"+category.getColor());
         	spinnerArray.add(category.getName());
@@ -138,7 +138,7 @@ public class EditEventActivity extends Activity implements OnClickListener, OnIt
      // Specify the layout to use when the list of choices appears
             spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             spinn.setAdapter(spinnerArrayAdapter);
-        String cat = EventActivity.db.getCategoryByEvent(event_1.getId()).getName();
+        String cat = SimpleCalendarView.db.getCategoryByEvent(event_1.getId()).getName();
         int index = 0;
         for(String s : spinnerArray)
         {
@@ -223,30 +223,36 @@ public class EditEventActivity extends Activity implements OnClickListener, OnIt
 			event_1.setStartTime(to_Time);
 			event_1.setEndDate(from_Date);
 			event_1.setEndTime(from_Time);
+//<<<<<<< .mine
+	        
+			//int update = SimpleCalendarView.db.updateEvent(event_1);
+			//Log.d(tag,"Inside edit button: created event ID: "+ update);
+//=======
 		//	old_ctg = EventActivity.db.getCategoryByEvent(event_1.getId());
 			//event_1.
 
 			Log.d(tag,"Inside save button:before conflict ");
+//>>>>>>> .r46
 			
 	        //event_1.seTCategory
 			try {
-				if(EventActivity.db.checkConflictinEvents(event_1))
+				if(SimpleCalendarView.db.checkConflictinEvents(event_1))
 				{
 			        if(categary_from_Spinner.equalsIgnoreCase("Add Category"))
 			        {
 			            ctg = new Category(category_name.getText().toString(), categary_color);  
-			            long ctg1_id = EventActivity.db.createCategory(ctg);
+			            long ctg1_id = SimpleCalendarView.db.createCategory(ctg);
 			            ctg.setId(ctg1_id);
 			        	Log.d(tag,"Inside  ");
 
 			        	
 			        }
-			   int ck = EventActivity.db.updateEventCategory(EventActivity.db.getCatEvByEvent(event_1.getId()), ctg.getId());
+			   int ck = SimpleCalendarView.db.updateEventCategory(SimpleCalendarView.db.getCatEvByEvent(event_1.getId()), ctg.getId());
 
 				Log.d(tag,"Inside save button: no conflict " + ctg.getName() );
 					
-				int update = EventActivity.db.updateEvent(event_1);
-				Log.d(tag,"Inside edit button: category: "+ EventActivity.db.getCategoryByEvent(event_1.getId()).getName());
+				int update = SimpleCalendarView.db.updateEvent(event_1);
+				Log.d(tag,"Inside edit button: category: "+ SimpleCalendarView.db.getCategoryByEvent(event_1.getId()).getName());
 				
 				Intent list_new = new Intent(this, EventList.class);
 				startActivity(list_new);
@@ -297,7 +303,7 @@ public class EditEventActivity extends Activity implements OnClickListener, OnIt
 	    	{
 	    	categary_from_Spinner =  parent.getItemAtPosition(pos).toString();
 	    	Log.d("SpinnerListener :", categary_from_Spinner);
-	    	ctg = EventActivity.db.getCategoryID(categary_from_Spinner); 
+	    	ctg = SimpleCalendarView.db.getCategoryID(categary_from_Spinner); 
 	    	
 	    	if(categary_from_Spinner.equalsIgnoreCase("Add category"))
 	    	{
@@ -327,7 +333,7 @@ public class EditEventActivity extends Activity implements OnClickListener, OnIt
 	        // Another interface callb{ack
 	    	if(parent.getId() == R.id.spinner1){
 	    	categary_from_Spinner = "Random";
-	    	ctg = EventActivity.db.getCategoryID(categary_from_Spinner); 
+	    	ctg = SimpleCalendarView.db.getCategoryID(categary_from_Spinner); 
 	    	}
 	    }
 

@@ -26,7 +26,7 @@ public class EventList extends Activity implements OnClickListener{
      // Getting all Events
         Log.d("Get Events", "Getting All Events");
  
-        List<Event> allEvents = EventActivity.db.getAllEvents();
+        List<Event> allEvents = SimpleCalendarView.db.getAllEvents();
         for (Event event : allEvents) {
             Log.d("Event:"+event.getTitle(),"ID:"+ event.getId()+"Description:"+event.getDescription());
         }

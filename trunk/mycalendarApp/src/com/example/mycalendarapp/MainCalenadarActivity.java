@@ -36,10 +36,20 @@ public class MainCalenadarActivity extends Activity implements OnClickListener{
 	private int month, year;
 	private final DateFormat dateFormatter = new DateFormat();
 	private static final String dateTemplate = "MMMM yyyy";
+	public static int i=0;
+	public static int j =0;
+	
+	//public static MySQLiteHelper db;
+	
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.calendar_tab_view);
+		
+		
+		//db = new  MySQLiteHelper(getApplicationContext());
+		
 		
 		Resources ressources = getResources(); 
 		TabHost tabHost = (TabHost) findViewById(R.id.tabhost);
