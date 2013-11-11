@@ -1,5 +1,6 @@
 package com.example.mycalendarapp;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -8,6 +9,8 @@ import java.util.Locale;
 
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -33,7 +36,7 @@ public class EditEventActivity extends Activity implements OnClickListener, OnIt
 	public static String categary_from_Spinner;
 	public static String categary_color;
 	public static  List<Category> allCategory;
-	public static ArrayList<String> spinnerArray;
+	private static ArrayList<String> spinnerArray;
 	
 
 	public static Button toTodaysDate;
@@ -60,7 +63,8 @@ public class EditEventActivity extends Activity implements OnClickListener, OnIt
 	private static final String dateTemplate = "yyyy-MM-dd";
 	
 	private Event event_1;
-	public static Category ctg;
+	private static Category ctg;
+	private static Category old_ctg;
 
 	
 
@@ -107,16 +111,24 @@ public class EditEventActivity extends Activity implements OnClickListener, OnIt
         saveButton.setText("Edit");
         
         spinn = (Spinner) findViewById(R.id.spinner1);
+        spinnerArray = new ArrayList<String>();
+        allCategory = EventActivity.db.getAllCategories();
+        for (Category category : allCategory) {
+            //Log.d("Category Name:"+category.getName(), "ID:"+category.getId()+"Color:"+category.getColor());
+        	spinnerArray.add(category.getName());
+        }
+    	spinnerArray.add("Add Category");
+    	
         ArrayAdapter spinnerArrayAdapter = new ArrayAdapter(this,
                 android.R.layout.simple_spinner_dropdown_item,
-                    EventActivity.spinnerArray);
+                    spinnerArray);
         
      // Specify the layout to use when the list of choices appears
             spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             spinn.setAdapter(spinnerArrayAdapter);
         String cat = EventActivity.db.getCategoryByEvent(event_1.getId()).getName();
         int index = 0;
-        for(String s : EventActivity.spinnerArray)
+        for(String s : spinnerArray)
         {
         	if(s.equals(cat))
         		break;
@@ -152,7 +164,7 @@ public class EditEventActivity extends Activity implements OnClickListener, OnIt
 		if(v== toTodaysDate )
 		{
 			Intent intent = new Intent(this, DatePickerActivity.class);
-		    intent.putExtra("Caller", "To_Date");
+		    intent.putExtra("Caller", "To_Date_edit");
 			startActivityForResult(intent, 0);
 
 
@@ -161,7 +173,7 @@ public class EditEventActivity extends Activity implements OnClickListener, OnIt
 		else 	if(v== fromTodaysDate )
 		{
 			Intent intent = new Intent(this, DatePickerActivity.class);
-		    intent.putExtra("Caller", "From_Date");
+		    intent.putExtra("Caller", "From_Date_edit");
 			startActivityForResult(intent, 0);
 			
 			Log.d(tag,"Inside from todays date");
@@ -169,7 +181,7 @@ public class EditEventActivity extends Activity implements OnClickListener, OnIt
 		else 	if(v== toCurrentTime )
 		{
 			Intent intent = new Intent(this, TimePickerActivity.class);
-		    intent.putExtra("Caller", "To_Time");
+		    intent.putExtra("Caller", "To_Time_edit");
 			startActivityForResult(intent, 0);
 
 
@@ -178,7 +190,7 @@ public class EditEventActivity extends Activity implements OnClickListener, OnIt
 		else 	if(v== fromCurrentTime )
 		{
 			Intent intent = new Intent(this, TimePickerActivity.class);
-		    intent.putExtra("Caller", "From_Time");
+		    intent.putExtra("Caller", "From_Time_edit");
 			startActivityForResult(intent, 0);
 			
 			Log.d(tag,"Inside from current time");
@@ -199,25 +211,68 @@ public class EditEventActivity extends Activity implements OnClickListener, OnIt
 			event_1.setStartTime(to_Time);
 			event_1.setEndDate(from_Date);
 			event_1.setEndTime(from_Time);
-			ctg = EventActivity.db.getCategoryByEvent(event_1.getId());
+		//	old_ctg = EventActivity.db.getCategoryByEvent(event_1.getId());
 			//event_1.
-	        if(EventActivity.categary_from_Spinner.equalsIgnoreCase("Add Category"))
-	        {
-	            ctg = new Category(category_name.getText().toString(), EventActivity.categary_color);  
-	            long ctg1_id = EventActivity.db.createCategory(ctg);
-	            ctg.setId(ctg1_id);
-	        	
-	        }
-	        int ck = EventActivity.db.updateEventCategory(EventActivity.db.getCatEvByEvent(event_1.getId()), ctg.getId());
+
+			Log.d(tag,"Inside save button:before conflict ");
+			
 	        //event_1.seTCategory
-			int update = EventActivity.db.updateEvent(event_1);
-			Log.d(tag,"Inside edit button: created event ID: "+ update);
-			
-	        Intent list_new = new Intent(this, EventList.class);
-	        startActivity(list_new);
-	        
-			
-			this.finish();
+			try {
+				if(EventActivity.db.checkConflictinEvents(event_1))
+				{
+			        if(EventActivity.categary_from_Spinner.equalsIgnoreCase("Add Category"))
+			        {
+			            ctg = new Category(category_name.getText().toString(), categary_color);  
+			            long ctg1_id = EventActivity.db.createCategory(ctg);
+			            ctg.setId(ctg1_id);
+			        	Log.d(tag,"Inside  ");
+
+			        	
+			        }
+			        int ck = EventActivity.db.updateEventCategory(EventActivity.db.getCatEvByEvent(event_1.getId()), ctg.getId());
+
+					Log.d(tag,"Inside save button: no conflict " + ctg.getName() );
+					
+				int update = EventActivity.db.updateEvent(event_1);
+				Log.d(tag,"Inside edit button: created event ID: "+ update);
+				
+				Intent list_new = new Intent(this, EventList.class);
+				startActivity(list_new);
+    
+				
+				this.finish();
+				}
+				else
+				{Log.d(tag,"Inside save button: conflict ");
+				// Creating alert Dialog with one Button
+				 
+	            AlertDialog alertDialog1 = new AlertDialog.Builder(
+	                    this).create();
+	 
+	            // Setting Dialog Title
+	            alertDialog1.setTitle("Alert Dialog");
+	 
+	            // Setting Dialog Message
+	            alertDialog1.setMessage("Events conflict: Change the time!");
+	 
+	            // Setting Icon to Dialog
+	        //    alertDialog1.setIcon(R.drawable.tick);
+	 
+	            // Setting OK Button
+	            alertDialog1.setButton("OK", new DialogInterface.OnClickListener() {
+	 
+	                public void onClick(DialogInterface dialog, int which) {
+	                    // Write your code here to execute after dialog
+	                    // closed
+	                	//alertDialog1.
+	                }
+	            });
+	            alertDialog1.show();
+				}
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 	
@@ -228,11 +283,11 @@ public class EditEventActivity extends Activity implements OnClickListener, OnIt
 
 	    	if(idnum == R.id.spinner1)
 	    	{
-	    	EventActivity.categary_from_Spinner =  parent.getItemAtPosition(pos).toString();
-	    	Log.d("SpinnerListener :", EventActivity.categary_from_Spinner);
-	    	ctg = EventActivity.db.getCategoryID(EventActivity.categary_from_Spinner); 
+	    	categary_from_Spinner =  parent.getItemAtPosition(pos).toString();
+	    	Log.d("SpinnerListener :", categary_from_Spinner);
+	    	ctg = EventActivity.db.getCategoryID(categary_from_Spinner); 
 	    	
-	    	if(EventActivity.categary_from_Spinner.equalsIgnoreCase("Add category"))
+	    	if(categary_from_Spinner.equalsIgnoreCase("Add category"))
 	    	{
 	            category_name.setVisibility(View.VISIBLE);
 	            Spinner spinner = (Spinner) findViewById(R.id.spinner2);
@@ -249,8 +304,8 @@ public class EditEventActivity extends Activity implements OnClickListener, OnIt
 	    	}
 	    	else     	if(idnum == R.id.spinner2)
 	    	{
-	        	EventActivity.categary_color =  parent.getItemAtPosition(pos).toString();
-	        	Log.d("SpinnerListener2 :", EventActivity.categary_from_Spinner);
+	        	categary_color =  parent.getItemAtPosition(pos).toString();
+	        	Log.d("SpinnerListener2 :", categary_from_Spinner);
 	    	}
 	    	
 	    	
@@ -259,8 +314,8 @@ public class EditEventActivity extends Activity implements OnClickListener, OnIt
 	    public void onNothingSelected(AdapterView<?> parent) {
 	        // Another interface callb{ack
 	    	if(parent.getId() == R.id.spinner1){
-	    	EventActivity.categary_from_Spinner = "Random";
-	    	ctg = EventActivity.db.getCategoryID(EventActivity.categary_from_Spinner); 
+	    	categary_from_Spinner = "Random";
+	    	ctg = EventActivity.db.getCategoryID(categary_from_Spinner); 
 	    	}
 	    }
 

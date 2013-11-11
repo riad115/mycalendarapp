@@ -35,7 +35,7 @@ public class EventActivity extends Activity implements OnClickListener, OnItemSe
 	public static String categary_from_Spinner;
 	public static String categary_color;
 	public static  List<Category> allCategory;
-	public static ArrayList<String> spinnerArray;
+	private static ArrayList<String> spinnerArray;
 	
 
 	public static Button toTodaysDate;
