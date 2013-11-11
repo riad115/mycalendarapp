@@ -33,9 +33,9 @@ public class EditEventActivity extends Activity implements OnClickListener, OnIt
 	public static String to_Time;
 	public static String from_Time;
 	
-	public static String categary_from_Spinner;
-	public static String categary_color;
-	public static  List<Category> allCategory;
+	private static String categary_from_Spinner;
+	private static String categary_color;
+	private static  List<Category> allCategory;
 	private static ArrayList<String> spinnerArray;
 	
 
@@ -220,7 +220,7 @@ public class EditEventActivity extends Activity implements OnClickListener, OnIt
 			try {
 				if(EventActivity.db.checkConflictinEvents(event_1))
 				{
-			        if(EventActivity.categary_from_Spinner.equalsIgnoreCase("Add Category"))
+			        if(categary_from_Spinner.equalsIgnoreCase("Add Category"))
 			        {
 			            ctg = new Category(category_name.getText().toString(), categary_color);  
 			            long ctg1_id = EventActivity.db.createCategory(ctg);
