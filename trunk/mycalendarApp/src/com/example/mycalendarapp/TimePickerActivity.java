@@ -61,7 +61,7 @@ public class TimePickerActivity extends Activity implements OnClickListener {
 			
 			
 			 Log.d(tag, " in ok " + formatedTime);
-			 if(getIntent().getStringExtra("Caller").equals("To_Time"))
+			 if(getIntent().getStringExtra("Caller").equals("To_Time_event"))
 			 {
 				 EventActivity.to_Time = formatedTime;
 				 Log.d(tag, " in to_time " + EventActivity.to_Time);
@@ -69,11 +69,27 @@ public class TimePickerActivity extends Activity implements OnClickListener {
 			     finish();
 				 
 			 }
-			 else 	 if(getIntent().getStringExtra("Caller").equals("From_Time"))
+			 else 	 if(getIntent().getStringExtra("Caller").equals("From_Time_event"))
 			 {
 				 EventActivity.from_Time = formatedTime;
 				 Log.d(tag, " in to_time " + EventActivity.from_Time);
 			     EventActivity.fromCurrentTime.setText(EventActivity.from_Time);
+			     finish();
+				 
+			 }
+			 else 	if(getIntent().getStringExtra("Caller").equals("To_Time_edit"))
+			 {
+				 EditEventActivity.to_Time = formatedTime;
+				 Log.d(tag, " in to_time " + EditEventActivity.to_Time);
+				 EditEventActivity.toCurrentTime.setText(EditEventActivity.to_Time);
+			     finish();
+				 
+			 }
+			 else 	 if(getIntent().getStringExtra("Caller").equals("From_Time_edit"))
+			 {
+				 EditEventActivity.from_Time = formatedTime;
+				 Log.d(tag, " in to_time " + EditEventActivity.from_Time);
+				 EditEventActivity.fromCurrentTime.setText(EditEventActivity.from_Time);
 			     finish();
 				 
 			 }
