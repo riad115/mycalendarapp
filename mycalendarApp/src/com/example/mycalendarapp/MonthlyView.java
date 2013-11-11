@@ -3,6 +3,7 @@ package com.example.mycalendarapp;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 import android.app.Activity;
@@ -32,9 +33,13 @@ public class MonthlyView extends Activity implements OnClickListener{
 	private static final String dateTemplate = "MMMM yyyy";
 	private final SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MMM-yyyy");
 	
+	//public static MySQLiteHelper db;
+	
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.calendar_view);
+		
+		
 		
 		
 		_calendar = Calendar.getInstance(Locale.getDefault());
@@ -60,6 +65,13 @@ public class MonthlyView extends Activity implements OnClickListener{
 		adapter = new SimpleCalendarView(getApplicationContext(), R.id.calendar_day_gridcell, month, year);
 		adapter.notifyDataSetChanged();
 		calendarView.setAdapter(adapter);
+		//db = new  MySQLiteHelper(getApplicationContext());
+		/*List<Event> allEvents = MainCalenadarActivity.db.getEvent("2013-11-09", "2013-11-09");
+        for (Event event : allEvents) {
+            Log.d("Event:"+event.getTitle(),"ID:"+ event.getId()+"Description:"+event.getDescription());
+        }*/
+		
+		//db.closeDB();
     }
 	
 	private void setGridCellAdapterToDate(int month, int year)
@@ -103,10 +115,16 @@ public class MonthlyView extends Activity implements OnClickListener{
 		}
 	
 	
+	  }
 	
 	
-	
+	 public static int eventCount(String date){
 		
-	}
+		 List<Event> allEvents = SimpleCalendarView.db.getEvent(date, date);
+		 
+		 
+		 return allEvents.size();
+		   
+	   }
 
 }

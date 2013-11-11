@@ -59,8 +59,15 @@ public class EventDetailsActivity extends Activity implements OnClickListener{
         		Id = extras.getLong("EVENT_ID");
         		printEventDetails(Id);
         	}
+        	
+        	if(activity==3){
+        		//eventTitle = extras.getString("EVENT_TITLE");
+        		Id = extras.getLong("EVENT_ID");
+        		printEventDetails(Id);
+        	}
+        	
         }
-        Log.d("Event:"+ position, "");
+        /*Log.d("Event:"+ position, "");
         eventID = allEvents.get(position).getId();
      
        
@@ -80,10 +87,10 @@ public class EventDetailsActivity extends Activity implements OnClickListener{
         repeat.setText("No");
         
         category = (TextView) findViewById(R.id.textView7);
-        category.setText(EventActivity.db.getCategoryByEvent(allEvents.get(position).getId()).getName().toString());
+        category.setText(SimpleCalendarView.db.getCategoryByEvent(allEvents.get(position).getId()).getName().toString());
         
         status = (TextView) findViewById(R.id.textView9);
-        status.setText("Busy");
+        status.setText("Busy");*/
 	}
 	
 	
@@ -104,7 +111,7 @@ public class EventDetailsActivity extends Activity implements OnClickListener{
 	    // Handle item selection
 	    switch (item.getItemId()) {
 	    case R.id.delete_event:
-	        EventActivity.db.deleteEvent(eventID);
+	    	SimpleCalendarView.db.deleteEvent(eventID);
 	        Intent del = new Intent(this, EventList.class);
 	        startActivity(del);
 	        return true;
@@ -124,7 +131,7 @@ public class EventDetailsActivity extends Activity implements OnClickListener{
 	
 	public void printEventDetails(Long id){
 		Log.d("Get ID", id.toString());
-		selEvent = EventActivity.db.getEvent(id);
+		selEvent = SimpleCalendarView.db.getEvent(id);
 	    //for (Event event : allEvents) {
 	        //Log.d("Event:"+event.getTitle(),"ID:"+ event.getId()+"Description:"+event.getDescription());
 	    //}
@@ -150,7 +157,7 @@ public class EventDetailsActivity extends Activity implements OnClickListener{
         repeat.setText("No");
         
         category = (TextView) findViewById(R.id.textView7);
-        category.setText("Random");
+        category.setText(SimpleCalendarView.db.getCategoryByEvent(eventID).getName().toString());
         
         status = (TextView) findViewById(R.id.textView9);
         status.setText("Busy");
@@ -160,7 +167,7 @@ public class EventDetailsActivity extends Activity implements OnClickListener{
 	public void printEventDetails(Integer id){
 		Log.d("Get Events", "Getting All Events");
 
-	    allEvents = EventActivity.db.getAllEvents();
+	    allEvents = SimpleCalendarView.db.getAllEvents();
 	    for (Event event : allEvents) {
 	        Log.d("Event:"+event.getTitle(),"ID:"+ event.getId()+"Description:"+event.getDescription());
 	    }
@@ -185,7 +192,7 @@ public class EventDetailsActivity extends Activity implements OnClickListener{
         repeat.setText("No");
         
         category = (TextView) findViewById(R.id.textView7);
-        category.setText("Random");
+        category.setText(SimpleCalendarView.db.getCategoryByEvent(allEvents.get(position).getId()).getName().toString());
         
         status = (TextView) findViewById(R.id.textView9);
         status.setText("Busy");

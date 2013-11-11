@@ -33,7 +33,7 @@ public class EventListAdapter extends BaseAdapter{
 		// Getting all Events
 	    Log.d("Get Events", "Getting All Events");
 
-	    allEvents = EventActivity.db.getAllEvents();
+	    allEvents = SimpleCalendarView.db.getAllEvents();
 	    for (Event event : allEvents) {
 	        Log.d("Event:"+event.getTitle(),"ID:"+ event.getId()+"Description:"+event.getDescription());
 	    }
