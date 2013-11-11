@@ -411,7 +411,7 @@ public class EventActivity extends Activity implements OnClickListener, OnItemSe
 		{
 	        Event event_new = new Event(edittext_eventTitle.getText().toString(),
 	        		to_Date,from_Date,to_Time,from_Time,
-	        		edittext_description.getText().toString());
+	        		edittext_description.getText().toString(), repeat);
 /*<<<<<<< .mine
 	        long event_current_id = SimpleCalendarView.db.createEvent(event_new, new long[] { ctg1_id });
 =======*/

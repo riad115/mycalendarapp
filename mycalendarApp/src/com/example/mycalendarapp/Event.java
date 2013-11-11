@@ -8,12 +8,13 @@ public class Event {
     private String startTime;
     private String endTime;
     private String description;
+    private String repeat;
    // private String categoryName;
    // private int categoryID;
  
     public Event(){}
  
-    public Event(String title, String sDate, String eDate, String sTime, String eTime, String desc) {
+    public Event(String title, String sDate, String eDate, String sTime, String eTime, String desc, String repeat) {
         super();
         this.title = title;
         this.startDate = sDate;
@@ -21,6 +22,7 @@ public class Event {
         this.startTime = sTime;
         this.endTime = eTime;
         this.description = desc;
+        this.repeat = repeat;
     //    this.categoryName = catName;
         /*this.categoryID = getCategoryID(categoryName);
           {
@@ -80,12 +82,16 @@ public class Event {
 		// TODO Auto-generated method stub
 		return this.description;
 	}
-
+	public String getRepeat() {
+		// TODO Auto-generated method stub
+		return this.repeat;
+	}
 	public void setStartDate(String string) {
 		// TODO Auto-generated method stub
 		this.startDate = string;
 		
 	}
+	
 
 	public void setEndDate(String string) {
 		// TODO Auto-generated method stub
@@ -106,5 +112,8 @@ public class Event {
 		// TODO Auto-generated method stub
 		this.description = string;
 	}
-
+	public void setRepeat(String string) {
+		// TODO Auto-generated method stub
+		this.repeat = string;
+	}
 }
