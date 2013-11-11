@@ -64,7 +64,9 @@ public class SimpleCalendarView extends BaseAdapter implements OnClickListener{
 		this.monthlyEvent = new ArrayList<Event>();
 		Log.d(tag, "==> Passed in Date FOR Month: " + month + " " + "Year: " + year);
 		Calendar calendar = Calendar.getInstance();
-		setCurrentDayOfMonth(calendar.get(Calendar.DAY_OF_MONTH));
+		if (month == calendar.get(Calendar.MONTH)+1){ 
+			setCurrentDayOfMonth(calendar.get(Calendar.DAY_OF_MONTH));
+		}
 		setCurrentWeekDay(calendar.get(Calendar.DAY_OF_WEEK));
 		Log.d(tag, "New Calendar:= " + calendar.getTime().toString());
 		Log.d(tag, "CurrentDayOfWeek :" + getCurrentWeekDay());
@@ -127,7 +129,7 @@ public String getItem(int position)
 		gridcell = (Button) row.findViewById(R.id.calendar_day_gridcell);
 		gridcell.setOnClickListener(this);
 		
-		selectedDayMonthYearButton = (Button) row.findViewById(R.id.selectedDayMonthYear);
+		//selectedDayMonthYearButton = (Button) row.findViewById(R.id.selectedDayMonthYear);
 		
 
 		// ACCOUNT FOR SPACING
@@ -176,7 +178,8 @@ public String getItem(int position)
 		//Log.d(tag, "Setting GridCell " + Integer.toString(monthlyEvent.size()));
 		
 		if(day_color[4].equals("Y")){
-			gridcell.setBackgroundColor(Color.parseColor("#008000"));
+			//gridcell.setBackgroundColor(Color.parseColor("#008000"));
+			gridcell.setBackgroundResource(R.drawable.event_bg2);
 		}
 		
 		if(day_color[1].equals("GREEN")){

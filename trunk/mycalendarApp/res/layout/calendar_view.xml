@@ -5,18 +5,13 @@
 	android:layout_height="fill_parent"
 	android:background="@drawable/bg">
 
+	 <View
+    android:layout_width="fill_parent"
+    android:layout_height="2dip"
+    />
+
+
 	
-
-
-	<Button
-		android:id="@+id/selectedDayMonthYear"
-		android:textColor="#FFFFFF"
-		android:layout_gravity="center"
-		android:textAppearance="?android:attr/textAppearanceMedium"
-		android:background="@drawable/calendar_top_header"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content">
-	</Button>
 
 	<LinearLayout
 		
