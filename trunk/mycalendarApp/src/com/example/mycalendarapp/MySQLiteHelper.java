@@ -49,6 +49,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
     private static final String KEY_EVENT_STARTTIME = "startTime";
     private static final String KEY_EVENT_ENDTIME = "endTime";
     private static final String KEY_EVENT_DESCRIPTION = "description";
+    private static final String KEY_EVENT_REPEAT = "repeat";
     
     // categories_events Table - column names
     private static final String KEY_CATEGORY_ID = "category_id";
@@ -64,18 +65,19 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
     // events table create statement
     private static final String CREATE_TABLE_EVENT = "CREATE TABLE " + TABLE_EVENT
             + "(" + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," 
-    		+ KEY_EVENT_TITLE + " TEXT,"
+    		+ KEY_EVENT_TITLE     + " TEXT,"
     		+ KEY_EVENT_STARTDATE + " TEXT,"
-    		+ KEY_EVENT_ENDDATE + " TEXT,"
+    		+ KEY_EVENT_ENDDATE   + " TEXT,"
     		+ KEY_EVENT_STARTTIME + " TEXT,"
-    		+ KEY_EVENT_ENDTIME + " TEXT,"
+    		+ KEY_EVENT_ENDTIME   + " TEXT,"
+    		+ KEY_EVENT_REPEAT    + " TEXT,"
             + KEY_EVENT_DESCRIPTION + " TEXT )";
  
     // categories_events table create statement
     private static final String CREATE_TABLE_CATEGORY_EVENT = "CREATE TABLE " + TABLE_CATEGORY_EVENT
     		+ "(" + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
-            + KEY_CATEGORY_ID + " INTEGER," //forign key???????????????????
-    		+ KEY_EVENT_ID + " INTEGER )";    //forign key???????????????????
+            + KEY_CATEGORY_ID + " INTEGER," 
+    		+ KEY_EVENT_ID + " INTEGER )";   
       
  
     public MySQLiteHelper(Context context) {
@@ -114,6 +116,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
         values.put(KEY_EVENT_STARTTIME, event.getStartTime());
         values.put(KEY_EVENT_ENDTIME, event.getEndTime());
         values.put(KEY_EVENT_DESCRIPTION, event.getDescription());
+        values.put(KEY_EVENT_REPEAT, event.getDescription());
         
         // insert row
         long event_id = db.insert(TABLE_EVENT, null, values);
@@ -154,7 +157,8 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
         ev.setStartTime((c.getString(c.getColumnIndex(KEY_EVENT_STARTTIME))));
         ev.setEndTime((c.getString(c.getColumnIndex(KEY_EVENT_ENDTIME))));
         ev.setDescription((c.getString(c.getColumnIndex(KEY_EVENT_DESCRIPTION))));
-            
+        ev.setRepeat((c.getString(c.getColumnIndex(KEY_EVENT_REPEAT))));
+        
         return ev;
     }
     
@@ -182,6 +186,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
                 ev.setStartTime((c.getString(c.getColumnIndex(KEY_EVENT_STARTTIME))));
                 ev.setEndTime((c.getString(c.getColumnIndex(KEY_EVENT_ENDTIME))));
                 ev.setDescription((c.getString(c.getColumnIndex(KEY_EVENT_DESCRIPTION))));
+                ev.setRepeat((c.getString(c.getColumnIndex(KEY_EVENT_REPEAT))));
      
                 // adding to event list
                 events.add(ev);
@@ -220,6 +225,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
                 ev.setStartTime((c.getString(c.getColumnIndex(KEY_EVENT_STARTTIME))));
                 ev.setEndTime((c.getString(c.getColumnIndex(KEY_EVENT_ENDTIME))));
                 ev.setDescription((c.getString(c.getColumnIndex(KEY_EVENT_DESCRIPTION))));
+                ev.setRepeat((c.getString(c.getColumnIndex(KEY_EVENT_REPEAT))));
      
                 // adding to event list
                 events.add(ev);
@@ -258,6 +264,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
         values.put(KEY_EVENT_STARTTIME, event.getStartTime());
         values.put(KEY_EVENT_ENDTIME, event.getEndTime());
         values.put(KEY_EVENT_DESCRIPTION, event.getDescription());
+        values.put(KEY_EVENT_REPEAT, event.getDescription());
        
      //   Log.e("check", values.getAsString(KEY_EVENT_TITLE));
     //    Log.e("check", ""+event.getId());
@@ -414,6 +421,15 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
                 new String[] { String.valueOf(category.getId()) });
     }
     
+    public void clearDatebase(){
+    	 //SELECT * FROM Books2
+    	
+    }
+    
+   
+    
+    
+    
     
     /*
      * getting all events under single category
@@ -535,7 +551,8 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
         ev.setStartTime((c.getString(c.getColumnIndex(KEY_EVENT_STARTTIME))));
         ev.setEndTime((c.getString(c.getColumnIndex(KEY_EVENT_ENDTIME))));
         ev.setDescription((c.getString(c.getColumnIndex(KEY_EVENT_DESCRIPTION))));
-            
+        ev.setRepeat((c.getString(c.getColumnIndex(KEY_EVENT_REPEAT))));
+        
         return ev;
     }
 	
@@ -561,7 +578,8 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
                 ev.setStartTime((c.getString(c.getColumnIndex(KEY_EVENT_STARTTIME))));
                 ev.setEndTime((c.getString(c.getColumnIndex(KEY_EVENT_ENDTIME))));
                 ev.setDescription((c.getString(c.getColumnIndex(KEY_EVENT_DESCRIPTION))));
-     
+                ev.setRepeat((c.getString(c.getColumnIndex(KEY_EVENT_REPEAT))));
+                
                 // adding to event list
                 events.add(ev);
             } while (c.moveToNext());
