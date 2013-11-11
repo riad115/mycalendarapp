@@ -65,7 +65,7 @@ public class DatePickerActivity extends Activity  implements OnClickListener{
 
 
 			 Log.d(tag, " in ok " + formatedDate);
-			 if(getIntent().getStringExtra("Caller").equals("To_Date"))
+			 if(getIntent().getStringExtra("Caller").equals("To_Date_event"))
 			 {
 				 EventActivity.to_Date = formatedDate;
 				 Log.d(tag, " in to_Date " + EventActivity.to_Date);
@@ -73,11 +73,27 @@ public class DatePickerActivity extends Activity  implements OnClickListener{
 			     finish();
 				 
 			 }
-			 else 	 if(getIntent().getStringExtra("Caller").equals("From_Date"))
+			 else 	 if(getIntent().getStringExtra("Caller").equals("From_Date_event"))
 			 {
 				 EventActivity.from_Date = formatedDate;
 				 Log.d(tag, " in to_Date " + EventActivity.to_Date);
 			     EventActivity.fromTodaysDate.setText(EventActivity.from_Date);
+			     finish();
+				 
+			 }
+			 else 	if(getIntent().getStringExtra("Caller").equals("To_Date_edit"))
+			 {
+				 EditEventActivity.to_Date = formatedDate;
+				 Log.d(tag, " in to_Date " + EditEventActivity.to_Date);
+				 EditEventActivity.toTodaysDate.setText(EditEventActivity.to_Date);
+			     finish();
+				 
+			 }
+			 else 	 if(getIntent().getStringExtra("Caller").equals("From_Date_edit"))
+			 {
+				 EditEventActivity.from_Date = formatedDate;
+				 Log.d(tag, " in to_Date " + EditEventActivity.to_Date);
+				 EditEventActivity.fromTodaysDate.setText(EditEventActivity.from_Date);
 			     finish();
 				 
 			 }

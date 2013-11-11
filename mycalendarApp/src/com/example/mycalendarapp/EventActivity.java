@@ -150,7 +150,7 @@ public class EventActivity extends Activity implements OnClickListener, OnItemSe
 		if(v== toTodaysDate )
 		{
 			Intent intent = new Intent(this, DatePickerActivity.class);
-		    intent.putExtra("Caller", "To_Date");
+		    intent.putExtra("Caller", "To_Date_event");
 			startActivityForResult(intent, 0);
 
 
@@ -159,7 +159,7 @@ public class EventActivity extends Activity implements OnClickListener, OnItemSe
 		else 	if(v== fromTodaysDate )
 		{
 			Intent intent = new Intent(this, DatePickerActivity.class);
-		    intent.putExtra("Caller", "From_Date");
+		    intent.putExtra("Caller", "From_Date_event");
 			startActivityForResult(intent, 0);
 			
 			Log.d(tag,"Inside from todays date");
@@ -167,7 +167,7 @@ public class EventActivity extends Activity implements OnClickListener, OnItemSe
 		else 	if(v== toCurrentTime )
 		{
 			Intent intent = new Intent(this, TimePickerActivity.class);
-		    intent.putExtra("Caller", "To_Time");
+		    intent.putExtra("Caller", "To_Time_event");
 			startActivityForResult(intent, 0);
 
 
@@ -176,7 +176,7 @@ public class EventActivity extends Activity implements OnClickListener, OnItemSe
 		else 	if(v== fromCurrentTime )
 		{
 			Intent intent = new Intent(this, TimePickerActivity.class);
-		    intent.putExtra("Caller", "From_Time");
+		    intent.putExtra("Caller", "From_Time_event");
 			startActivityForResult(intent, 0);
 			
 			Log.d(tag,"Inside from current time");
