@@ -47,8 +47,8 @@ public class MonthlyView extends Activity implements OnClickListener{
 		year = _calendar.get(Calendar.YEAR);
 		Log.d(tag, "Calendar Instance:= " + "Month: " + month + " " + "Year: " + year);
 
-		selectedDayMonthYearButton = (Button) this.findViewById(R.id.selectedDayMonthYear);
-		selectedDayMonthYearButton.setText("Selected: ");
+		//selectedDayMonthYearButton = (Button) this.findViewById(R.id.selectedDayMonthYear);
+		//selectedDayMonthYearButton.setText("Selected: ");
 
 		prevMonth = (ImageView) this.findViewById(R.id.prevMonth);
 		prevMonth.setOnClickListener(this);
