@@ -4,12 +4,8 @@ import junit.framework.TestCase;
 
 public class TestEvent extends TestCase {
 	
-	Event TestEvent = new Event("Event_Title","9-Nov-2013","10-nov-2013","10:00am","11:30am","Event description");
-
-	public void testToString() {
-		assertEquals(TestEvent.toString(),"Event [id=0, title=Event_Title, startDate=9-Nov-2013, endDate=10-nov-2013, startTime=10:00am, endTime=11:30am, description=Event description]");
-	}
-
+	Event TestEvent = new Event("Event_Title","9-Nov-2013","10-nov-2013","10:00am","11:30am","Event description","OFF");
+	
 	public void testGetSetId() {
 		TestEvent.setId(12345);
 		assertEquals(TestEvent.getId(),12345);
