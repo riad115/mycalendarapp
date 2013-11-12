@@ -57,14 +57,22 @@ public final class R {
         public static final int calendar_view=0x7f020010;
         public static final int cell_shape=0x7f020011;
         public static final int cg=0x7f020012;
-        public static final int cg_sel=0x7f020013;
-        public static final int daily_view=0x7f020014;
-        public static final int event_bg=0x7f020015;
-        public static final int event_bg2=0x7f020016;
-        public static final int ic_launcher=0x7f020017;
-        public static final int icon=0x7f020018;
-        public static final int monthly_view=0x7f020019;
-        public static final int weekly_view=0x7f02001a;
+        public static final int cg_day=0x7f020013;
+        public static final int cg_day_sel=0x7f020014;
+        public static final int cg_event=0x7f020015;
+        public static final int cg_event_sel=0x7f020016;
+        public static final int cg_month=0x7f020017;
+        public static final int cg_month_sel=0x7f020018;
+        public static final int cg_sel=0x7f020019;
+        public static final int cg_week=0x7f02001a;
+        public static final int cg_week_sel=0x7f02001b;
+        public static final int daily_view=0x7f02001c;
+        public static final int event_bg=0x7f02001d;
+        public static final int event_bg2=0x7f02001e;
+        public static final int ic_launcher=0x7f02001f;
+        public static final int icon=0x7f020020;
+        public static final int monthly_view=0x7f020021;
+        public static final int weekly_view=0x7f020022;
     }
     public static final class id {
         public static final int action_settings=0x7f0a0066;

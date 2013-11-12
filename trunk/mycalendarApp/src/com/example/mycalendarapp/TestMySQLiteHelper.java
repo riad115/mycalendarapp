@@ -17,8 +17,8 @@ public class TestMySQLiteHelper extends AndroidTestCase {
         //RenamingDelegatingContext context = new RenamingDelegatingContext(c, "test_");
         
         
-		dbTest = new MySQLiteHelper(getContext()); 
-		dbTest.clearDatebase();
+		//dbTest = new MySQLiteHelper(getContext(c,null)); 
+		//dbTest.clearDatebase();
     }
 	
 	public void testCreateGetCategory(){
