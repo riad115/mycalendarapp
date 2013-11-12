@@ -39,6 +39,7 @@ public class EditEventActivity extends Activity implements OnClickListener, OnIt
 	private static ArrayList<String> spinnerArray;
 	
 	private Spinner spinn_repeat;
+	private String repeat;
 	private static ArrayList<String> spinnerRepeatArray;
 
 	public static Button toTodaysDate;
@@ -48,7 +49,9 @@ public class EditEventActivity extends Activity implements OnClickListener, OnIt
 	public static Button fromCurrentTime;
 	
 	public static long ctg1_id;
-	
+	private String fromDt;
+	private String stTime;
+	private String eTime;
 	
 	private Spinner spinn;
 	private Button saveButton;
@@ -68,7 +71,7 @@ public class EditEventActivity extends Activity implements OnClickListener, OnIt
 	private static Category ctg;
 	private static Category old_ctg;
 
-	
+	private final int[] daysOfMonth = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 
 	public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -92,6 +95,8 @@ public class EditEventActivity extends Activity implements OnClickListener, OnIt
         toTodaysDate.setText(event_1.getStartDate());
         to_Date = event_1.getStartDate();
         toTodaysDate.setOnClickListener(this);
+        fromDt=to_Date;
+        
         
         fromTodaysDate = (Button) this.findViewById(R.id.fromTodaysDate);
         fromTodaysDate.setText(event_1.getEndDate());
@@ -102,11 +107,14 @@ public class EditEventActivity extends Activity implements OnClickListener, OnIt
         toCurrentTime.setText(event_1.getStartTime());
         to_Time = event_1.getStartTime();
         toCurrentTime.setOnClickListener(this);
+        stTime = to_Time;
         
         fromCurrentTime = (Button) this.findViewById(R.id.fromCurrentTime);
         fromCurrentTime.setText(event_1.getEndTime());
         from_Time = event_1.getEndTime();
         fromCurrentTime.setOnClickListener(this);
+        eTime = from_Time;
+        
         
         saveButton = (Button) this.findViewById(R.id.saveButton);
         saveButton.setOnClickListener(this);
@@ -115,7 +123,10 @@ public class EditEventActivity extends Activity implements OnClickListener, OnIt
         spinn_repeat = (Spinner) findViewById(R.id.spinner_repeat);
         spinnerRepeatArray= new ArrayList<String>();
 
-    	spinnerRepeatArray.add("Repeat");
+        repeat=event_1.getRepeat(); 
+
+        
+    	spinnerRepeatArray.add(event_1.getRepeat());
     	
         ArrayAdapter spinnerRepeatAdapter = new ArrayAdapter(this,
                 android.R.layout.simple_spinner_dropdown_item,
@@ -223,6 +234,7 @@ public class EditEventActivity extends Activity implements OnClickListener, OnIt
 			event_1.setStartTime(to_Time);
 			event_1.setEndDate(from_Date);
 			event_1.setEndTime(from_Time);
+			event_1.setRepeat(repeat);
 //<<<<<<< .mine
 	        
 			//int update = SimpleCalendarView.db.updateEvent(event_1);
@@ -231,67 +243,182 @@ public class EditEventActivity extends Activity implements OnClickListener, OnIt
 		//	old_ctg = EventActivity.db.getCategoryByEvent(event_1.getId());
 			//event_1.
 
-			Log.d(tag,"Inside save button:before conflict ");
+			//Log.d(tag,"Inside save button:before conflict ");
 //>>>>>>> .r46
 			
+			
+			
+			
 	        //event_1.seTCategory
-			try {
-				if(SimpleCalendarView.db.checkConflictinEvents(event_1))
-				{
-			        if(categary_from_Spinner.equalsIgnoreCase("Add Category"))
-			        {
-			            ctg = new Category(category_name.getText().toString(), categary_color);  
-			            long ctg1_id = SimpleCalendarView.db.createCategory(ctg);
-			            ctg.setId(ctg1_id);
-			        	Log.d(tag,"Inside  ");
-
-			        	
-			        }
-			   int ck = SimpleCalendarView.db.updateEventCategory(SimpleCalendarView.db.getCatEvByEvent(event_1.getId()), ctg.getId());
-
-				Log.d(tag,"Inside save button: no conflict " + ctg.getName() );
+				try {
 					
-				int update = SimpleCalendarView.db.updateEvent(event_1);
-				Log.d(tag,"Inside edit button: category: "+ SimpleCalendarView.db.getCategoryByEvent(event_1.getId()).getName());
-				
-				Intent list_new = new Intent(this, EventList.class);
-				startActivity(list_new);
-    
-				
-				this.finish();
-				}
-				else
-				{Log.d(tag,"Inside save button: conflict ");
-				// Creating alert Dialog with one Button
+					if(repeat.equals("Repeat-ON")){
+						String[] getmonth = to_Date.split("-");
+		        		int daysInMonth = daysOfMonth[Integer.parseInt(getmonth[1])-1];
+		        		int selectedDate = Integer.parseInt(getmonth[2]);
+		        		boolean checkConflict=true;
+		        		long id=event_1.getId();
+		        		String startDt= fromDt;
+		        		Event ev =event_1;
+		        		for(int i=selectedDate;i<=daysInMonth;i=i+7){
+		        			//Event ev = new Event(edittext_eventTitle.getText().toString(),
+		        					//startDt,startDt,to_Time,from_Time,
+		        	        		//edittext_description.getText().toString(), repeat);
+		     			   		ev.setTitle(event_1.getTitle());
+		     			   		ev.setDescription(event_1.getDescription());
+		     			   		ev.setStartDate(event_1.getStartDate());
+		     			   		ev.setEndDate(event_1.getEndDate());
+		     			   		ev.setStartTime(event_1.getStartTime());
+		     			   		ev.setEndTime(event_1.getEndTime());
+		     			   		ev.setRepeat(event_1.getRepeat());
+		        				checkConflict = checkConflict && SimpleCalendarView.db.checkConflictinEvents(ev);
+
+		        			   String[] getDate = startDt.split("-");
+		        			   startDt = getDate[0]+"-"+getDate[1]+"-"+Integer.toString(Integer.parseInt(getDate[2])+7);
+		        			   id=SimpleCalendarView.db.getRepeatEvent(startDt, startDt, stTime, eTime);
+		        			   if(id!=0){
+		        				   ev = SimpleCalendarView.db.getEvent(id);
+		        			   }
+		        		}
+		        		
+		        		ev = event_1;
+		        		
+		        		if(checkConflict){
+		        			String start_Dt = fromDt;
+		        			if(EditEventActivity.categary_from_Spinner.equalsIgnoreCase("Add Category"))
+		        			{
+		 			            ctg = new Category(category_name.getText().toString(), EditEventActivity.categary_color);  
+		 			            long ctg1_id = SimpleCalendarView.db.createCategory(ctg);
+		 			            ctg.setId(ctg1_id);
+		 			        	
+		 			        }
+		        			Log.d(tag,"Inside  Repeat");
+		        			for(int i=selectedDate;i<=daysInMonth;i=i+7){
+			        			//Event ev = new Event(edittext_eventTitle.getText().toString(),
+			        					//start_Dt,start_Dt,to_Time,from_Time,
+			        	        		//edittext_description.getText().toString(), repeat);
+		        				ev.setTitle(event_1.getTitle());
+		     			   		ev.setDescription(event_1.getDescription());
+		     			   		ev.setStartDate(event_1.getStartDate());
+		     			   		ev.setEndDate(event_1.getEndDate());
+		     			   		ev.setStartTime(event_1.getStartTime());
+		     			   		ev.setEndTime(event_1.getEndTime());
+		     			   		ev.setRepeat(event_1.getRepeat());
+			 			        
+			 					Log.d(tag,"Inside Repeat save button:no conflict " + SimpleCalendarView.db.getCatEvByEvent(ev.getId()));
+			 					 int ck = SimpleCalendarView.db.updateEventCategory(SimpleCalendarView.db.getCatEvByEvent(ev.getId()), ctg.getId());
+			 					
+			 					 //SimpleCalendarView.db.printCATEAVtable();
+			 					 
+			 					Log.d(tag,"Inside save button: no conflict " + ctg.getName() + ctg.getId() );
+			 						
+			 					int update = SimpleCalendarView.db.updateEvent(ev);
+			 					Log.d(tag,"Inside edit button: category: "+ SimpleCalendarView.db.getCategoryByEvent(ev.getId()).getName()
+			 							+ SimpleCalendarView.db.getCategoryByEvent(ev.getId()).getId() );
+			 					
+			 					//this.finish();
+			        			   String[] getDate = start_Dt.split("-");
+			        			   start_Dt = getDate[0]+"-"+getDate[1]+"-"+Integer.toString(Integer.parseInt(getDate[2])+7);
+			        			   id=SimpleCalendarView.db.getRepeatEvent(start_Dt, start_Dt, stTime, eTime);
+			        			   if(id!=0){
+			        				   ev = SimpleCalendarView.db.getEvent(id);
+			        			   }
+			        		}
+		        			this.finish();
+		        		}
+		        		
+		        		else{
+		        			{Log.d(tag,"Inside Repeat save button: conflict ");
+							// Creating alert Dialog with one Button
+							 
+				            AlertDialog alertDialog1 = new AlertDialog.Builder(
+				                    this).create();
 				 
-	            AlertDialog alertDialog1 = new AlertDialog.Builder(
-	                    this).create();
-	 
-	            // Setting Dialog Title
-	            alertDialog1.setTitle("Alert Dialog");
-	 
-	            // Setting Dialog Message
-	            alertDialog1.setMessage("Events conflict: Change the time!");
-	 
-	            // Setting Icon to Dialog
-	        //    alertDialog1.setIcon(R.drawable.tick);
-	 
-	            // Setting OK Button
-	            alertDialog1.setButton("OK", new DialogInterface.OnClickListener() {
-	 
-	                public void onClick(DialogInterface dialog, int which) {
-	                    // Write your code here to execute after dialog
-	                    // closed
-	                	//alertDialog1.
-	                }
-	            });
-	            alertDialog1.show();
-				}
-			} catch (ParseException e) {
+				            // Setting Dialog Title
+				            alertDialog1.setTitle("Alert Dialog");
+				 
+				            // Setting Dialog Message
+				            alertDialog1.setMessage("Repeat Events conflict: Change the time!");
+				 
+				            // Setting Icon to Dialog
+				        //    alertDialog1.setIcon(R.drawable.tick);
+				 
+				            // Setting OK Button
+				            alertDialog1.setButton("OK", new DialogInterface.OnClickListener() {
+				 
+				                public void onClick(DialogInterface dialog, int which) {
+				                    // Write your code here to execute after dialog
+				                    // closed
+				                	//alertDialog1.
+				                }
+				            });
+				            alertDialog1.show();
+							}
+		        		}
+		        	}
+					
+					else{
+					if(SimpleCalendarView.db.checkConflictinEvents(event_1))
+					{
+				        if(categary_from_Spinner.equalsIgnoreCase("Add Category"))
+				        {
+				            ctg = new Category(category_name.getText().toString(), categary_color);  
+				            long ctg1_id = SimpleCalendarView.db.createCategory(ctg);
+				            ctg.setId(ctg1_id);
+				        	Log.d(tag,"Inside  ");
+	
+				        	
+				        }
+				   int ck = SimpleCalendarView.db.updateEventCategory(SimpleCalendarView.db.getCatEvByEvent(event_1.getId()), ctg.getId());
+	
+					Log.d(tag,"Inside save button: no conflict " + ctg.getName() );
+						
+					int update = SimpleCalendarView.db.updateEvent(event_1);
+					Log.d(tag,"Inside edit button: category: "+ SimpleCalendarView.db.getCategoryByEvent(event_1.getId()).getName());
+					
+					Intent list_new = new Intent(this, EventList.class);
+					startActivity(list_new);
+	    
+					
+					this.finish();
+					}
+					else
+					{Log.d(tag,"Inside save button: conflict ");
+					// Creating alert Dialog with one Button
+					 
+		            AlertDialog alertDialog1 = new AlertDialog.Builder(
+		                    this).create();
+		 
+		            // Setting Dialog Title
+		            alertDialog1.setTitle("Alert Dialog");
+		 
+		            // Setting Dialog Message
+		            alertDialog1.setMessage("Events conflict: Change the time!");
+		 
+		            // Setting Icon to Dialog
+		        //    alertDialog1.setIcon(R.drawable.tick);
+		 
+		            // Setting OK Button
+		            alertDialog1.setButton("OK", new DialogInterface.OnClickListener() {
+		 
+		                public void onClick(DialogInterface dialog, int which) {
+		                    // Write your code here to execute after dialog
+		                    // closed
+		                	//alertDialog1.
+		                }
+		            });
+		            alertDialog1.show();
+					}
+					
+				}	
+				} catch (ParseException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			}
+				}
+	
+			
 		}
+			
 	}
 	
 	   public void onItemSelected(AdapterView<?> parent, View view, 
@@ -326,6 +453,11 @@ public class EditEventActivity extends Activity implements OnClickListener, OnIt
 	        	Log.d("SpinnerListener2 :", categary_from_Spinner);
 	    	}
 	    	
+	    	else     	if(idnum == R.id.spinner_repeat)
+	    	{
+	        	repeat =  parent.getItemAtPosition(pos).toString();
+	        	Log.d("Repeat Spinner :", repeat);
+	    	}
 	    	
 	    }
 

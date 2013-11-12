@@ -63,6 +63,8 @@ public class EventActivity extends Activity implements OnClickListener, OnItemSe
 	private final DateFormat dateFormatter = new DateFormat();
 	private static final String dateTemplate = "yyyy-MM-dd";
 	
+	private final int[] daysOfMonth = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+
 	///////////////////////////////////////////////////////////RossY Start
 	
 	 //public static MySQLiteHelper db;
@@ -87,26 +89,28 @@ public class EventActivity extends Activity implements OnClickListener, OnItemSe
 
         //  CRUD Operations
         // Creating categories
-       /* Category ctg1 = new Category("Shopping", "WHITE");
-        long ctg1_id = SimpleCalendarView.db.createCategory(ctg1);
-        ctg1.setId(ctg1_id);
+        //Category ctg1 = new Category("Shopping", "WHITE");
+        //long ctg1_id = SimpleCalendarView.db.createCategory(ctg1);
+        //ctg1.setId(ctg1_id);
         
-        Event event1 = new Event("Walmart","2013-12-1","2013-12-1","17:30","19:00","Need to bye some tortilla");
-        long event1_id = SimpleCalendarView.db.createEvent(event1, new long[] { ctg1_id });*/
-      
-       /* Category ctg1 = new Category("Shopping", "WHITE");
-       Category ctg2 = new Category("Important", "RED");
-      Category ctg3 = new Category("Watchlist", "LTGRAY");
+        
+       /*Category ctg1 = new Category("Shopping", "White");
+       Category ctg2 = new Category("Important", "Red");
+      Category ctg3 = new Category("Watchlist", "Gray");*/
         
         // Inserting categories in db
         
-        long ctg1_id = db.createCategory(ctg1);
+        /*long ctg1_id = SimpleCalendarView.db.createCategory(ctg1);
         ctg1.setId(ctg1_id);
-        long ctg2_id = db.createCategory(ctg2);
+        long ctg2_id = SimpleCalendarView.db.createCategory(ctg2);
         ctg2.setId(ctg2_id);
-        long ctg3_id = db.createCategory(ctg3);
-        ctg3.setId(ctg3_id);*/
+        long ctg3_id = SimpleCalendarView.db.createCategory(ctg3);
+        ctg3.setId(ctg3_id);
        
+        
+        Event event1 = new Event("Walmart","2013-12-01","2013-12-01","17:30","19:00","Need to bye some tortilla","OFF");
+        long event1_id = SimpleCalendarView.db.createEvent(event1, new long[] { ctg1_id });*/
+      
         //Log.d("Category Count", "Category Count: " + db.getAllCategories().size());
         
      // Getting all category names
@@ -119,37 +123,37 @@ public class EventActivity extends Activity implements OnClickListener, OnItemSe
        
         // Creating events
       
-      /* event2 = new Event("RIM","2013-11-02","2013-11-02","17:00","19:00","Need to bye some Cosmetics");
+       /*event2 = new Event("RIM","2013-11-02","2013-11-02","17:00","19:00","Need to bye some Cosmetics","OFF");
         
-        Event event3 = new Event("Phone","2013-11-01","2013-11-01","22:00","22:15","I will call my mom");
-        Event event4 = new Event("Money","2013-11-01","2013-11-01","20:00","22:05","send money to fahad vai");
-        Event event5 = new Event("Time Warner","2013-11-01","2013-11-01","22:05","22:10","Have to change internet line");
+        Event event3 = new Event("Phone","2013-11-01","2013-11-01","22:00","22:15","I will call my mom","OFF");
+        Event event4 = new Event("Money","2013-11-01","2013-11-01","20:00","22:05","send money to fahad vai","OFF");
+        Event event5 = new Event("Time Warner","2013-11-01","2013-11-01","22:05","22:10","Have to change internet line","OFF");
         
-        Event event6 = new Event("Elysium","2013-11-08","2013-11-08","22:00","23:45","wanna watch this movie");
-        Event event7 = new Event("HomeLand","2013-11-09","2013-11-09","19:00","22:00","can't wait to see this series!!!");
+        Event event6 = new Event("Elysium","2013-11-08","2013-11-08","22:00","23:45","wanna watch this movie","OFF");
+        Event event7 = new Event("HomeLand","2013-11-09","2013-11-09","19:00","22:00","can't wait to see this series!!!","OFF");*/
          
         // Inserting events in db
         // Inserting events under "Shopping" category
-       Event event1 = new Event("Walmart","2013-10-31","2013-10-31","17:30","19:00","Need to bye some tortilla");
-      long event1_id = db.createEvent(event1, new long[] { ctg1_id });
+       //Event event1 = new Event("Walmart","2013-10-31","2013-10-31","17:30","19:00","Need to bye some tortilla","OFF");
+      //long event1_id = db.createEvent(event1, new long[] { ctg1_id });
         
-        event1.setId(event1_id);
-       long event2_id = db.createEvent(event2, new long[] { ctg1_id });
+       /* event1.setId(event1_id);
+       long event2_id = SimpleCalendarView.db.createEvent(event2, new long[] { ctg1_id });
         event2.setId(event2_id);   */
      // Inserting events under "Important" category
         
-        /*long event3_id = db.createEvent(event3, new long[] { ctg2_id });
+        /*long event3_id = SimpleCalendarView.db.createEvent(event3, new long[] { ctg2_id });
         event3.setId(event3_id);
-        long event4_id = db.createEvent(event4, new long[] { ctg2_id });
+        long event4_id = SimpleCalendarView.db.createEvent(event4, new long[] { ctg2_id });
         event4.setId(event4_id);
-        long event5_id = db.createEvent(event5, new long[] { ctg2_id });
-        event5.setId(event5_id);*
+        long event5_id = SimpleCalendarView.db.createEvent(event5, new long[] { ctg2_id });
+        event5.setId(event5_id);*/
         
      // Inserting events under "Watchlist" category
         
-        /*long event6_id = db.createEvent(event6, new long[] { ctg3_id });
+        /*long event6_id = SimpleCalendarView.db.createEvent(event6, new long[] { ctg3_id });
        event6.setId(event6_id);
-       long event7_id = db.createEvent(event7, new long[] { ctg3_id });
+       long event7_id = SimpleCalendarView.db.createEvent(event7, new long[] { ctg3_id });
         event7.setId(event7_id);*/
  
         //Log.e("Event Count", "Event count: " + db.getEventCount());
@@ -189,8 +193,8 @@ public class EventActivity extends Activity implements OnClickListener, OnItemSe
        // Log.d("Event Count", "Event Count after Deleting Shoping Category: " + db.getEventCount());
            
        
-        /*Category ctg4 = new Category("Travel", "GREEN");
-        long ctg4_id = db.createCategory(ctg4);
+       /* Category ctg4 = new Category("Travel", "Green");
+        long ctg4_id = SimpleCalendarView.db.createCategory(ctg4);
         ctg4.setId(ctg4_id);*/
         
      // Getting all category names
@@ -213,8 +217,8 @@ public class EventActivity extends Activity implements OnClickListener, OnItemSe
         	Log.d("Category Name:"+category.getName(), "ID:"+category.getId()+"Color:"+category.getColor());
       }*/
       
-        /*Event event8 = new Event("ROSS","2013-11-03","2013-11-03","17:00","19:00","Dhumaia beramu!!");
-       long event8_id = db.createEvent(event8, new long[] { ctg4_id });
+       /* Event event8 = new Event("ROSS","2013-11-03","2013-11-03","17:00","19:00","Dhumaia beramu!!","OFF");
+       long event8_id = SimpleCalendarView.db.createEvent(event8, new long[] { ctg4_id });
        event8.setId(event8_id);*/
       
         // Getting all Events
@@ -417,6 +421,80 @@ public class EventActivity extends Activity implements OnClickListener, OnItemSe
 =======*/
 
 	        try {
+	        	
+	        	
+	        	if(repeat.equals("Repeat-ON")){
+	        		String[] getmonth = to_Date.split("-");
+	        		int daysInMonth = daysOfMonth[Integer.parseInt(getmonth[1])-1];
+	        		int selectedDate = Integer.parseInt(getmonth[2]);
+	        		boolean checkConflict=true;
+	        		String startDt= to_Date;
+	        		for(int i=selectedDate;i<=daysInMonth;i=i+7){
+	        			Event ev = new Event(edittext_eventTitle.getText().toString(),
+	        					startDt,startDt,to_Time,from_Time,
+	        	        		edittext_description.getText().toString(), repeat);
+	        			   checkConflict = checkConflict && SimpleCalendarView.db.checkConflictinEvents(ev);
+	        			   String[] getDate = startDt.split("-");
+	        			   startDt = getDate[0]+"-"+getDate[1]+"-"+Integer.toString(Integer.parseInt(getDate[2])+7);
+	        		}
+	        		
+	        		if(checkConflict){
+	        			String start_Dt = to_Date;
+	        			if(EventActivity.categary_from_Spinner.equalsIgnoreCase("Add Category"))
+	        			{
+	 			            ctg = new Category(category_name.getText().toString(), EventActivity.categary_color);  
+	 			            long ctg1_id = SimpleCalendarView.db.createCategory(ctg);
+	 			            ctg.setId(ctg1_id);
+	 			        	
+	 			        }
+	        			
+	        			for(int i=selectedDate;i<=daysInMonth;i=i+7){
+		        			Event ev = new Event(edittext_eventTitle.getText().toString(),
+		        					start_Dt,start_Dt,to_Time,from_Time,
+		        	        		edittext_description.getText().toString(), repeat);
+		        			 
+		 			        
+		 					Log.d(tag,"Inside Repeat save button:no conflict ");
+		 					long event_current_id = SimpleCalendarView.db.createEvent(ev, new long[] { ctg.getId() });
+		 					
+		 					//this.finish();
+		        			   String[] getDate = start_Dt.split("-");
+		        			   start_Dt = getDate[0]+"-"+getDate[1]+"-"+Integer.toString(Integer.parseInt(getDate[2])+7);
+		        		}
+	        			this.finish();
+	        		}
+	        		
+	        		else{
+	        			{Log.d(tag,"Inside Repeat save button: conflict ");
+						// Creating alert Dialog with one Button
+						 
+			            AlertDialog alertDialog1 = new AlertDialog.Builder(
+			                    this).create();
+			 
+			            // Setting Dialog Title
+			            alertDialog1.setTitle("Alert Dialog");
+			 
+			            // Setting Dialog Message
+			            alertDialog1.setMessage("Repeat Events conflict: Change the time!");
+			 
+			            // Setting Icon to Dialog
+			        //    alertDialog1.setIcon(R.drawable.tick);
+			 
+			            // Setting OK Button
+			            alertDialog1.setButton("OK", new DialogInterface.OnClickListener() {
+			 
+			                public void onClick(DialogInterface dialog, int which) {
+			                    // Write your code here to execute after dialog
+			                    // closed
+			                	//alertDialog1.
+			                }
+			            });
+			            alertDialog1.show();
+						}
+	        		}
+	        	}
+	        	
+	        	else{
 				if(SimpleCalendarView.db.checkConflictinEvents(event_new))
 				{
 			        if(EventActivity.categary_from_Spinner.equalsIgnoreCase("Add Category"))
@@ -459,7 +537,9 @@ public class EventActivity extends Activity implements OnClickListener, OnItemSe
 		            alertDialog1.show();
 					}
 					
-			} catch (ParseException e) {
+			} 
+	        	
+	        }catch (ParseException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}

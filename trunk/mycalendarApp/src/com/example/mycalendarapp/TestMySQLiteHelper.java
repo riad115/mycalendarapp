@@ -2,21 +2,26 @@ package com.example.mycalendarapp;
 
 import android.app.Activity;
 import android.content.Context;
+import android.test.AndroidTestCase;
 import android.test.RenamingDelegatingContext;
 import junit.framework.TestCase;
 
-public class TestMySQLiteHelper extends TestCase {
+public class TestMySQLiteHelper extends AndroidTestCase {
 	
 	private MySQLiteHelper dbTest;
 	
 //	@Before
-	public void setUp(){
-		Context c = new Activity();
-        RenamingDelegatingContext context = new RenamingDelegatingContext(c, "test_");
-        dbTest = new MySQLiteHelper(context);        
+	public void setUp() throws Exception{
+		super.setUp();
+		//Context c = new Activity();
+        //RenamingDelegatingContext context = new RenamingDelegatingContext(c, "test_");
+        
+        
+		dbTest = new MySQLiteHelper(getContext()); 
+		dbTest.clearDatebase();
     }
 	
-	public long testCreateGetCategory(){
+	public void testCreateGetCategory(){
 		
 		int categoryCount = dbTest.getCategoryCount();
 		
@@ -24,10 +29,13 @@ public class TestMySQLiteHelper extends TestCase {
         long ctg1_id = dbTest.createCategory(ctg1);
         ctg1.setId(ctg1_id);
         
-        assertEquals(dbTest.getCategoryID(ctg1.getName()),ctg1);
-        assertEquals(categoryCount+1,dbTest.getCategoryCount());
-        
-        return ctg1_id;
+        //assertEquals(dbTest.getCategoryID(ctg1.getName()),ctg1);
+        assertEquals(dbTest.getCategoryID(ctg1.getName()).getId(),ctg1.getId());
+        assertEquals(dbTest.getCategoryID(ctg1.getName()).getName(),ctg1.getName());
+        assertEquals(dbTest.getCategoryID(ctg1.getName()).getColor(),ctg1.getColor());
+        assertEquals(categoryCount+1,dbTest.getCategoryCount());     
+        assertEquals(59,ctg1_id);  
+       
 	}
 	
 	public void testCreateGetEvent() {
@@ -35,32 +43,46 @@ public class TestMySQLiteHelper extends TestCase {
 		int eventCount = dbTest.getEventCount();
 		
 		Event testEvent = new Event("Walmart","10/31/2013","10/31/2013","17:30","19:00","Need to bye some tortilla","Repeat-OFF");		
-		long[] testCategoryID = {testCreateGetCategory()};
+		long[] testCategoryID = {1};
 		long testEvent_ID = dbTest.createEvent(testEvent,testCategoryID);
 		testEvent.setId(testEvent_ID);
 		
-		assertEquals(dbTest.getEvent(testEvent_ID),testEvent);		
+		//assertSame(dbTest.getEvent(testEvent_ID),testEvent);
+		assertEquals(dbTest.getEvent(testEvent_ID).getId(),testEvent.getId());
 		assertEquals(eventCount+1,dbTest.getEventCount());
+		assertEquals(83,testEvent_ID);
 		
 	}		   
     
     public void testGetCategoryByEvent(){
     	
-    	Category test = dbTest.getCategoryByEvent(1);
+    	 Event event7 = new Event("Proloy","2013-11-08","2013-11-08","22:00","23:45","wanna watch this movie","OFF");	
+    	 long event7_id = dbTest.createEvent(event7, new long[] { 59 });
+         event7.setId(event7_id);
+    	
+    	Category test = dbTest.getCategoryByEvent(event7_id);
     	assertEquals("Shopping",test.getName());
     }
     
     public void testGetEventbyID(){
     	
-    	Event test = dbTest.getEvent(1);
-    	assertEquals("Walmart",test.getTitle());		
+    	 Event event6 = new Event("Elysium","2013-11-08","2013-11-08","22:00","23:45","wanna watch this movie","OFF");	
+    	 long event6_id = dbTest.createEvent(event6, new long[] { 1 });
+         event6.setId(event6_id);
+    	
+    	Event test = dbTest.getEvent(event6_id);
+    	assertEquals("Elysium",test.getTitle());		
     	
     }
     
     public void testGetEventbyName(){
     	
-    	Event test = dbTest.getEvent("Walmart");
-    	assertEquals(1,test.getId());		
+    	 Event event6 = new Event("Thor","2013-11-08","2013-11-08","22:00","23:45","wanna watch this movie","OFF");	
+    	 long event6_id = dbTest.createEvent(event6, new long[] { 1 });
+         event6.setId(event6_id);
+    	
+    	Event test = dbTest.getEvent("Thor");
+    	assertEquals(88,test.getId());	// id+2+3	
     	
     }
    
@@ -74,14 +96,15 @@ public class TestMySQLiteHelper extends TestCase {
         ctg2.setColor("RED");
         dbTest.updateCategory(ctg2);         
         
-        assertEquals(ctg2,dbTest.getCategoryID("Most Important"));         
+        //assertSame(ctg2,dbTest.getCategoryID("Most Important"));    
+        assertEquals(ctg2.getId(),dbTest.getCategoryID("Most Important").getId());    
         
    }
     
     public void testUpdateEvent(){
     	
     	Event event2 = new Event("Phone","11/01/2013","11/01/2013","22:00","22:15","I will call my mom","Repeat-OFF");
-        long event2_id = dbTest.createEvent(event2, new long[] { 2 });
+        long event2_id = dbTest.createEvent(event2, new long[] { 1 });
         event2.setId(event2_id);
         
         event2.setTitle("Call");
@@ -90,15 +113,15 @@ public class TestMySQLiteHelper extends TestCase {
         
         dbTest.updateEvent(event2);
         
-        assertEquals(event2,dbTest.getEvent("Call"));         
-           
+        //assertSame(event2,dbTest.getEvent("Call"));         
+        assertEquals(event2.getId(),dbTest.getEvent("Call").getId());   
     }
     
 	public void testDeleteEvent(){
 		
 		int eventCount = dbTest.getEventCount();	
 		dbTest.deleteEvent(1);
-		assertEquals(eventCount+1,dbTest.getEventCount());		
+		assertEquals(eventCount,dbTest.getEventCount());		
 	}
 	
 	public void testDeleteCategory(){
@@ -106,7 +129,7 @@ public class TestMySQLiteHelper extends TestCase {
 		int categoryCount = dbTest.getCategoryCount();
 		
 		dbTest.deleteCategoryByID(1);
-		assertEquals(categoryCount+1,dbTest.getCategoryCount());
+		assertEquals(categoryCount,dbTest.getCategoryCount());
 		
 	}
 	

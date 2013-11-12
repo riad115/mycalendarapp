@@ -124,7 +124,7 @@ public class MonthlyView extends Activity implements OnClickListener{
 		 
 		 
 		 return allEvents.size();
-		   
+		  // return 0;
 	   }
 
 }

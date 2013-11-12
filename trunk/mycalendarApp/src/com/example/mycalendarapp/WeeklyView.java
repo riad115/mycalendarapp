@@ -347,7 +347,7 @@ public class WeeklyView extends Activity implements OnClickListener{
 			}
 			for (Event event : sunEvent) {
 				sunId =event.getId();
-				String color = SimpleCalendarView.db.getCategoryByEvent(sunId).getName().toString();
+				String color = SimpleCalendarView.db.getCategoryByEvent(sunId).getColor().toString();
 				String[] startTime = event.getStartTime().split(":");
 				String[] endTime = event.getEndTime().split(":");
 				//start = Integer.parseInt(startTime[0])*60 + Integer.parseInt(startTime[1]);
@@ -390,7 +390,7 @@ public class WeeklyView extends Activity implements OnClickListener{
 			}
 			for (Event event : monEvent) {
 				monId =event.getId();
-				String color = SimpleCalendarView.db.getCategoryByEvent(monId).getName().toString();
+				String color = SimpleCalendarView.db.getCategoryByEvent(monId).getColor().toString();
 				String[] startTime = event.getStartTime().split(":");
 				String[] endTime = event.getEndTime().split(":");
 				//start = Integer.parseInt(startTime[0])*60 + Integer.parseInt(startTime[1]);
@@ -432,7 +432,7 @@ public class WeeklyView extends Activity implements OnClickListener{
 			}
 			for (Event event : tueEvent) {
 				tueId =event.getId();
-				String color = SimpleCalendarView.db.getCategoryByEvent(tueId).getName().toString();
+				String color = SimpleCalendarView.db.getCategoryByEvent(tueId).getColor().toString();
 				String[] startTime = event.getStartTime().split(":");
 				String[] endTime = event.getEndTime().split(":");
 				//start = Integer.parseInt(startTime[0])*60 + Integer.parseInt(startTime[1]);
@@ -476,7 +476,7 @@ public class WeeklyView extends Activity implements OnClickListener{
 			}
 			for (Event event : wedEvent) {
 				wedId =event.getId();
-				String color = SimpleCalendarView.db.getCategoryByEvent(wedId).getName().toString();
+				String color = SimpleCalendarView.db.getCategoryByEvent(wedId).getColor().toString();
 				String[] startTime = event.getStartTime().split(":");
 				String[] endTime = event.getEndTime().split(":");
 				//start = Integer.parseInt(startTime[0])*60 + Integer.parseInt(startTime[1]);
@@ -521,7 +521,7 @@ public class WeeklyView extends Activity implements OnClickListener{
 			}
 			for (Event event : thuEvent) {
 				thuId =event.getId();
-				String color = SimpleCalendarView.db.getCategoryByEvent(thuId).getName().toString();
+				String color = SimpleCalendarView.db.getCategoryByEvent(thuId).getColor().toString();
 				String[] startTime = event.getStartTime().split(":");
 				String[] endTime = event.getEndTime().split(":");
 				//start = Integer.parseInt(startTime[0])*60 + Integer.parseInt(startTime[1]);
@@ -566,7 +566,7 @@ public class WeeklyView extends Activity implements OnClickListener{
 			}
 			for (Event event : friEvent) {
 				friId =event.getId();
-				String color = SimpleCalendarView.db.getCategoryByEvent(friId).getName().toString();
+				String color = SimpleCalendarView.db.getCategoryByEvent(friId).getColor().toString();
 				String[] startTime = event.getStartTime().split(":");
 				String[] endTime = event.getEndTime().split(":");
 				//start = Integer.parseInt(startTime[0])*60 + Integer.parseInt(startTime[1]);
@@ -611,7 +611,7 @@ public class WeeklyView extends Activity implements OnClickListener{
 			}
 			for (Event event : satEvent) {
 				satId =event.getId();
-				String color = SimpleCalendarView.db.getCategoryByEvent(satId).getName().toString();
+				String color = SimpleCalendarView.db.getCategoryByEvent(satId).getColor().toString();
 				String[] startTime = event.getStartTime().split(":");
 				String[] endTime = event.getEndTime().split(":");
 				//start = Integer.parseInt(startTime[0])*60 + Integer.parseInt(startTime[1]);

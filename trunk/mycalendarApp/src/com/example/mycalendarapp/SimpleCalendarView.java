@@ -72,6 +72,7 @@ public class SimpleCalendarView extends BaseAdapter implements OnClickListener{
 		Log.d(tag, "CurrentDayOfWeek :" + getCurrentWeekDay());
 		Log.d(tag, "CurrentDayOfMonth :" + getCurrentDayOfMonth());
 		db = new  MySQLiteHelper(_context);
+		//db.clearDatebase();
 		// Print Month
 		printMonth(month, year);
 		
