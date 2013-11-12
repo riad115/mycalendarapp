@@ -647,7 +647,7 @@ public class WeeklyView extends Activity implements OnClickListener{
 	}
 	
 	
-	public int calHeight(String[] startTime, String[] endTime){
+	public static int calHeight(String[] startTime, String[] endTime){
 		int start;
 		int end;
 		int height;
@@ -658,7 +658,7 @@ public class WeeklyView extends Activity implements OnClickListener{
 	}
 	
 	
-	public int calTop(String[] startTime){
+	public static int calTop(String[] startTime){
 		int start;
 		int top;
 		
