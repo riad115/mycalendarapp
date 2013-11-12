@@ -389,7 +389,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
        
        if (c.moveToFirst()) {          
            	
-               ct.setId(c.getInt((c.getColumnIndex(KEY_ID))));
+    	       ct.setId(c.getLong((c.getColumnIndex(KEY_CATEGORY_ID))));
                ct.setName(c.getString(c.getColumnIndex(KEY_CATEGORY_NAME)));
                ct.setColor(c.getString(c.getColumnIndex(KEY_CATEGORY_COLOR)));             
        }
@@ -419,15 +419,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
         // now delete the category
         db.delete(TABLE_CATEGORY, KEY_ID + " = ?",
                 new String[] { String.valueOf(category.getId()) });
-    }
-    
-    public void clearDatebase(){
-    	 //SELECT * FROM Books2
-    	
-    }
-    
-   
-    
+    } 
     
     
     
@@ -493,20 +485,26 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
      */
     public long  getCatEvByEvent(long event_id) {        
         
-        String selectQuery = "SELECT  * FROM " + TABLE_CATEGORY_EVENT + " ce, "
-        		+ TABLE_CATEGORY + " tc, "
-        		+ TABLE_EVENT + " te WHERE te." + KEY_ID + " = " + event_id 
-        		+ " AND tc." + KEY_ID + " = " + "ce." + KEY_CATEGORY_ID 
-                + " AND te." + KEY_ID + " = " + "ce." + KEY_EVENT_ID;            
+        String selectQuery = "SELECT  * FROM " + TABLE_CATEGORY_EVENT + " ce WHERE ce." + KEY_EVENT_ID + " = " + event_id ;      		
+              
      
-        Log.e("In getCatEvByEvent" , selectQuery);
+       // Log.e("In getCatEvByEvent" , selectQuery);
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor c = db.rawQuery(selectQuery, null);
         
        long catEvId = 0 ;
-        if (c.moveToFirst())             	
-        	catEvId =c.getLong((c.getColumnIndex(KEY_ID)));     
-   	
+       long ev = 0 ;
+       long cg = 0 ;
+        if (c.moveToFirst()) {            	
+        	catEvId =c.getLong((c.getColumnIndex(KEY_ID)));   
+        	ev =c.getLong((c.getColumnIndex(KEY_EVENT_ID)));   
+        	cg =c.getLong((c.getColumnIndex(KEY_CATEGORY_ID)));   
+        	
+        	
+        }
+        Log.d("CATEV id: ", " " +catEvId);
+        Log.d("EVENT id: ", " " +ev);
+        Log.d("CATEGORY id: ", " " +cg);
    	 return  catEvId;     
        
     }
@@ -630,6 +628,27 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
         return true;   
 				
 	}
+	
+	  public void printCATEAVtable(){    	
+	    	
+	    	String selectQuery = "SELECT  * FROM " + TABLE_CATEGORY_EVENT ;
+	    	
+	    	 Log.e(LOG, selectQuery);
+	         
+	         SQLiteDatabase db = this.getReadableDatabase();
+	         Cursor c = db.rawQuery(selectQuery, null);
+	         
+	         if (c.moveToFirst()) { 
+	        	 do {
+	             	
+	        	 Log.d("id", ""+c.getInt((c.getColumnIndex(KEY_ID))));
+	        	 Log.e("cid", c.getString(c.getColumnIndex(KEY_CATEGORY_ID)));
+	        	 Log.d("eid",  c.getString(c.getColumnIndex(KEY_EVENT_ID)));  
+	        	 } while (c.moveToNext());
+	         }   	
+	    	
+	    }
+	  
 	  public void clearDatebase(){
 		   
 		  SQLiteDatabase db = this.getWritableDatabase();
