@@ -4,12 +4,8 @@ import junit.framework.TestCase;
 
 public class TestCategory extends TestCase {
 	
-	Category Cat=new Category("TestCat","blue");
+	Category Cat=new Category("TestCat","blue");	
 	
-	public void testToString() {
-		assertEquals(Cat.toString(),"Category [id=0, name=TestCat, color=blue]");
-	}
-
 	public void testGetSetId() {
 		Cat.setId(1510);
 		assertEquals(Cat.getId(),1510);

@@ -42,16 +42,71 @@ public class TestMySQLiteHelper extends TestCase {
 		assertEquals(dbTest.getEvent(testEvent_ID),testEvent);		
 		assertEquals(eventCount+1,dbTest.getEventCount());
 		
+	}		   
+    
+    public void testGetCategoryByEvent(){
+    	
+    	Category test = dbTest.getCategoryByEvent(1);
+    	assertEquals("Shopping",test.getName());
+    }
+    
+    public void testGetEventbyID(){
+    	
+    	Event test = dbTest.getEvent(1);
+    	assertEquals("Walmart",test.getTitle());		
+    	
+    }
+    
+    public void testGetEventbyName(){
+    	
+    	Event test = dbTest.getEvent("Walmart");
+    	assertEquals(1,test.getId());		
+    	
+    }
+   
+    public void	testUpdateCategory(){
+    	
+   	    Category ctg2 = new Category("Important", "BLUE");
+        long ctg2_id = dbTest.createCategory(ctg2);
+        ctg2.setId(ctg2_id);
+        
+        ctg2.setName("Most Important");
+        ctg2.setColor("RED");
+        dbTest.updateCategory(ctg2);         
+        
+        assertEquals(ctg2,dbTest.getCategoryID("Most Important"));         
+        
+   }
+    
+    public void testUpdateEvent(){
+    	
+    	Event event2 = new Event("Phone","11/01/2013","11/01/2013","22:00","22:15","I will call my mom","Repeat-OFF");
+        long event2_id = dbTest.createEvent(event2, new long[] { 2 });
+        event2.setId(event2_id);
+        
+        event2.setTitle("Call");
+        event2.setDescription("I will call my mom & Dad");
+        event2.setEndTime("22:30");
+        
+        dbTest.updateEvent(event2);
+        
+        assertEquals(event2,dbTest.getEvent("Call"));         
+           
+    }
+    
+	public void testDeleteEvent(){
+		
+		int eventCount = dbTest.getEventCount();	
+		dbTest.deleteEvent(1);
+		assertEquals(eventCount+1,dbTest.getEventCount());		
 	}
 	
-	public void testDelete(){
+	public void testDeleteCategory(){
 		
-		int eventCount = dbTest.getEventCount();
 		int categoryCount = dbTest.getCategoryCount();
 		
-		dbTest.deleteEvent(1);
-		assertEquals(eventCount+1,dbTest.getEventCount());
-		
+		dbTest.deleteCategoryByID(1);
+		assertEquals(categoryCount+1,dbTest.getCategoryCount());
 		
 	}
 	
