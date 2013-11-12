@@ -116,7 +116,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
         values.put(KEY_EVENT_STARTTIME, event.getStartTime());
         values.put(KEY_EVENT_ENDTIME, event.getEndTime());
         values.put(KEY_EVENT_DESCRIPTION, event.getDescription());
-        values.put(KEY_EVENT_REPEAT, event.getDescription());
+        values.put(KEY_EVENT_REPEAT, event.getRepeat());
         
         // insert row
         long event_id = db.insert(TABLE_EVENT, null, values);
@@ -240,6 +240,18 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
      */
     public int getEventCount() {
         String countQuery = "SELECT  * FROM " + TABLE_EVENT;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor c = db.rawQuery(countQuery, null);
+ 
+        int count = c.getCount();
+        c.close();
+ 
+        // return count
+        return count;
+    }
+    
+    public int getCategoryCount() {
+        String countQuery = "SELECT  * FROM " + TABLE_CATEGORY;
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor c = db.rawQuery(countQuery, null);
  
