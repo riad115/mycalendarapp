@@ -70,8 +70,8 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
     		+ KEY_EVENT_ENDDATE   + " TEXT,"
     		+ KEY_EVENT_STARTTIME + " TEXT,"
     		+ KEY_EVENT_ENDTIME   + " TEXT,"
-    		+ KEY_EVENT_REPEAT    + " TEXT,"
-            + KEY_EVENT_DESCRIPTION + " TEXT )";
+    		+ KEY_EVENT_DESCRIPTION + " TEXT,"
+    		+ KEY_EVENT_REPEAT   + " TEXT)";
  
     // categories_events table create statement
     private static final String CREATE_TABLE_CATEGORY_EVENT = "CREATE TABLE " + TABLE_CATEGORY_EVENT
@@ -81,7 +81,9 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
       
  
     public MySQLiteHelper(Context context) {
+    	
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
+        //context.deleteDatabase(DATABASE_NAME);
     }
     @Override
     public void onCreate(SQLiteDatabase db) {
@@ -276,7 +278,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
         values.put(KEY_EVENT_STARTTIME, event.getStartTime());
         values.put(KEY_EVENT_ENDTIME, event.getEndTime());
         values.put(KEY_EVENT_DESCRIPTION, event.getDescription());
-        values.put(KEY_EVENT_REPEAT, event.getDescription());
+        values.put(KEY_EVENT_REPEAT, event.getRepeat());
        
      //   Log.e("check", values.getAsString(KEY_EVENT_TITLE));
     //    Log.e("check", ""+event.getId());
@@ -433,6 +435,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
                 new String[] { String.valueOf(category.getId()) });
     } 
     
+
     
     
     /*
@@ -544,7 +547,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
         SQLiteDatabase db = this.getReadableDatabase();
      
         String selectQuery = "SELECT  * FROM " + TABLE_EVENT + " WHERE "
-                + KEY_EVENT_TITLE + " = " + title;
+                + KEY_EVENT_TITLE + " = '" + title+"'";
      
         Log.e(LOG, selectQuery);
      
@@ -669,4 +672,31 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
 		  db.delete(TABLE_CATEGORY_EVENT, "1",null);	
 		    	
 		    }
+	  
+	  
+	  public long getRepeatEvent(String startDate, String endDate, String startTime, String endTime) {
+			
+	        SQLiteDatabase db = this.getReadableDatabase();
+	     
+	        String selectQuery = "SELECT  * FROM " + TABLE_EVENT + " WHERE "
+	                + KEY_EVENT_STARTDATE + " = '" + startDate+"' AND " +KEY_EVENT_ENDDATE+" = '"+endDate+"' AND "
+	        		+KEY_EVENT_STARTTIME+ " = '"+startTime+"' AND "+KEY_EVENT_ENDTIME+" = '"+endTime+"'";
+	     
+	        Log.e(LOG, selectQuery);
+	        long eventID=0;
+	        Cursor c = db.rawQuery(selectQuery, null);
+	        
+	         if (c.moveToFirst()) {
+	            //do {
+	            	Event ev = new Event();
+	            	eventID=(long)c.getInt((c.getColumnIndex(KEY_ID)));
+	            	
+	                
+	                // adding to event list
+	                //events.add(ev);
+	            //} while (c.moveToNext());
+	        }
+	        
+	       return eventID;
+	    }
 }

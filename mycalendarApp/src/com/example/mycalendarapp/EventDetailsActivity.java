@@ -28,7 +28,14 @@ public class EventDetailsActivity extends Activity implements OnClickListener{
 	private TextView repeat;
 	private TextView category;
 	private TextView status;
+	private String repeatEvent;
+	private String fromDate;
+	private String toDate;
+	private String fromTime;
+	private String toTime;
 	private long Id;
+	
+	private final int[] daysOfMonth = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 	public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
  
@@ -111,11 +118,33 @@ public class EventDetailsActivity extends Activity implements OnClickListener{
 	    // Handle item selection
 	    switch (item.getItemId()) {
 	    case R.id.delete_event:
-	    	SimpleCalendarView.db.deleteEvent(eventID);
-	        Intent del = new Intent(this, EventList.class);
-	        startActivity(del);
-	        return true;
-	    
+	    	
+	    	if(repeatEvent.equals("Repeat-ON")){
+	    		String[] getmonth = fromDate.split("-");
+        		int daysInMonth = daysOfMonth[Integer.parseInt(getmonth[1])-1];
+        		int selectedDate = Integer.parseInt(getmonth[2]);
+        		//boolean checkConflict=true;
+        		String startDt= fromDate;
+        		long id =eventID;
+        		for(int i=selectedDate;i<=daysInMonth;i=i+7){
+        			   SimpleCalendarView.db.deleteEvent(id);
+        				
+        			   String[] getDate = startDt.split("-");
+        			   startDt = getDate[0]+"-"+getDate[1]+"-"+Integer.toString(Integer.parseInt(getDate[2])+7);
+        			   id=SimpleCalendarView.db.getRepeatEvent(startDt, startDt, fromTime, toTime);
+        			   Log.d("Inside Repeat event:"+ i, "");
+        		}
+        		
+        		Intent del = new Intent(this, EventList.class);
+		        startActivity(del);
+		        return true;
+	    	}
+	    	else{
+		    	SimpleCalendarView.db.deleteEvent(eventID);
+		        Intent del = new Intent(this, EventList.class);
+		        startActivity(del);
+		        return true;
+		    }
 	    case R.id.edit_event:
 			Intent intent = new Intent(this, EditEventActivity.class);
 			startActivity(intent);
@@ -149,13 +178,18 @@ public class EventDetailsActivity extends Activity implements OnClickListener{
         
         date = (TextView) findViewById(R.id.textView2);
         date.setText(selEvent.getStartDate()+" - "+ selEvent.getEndDate());
+        fromDate= selEvent.getStartDate();
+        toDate = selEvent.getEndDate();
         
         time = (TextView) findViewById(R.id.textView3);
         time.setText(selEvent.getStartTime()+" - "+selEvent.getEndTime());
+        fromTime= selEvent.getStartTime();
+        toTime = selEvent.getEndTime();
+        
         
         repeat = (TextView) findViewById(R.id.textView5);
-        repeat.setText("No");
-        
+        repeat.setText(selEvent.getRepeat());
+        repeatEvent = selEvent.getRepeat();
         category = (TextView) findViewById(R.id.textView7);
         category.setText(SimpleCalendarView.db.getCategoryByEvent(eventID).getName().toString());
         
@@ -184,12 +218,19 @@ public class EventDetailsActivity extends Activity implements OnClickListener{
         
         date = (TextView) findViewById(R.id.textView2);
         date.setText(allEvents.get(position).getStartDate()+" - "+ allEvents.get(position).getEndDate());
+        fromDate = allEvents.get(position).getStartDate();
+        toDate =allEvents.get(position).getEndDate();
+        
         
         time = (TextView) findViewById(R.id.textView3);
         time.setText(allEvents.get(position).getStartTime()+" - "+allEvents.get(position).getEndTime());
+        fromTime= allEvents.get(position).getStartTime();
+        toTime = allEvents.get(position).getEndTime();
+        
         
         repeat = (TextView) findViewById(R.id.textView5);
-        repeat.setText("No");
+        repeat.setText(allEvents.get(position).getRepeat());
+        repeatEvent = allEvents.get(position).getRepeat();
         
         category = (TextView) findViewById(R.id.textView7);
         category.setText(SimpleCalendarView.db.getCategoryByEvent(allEvents.get(position).getId()).getName().toString());

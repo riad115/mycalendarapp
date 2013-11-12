@@ -208,7 +208,7 @@ public class DailyView extends Activity implements OnClickListener{
 			}
 			for (Event event : dailyEvent) {
 				id =event.getId();
-				color = SimpleCalendarView.db.getCategoryByEvent(id).getName().toString();
+				color = SimpleCalendarView.db.getCategoryByEvent(id).getColor().toString();
 				startTime = event.getStartTime().split(":");
 				endTime = event.getEndTime().split(":");
 				start = Integer.parseInt(startTime[0])*60 + Integer.parseInt(startTime[1]);
