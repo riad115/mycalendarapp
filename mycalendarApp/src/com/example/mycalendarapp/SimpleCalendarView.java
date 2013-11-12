@@ -417,7 +417,7 @@ public String getItem(int position)
 		return map;
 	}
 	
-	public boolean findHoliday(String date){
+	public static boolean findHoliday(String date){
 		HashMap<String, Integer> map= new HashMap<String, Integer>();
 		map.put("2013-09-02", 1);
 		map.put("2013-11-28", 1);
