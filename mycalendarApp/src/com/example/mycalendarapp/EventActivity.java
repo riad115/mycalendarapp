@@ -94,13 +94,13 @@ public class EventActivity extends Activity implements OnClickListener, OnItemSe
         //ctg1.setId(ctg1_id);
         
         
-       /*Category ctg1 = new Category("Shopping", "White");
+      /* Category ctg1 = new Category("Shopping", "White");
        Category ctg2 = new Category("Important", "Red");
       Category ctg3 = new Category("Watchlist", "Gray");*/
         
         // Inserting categories in db
         
-        /*long ctg1_id = SimpleCalendarView.db.createCategory(ctg1);
+      /*  long ctg1_id = SimpleCalendarView.db.createCategory(ctg1);
         ctg1.setId(ctg1_id);
         long ctg2_id = SimpleCalendarView.db.createCategory(ctg2);
         ctg2.setId(ctg2_id);
@@ -134,7 +134,7 @@ public class EventActivity extends Activity implements OnClickListener, OnItemSe
          
         // Inserting events in db
         // Inserting events under "Shopping" category
-       //Event event1 = new Event("Walmart","2013-10-31","2013-10-31","17:30","19:00","Need to bye some tortilla","OFF");
+      // Event event1 = new Event("Walmart","2013-10-31","2013-10-31","17:30","19:00","Need to bye some tortilla","OFF");
       //long event1_id = db.createEvent(event1, new long[] { ctg1_id });
         
        /* event1.setId(event1_id);
@@ -142,16 +142,16 @@ public class EventActivity extends Activity implements OnClickListener, OnItemSe
         event2.setId(event2_id);   */
      // Inserting events under "Important" category
         
-        /*long event3_id = SimpleCalendarView.db.createEvent(event3, new long[] { ctg2_id });
+       /* long event3_id = SimpleCalendarView.db.createEvent(event3, new long[] { ctg2_id });
         event3.setId(event3_id);
         long event4_id = SimpleCalendarView.db.createEvent(event4, new long[] { ctg2_id });
         event4.setId(event4_id);
         long event5_id = SimpleCalendarView.db.createEvent(event5, new long[] { ctg2_id });
-        event5.setId(event5_id);*/
+        event5.setId(event5_id);
         
      // Inserting events under "Watchlist" category
         
-        /*long event6_id = SimpleCalendarView.db.createEvent(event6, new long[] { ctg3_id });
+        long event6_id = SimpleCalendarView.db.createEvent(event6, new long[] { ctg3_id });
        event6.setId(event6_id);
        long event7_id = SimpleCalendarView.db.createEvent(event7, new long[] { ctg3_id });
         event7.setId(event7_id);*/
@@ -192,8 +192,8 @@ public class EventActivity extends Activity implements OnClickListener, OnItemSe
  
        // Log.d("Event Count", "Event Count after Deleting Shoping Category: " + db.getEventCount());
            
-       
-       /* Category ctg4 = new Category("Travel", "Green");
+       /*
+        Category ctg4 = new Category("Travel", "Green");
         long ctg4_id = SimpleCalendarView.db.createCategory(ctg4);
         ctg4.setId(ctg4_id);*/
         
@@ -217,7 +217,7 @@ public class EventActivity extends Activity implements OnClickListener, OnItemSe
         	Log.d("Category Name:"+category.getName(), "ID:"+category.getId()+"Color:"+category.getColor());
       }*/
       
-       /* Event event8 = new Event("ROSS","2013-11-03","2013-11-03","17:00","19:00","Dhumaia beramu!!","OFF");
+        /*Event event8 = new Event("ROSS","2013-11-03","2013-11-03","17:00","19:00","Dhumaia beramu!!","OFF");
        long event8_id = SimpleCalendarView.db.createEvent(event8, new long[] { ctg4_id });
        event8.setId(event8_id);*/
       
