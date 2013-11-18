@@ -271,7 +271,7 @@ public class EditEventActivity extends Activity implements OnClickListener, OnIt
 		     			   		ev.setStartTime(event_1.getStartTime());
 		     			   		ev.setEndTime(event_1.getEndTime());
 		     			   		ev.setRepeat(event_1.getRepeat());
-		        				checkConflict = checkConflict && SimpleCalendarView.db.checkConflictinEvents(ev);
+		        				checkConflict = checkConflict && SimpleCalendarView.db.checkConflictinUpdateEvents(ev);
 
 		        			   String[] getDate = startDt.split("-");
 		        			   startDt = getDate[0]+"-"+getDate[1]+"-"+Integer.toString(Integer.parseInt(getDate[2])+7);
@@ -358,7 +358,7 @@ public class EditEventActivity extends Activity implements OnClickListener, OnIt
 		        	}
 					
 					else{
-					if(SimpleCalendarView.db.checkConflictinEvents(event_1))
+					if(SimpleCalendarView.db.checkConflictinUpdateEvents(event_1))
 					{
 				        if(categary_from_Spinner.equalsIgnoreCase("Add Category"))
 				        {

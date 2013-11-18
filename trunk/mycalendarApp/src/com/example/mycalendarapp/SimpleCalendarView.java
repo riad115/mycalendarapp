@@ -42,6 +42,7 @@ public class SimpleCalendarView extends BaseAdapter implements OnClickListener{
 	private final String[] weekdays = new String[]{"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"};
 	private final String[] months = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
 	private final int[] daysOfMonth = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+	private final int[] daysOfMonthLeapYear = {31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 	private final int month, year;
 	private int daysInMonth, prevMonthDays;
 	private int currentDayOfMonth;
@@ -64,7 +65,7 @@ public class SimpleCalendarView extends BaseAdapter implements OnClickListener{
 		this.monthlyEvent = new ArrayList<Event>();
 		Log.d(tag, "==> Passed in Date FOR Month: " + month + " " + "Year: " + year);
 		Calendar calendar = Calendar.getInstance();
-		if (month == calendar.get(Calendar.MONTH)+1){ 
+		if (month == calendar.get(Calendar.MONTH)+1 && year == calendar.get(Calendar.YEAR)){ 
 			setCurrentDayOfMonth(calendar.get(Calendar.DAY_OF_MONTH));
 		}
 		setCurrentWeekDay(calendar.get(Calendar.DAY_OF_WEEK));
@@ -305,7 +306,7 @@ public String getItem(int position)
 		    
 		}  while (calWknd.get(Calendar.MONTH) == currentMonth);
 		
-		if (cal.isLeapYear(cal.get(Calendar.YEAR)) && mm == 1)
+		if (cal.isLeapYear(cal.get(Calendar.YEAR)) && mm == 2)
 			{
 				++daysInMonth;
 			}
@@ -313,8 +314,17 @@ public String getItem(int position)
 		// Trailing Month days
 		for (int i = 0; i < trailingSpaces; i++)
 			{
+				if (cal.isLeapYear(cal.get(Calendar.YEAR)) && mm == Calendar.MARCH + 1)
+					{
+					//list.add(String.valueOf((daysInPrevMonth – trailingSpaces + DAY_OFFSET) + i + 1) + "-GREY" + "-" + getMonthAsString(prevMonth) + "-" + prevYear+"-N");
+					list.add(String.valueOf((daysInPrevMonth - trailingSpaces + DAY_OFFSET) + i+1) + "-GREY" + "-" + getMonthAsString(prevMonth) + "-" + prevYear+"-N");
+
+					}
+				else{
+					list.add(String.valueOf((daysInPrevMonth - trailingSpaces + DAY_OFFSET) + i) + "-GREY" + "-" + getMonthAsString(prevMonth) + "-" + prevYear+"-N");
+				}
 				Log.d(tag, "PREV MONTH:= " + prevMonth + " => " + getMonthAsString(prevMonth) + " " + String.valueOf((daysInPrevMonth - trailingSpaces + DAY_OFFSET) + i));
-				list.add(String.valueOf((daysInPrevMonth - trailingSpaces + DAY_OFFSET) + i) + "-GREY" + "-" + getMonthAsString(prevMonth) + "-" + prevYear+"-N");
+
 			}
 
 		// Current Month Days

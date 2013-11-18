@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
+import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.AdapterView.OnItemClickListener;
 public class EventList extends Activity implements OnClickListener{
@@ -32,10 +33,13 @@ public class EventList extends Activity implements OnClickListener{
             Log.d("Event:"+event.getTitle(),"ID:"+ event.getId()+"Description:"+event.getDescription());
         }
         gridView = (GridView) findViewById(R.id.grid_event);
-        adapter = new EventListAdapter(getApplicationContext());
+        
+        //((BaseAdapter) gridView.getAdapter()).notifyDataSetChanged(); 
+        adapter = new EventListAdapter(this);
         adapter.notifyDataSetChanged();
-        gridView.invalidateViews();
-        gridView.setAdapter(new EventListAdapter(this));
+       gridView.invalidateViews();
+        //gridView.setAdapter(new EventListAdapter(this));
+       gridView.setAdapter(adapter);
         //gridView.setOnClickListener(this);
         
         gridView.setOnItemClickListener(new OnItemClickListener() {
@@ -56,5 +60,17 @@ public class EventList extends Activity implements OnClickListener{
 		// TODO Auto-generated method stub
 		//String title = (String) v.getTag();
 	}
+	
+	
+	@Override
+    public void onResume()
+    {
+         super.onResume();
+         adapter.notifyDataSetChanged();
+         gridView.invalidateViews();
+          //gridView.setAdapter(new EventListAdapter(this));
+         gridView.setAdapter(adapter);
+         
+    }
 
 }
