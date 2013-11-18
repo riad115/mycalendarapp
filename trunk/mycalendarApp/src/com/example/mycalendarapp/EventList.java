@@ -13,6 +13,7 @@ import android.widget.GridView;
 import android.widget.AdapterView.OnItemClickListener;
 public class EventList extends Activity implements OnClickListener{
 	private GridView gridView;
+	private EventListAdapter adapter;
 //	private MySQLiteHelper db;
 	public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,6 +32,9 @@ public class EventList extends Activity implements OnClickListener{
             Log.d("Event:"+event.getTitle(),"ID:"+ event.getId()+"Description:"+event.getDescription());
         }
         gridView = (GridView) findViewById(R.id.grid_event);
+        adapter = new EventListAdapter(getApplicationContext());
+        adapter.notifyDataSetChanged();
+        gridView.invalidateViews();
         gridView.setAdapter(new EventListAdapter(this));
         //gridView.setOnClickListener(this);
         

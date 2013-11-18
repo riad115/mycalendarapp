@@ -34,6 +34,7 @@ public class MainCalenadarActivity extends Activity implements OnClickListener{
 	private SimpleCalendarView adapter;
 	private Calendar _calendar;
 	private int month, year;
+	public static TabHost tabHost;
 	private final DateFormat dateFormatter = new DateFormat();
 	private static final String dateTemplate = "MMMM yyyy";
 	public static int i=0;
@@ -52,31 +53,31 @@ public class MainCalenadarActivity extends Activity implements OnClickListener{
 		
 		
 		Resources ressources = getResources(); 
-		TabHost tabHost = (TabHost) findViewById(R.id.tabhost);
+		tabHost = (TabHost) findViewById(R.id.tabhost);
 		LocalActivityManager mLocalActivityManager = new LocalActivityManager(this, false);
 		mLocalActivityManager.dispatchCreate(savedInstanceState);
 		tabHost.setup(mLocalActivityManager);
 		
 		//Monthly
-		Intent intentMonthly = new Intent().setClass(this, MonthlyView.class);
+		Intent intentMonthly = new Intent().setClass(this, MonthlyView.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		TabSpec tabSpecMonthly = tabHost
 		  .newTabSpec("Month")
 		  .setIndicator("", ressources.getDrawable(R.drawable.monthly_view))
 		  .setContent(intentMonthly);
 		
-		Intent intentWeekly = new Intent().setClass(this, WeeklyView.class);
+		Intent intentWeekly = new Intent().setClass(this, WeeklyView.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		TabSpec tabSpecWeekly = tabHost
 		  .newTabSpec("Week")
 		  .setIndicator("", ressources.getDrawable(R.drawable.weekly_view))
 		  .setContent(intentWeekly);
 		
-		Intent intentDaily = new Intent().setClass(this, DailyView.class);
+		Intent intentDaily = new Intent().setClass(this, DailyView.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		TabSpec tabSpecDaily = tabHost
 		  .newTabSpec("Day")
 		  .setIndicator("", ressources.getDrawable(R.drawable.daily_view))
 		  .setContent(intentDaily);
 		
-		Intent intentEvent = new Intent().setClass(this, EventList.class);
+		Intent intentEvent = new Intent().setClass(this, EventList.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		TabSpec tabSpecEvent = tabHost
 		  .newTabSpec("Event")
 		  .setIndicator("", ressources.getDrawable(R.drawable.calendar_add_event))
@@ -110,6 +111,9 @@ public class MainCalenadarActivity extends Activity implements OnClickListener{
 		adapter.notifyDataSetChanged();
 		calendarView.setAdapter(adapter);
 	}*/
+	
+	public TabHost getMyTabHost() { return tabHost; }
+	
 
 	@Override
 	public void onClick(View v) {
