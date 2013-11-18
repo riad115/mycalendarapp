@@ -141,7 +141,7 @@ public String getItem(int position)
 		String themonth = day_color[2];
 		String theyear = day_color[3];
 		String event = day_color[4];
-		if ((!eventsPerMonthMap.isEmpty()) && (eventsPerMonthMap != null))
+		/*if ((!eventsPerMonthMap.isEmpty()) && (eventsPerMonthMap != null))
 			{
 				if (eventsPerMonthMap.containsKey(theday))
 					{
@@ -150,7 +150,7 @@ public String getItem(int position)
 						num_events_per_day.setText(numEvents.toString());
 					}
 			}
-
+		*/
 		// Set the Day GridCell
 		gridcell.setText(theday);
 		if(Integer.parseInt(theday)<=9){

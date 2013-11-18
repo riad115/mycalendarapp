@@ -3,6 +3,7 @@ package com.example.mycalendarapp;
 import java.util.List;
 
 import android.app.Activity;
+import android.app.TabActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.TabHost;
 import android.widget.TextView;
 
 public class EventDetailsActivity extends Activity implements OnClickListener{
@@ -135,21 +137,33 @@ public class EventDetailsActivity extends Activity implements OnClickListener{
         			   Log.d("Inside Repeat event:"+ i, "");
         		}
         		
-        		Intent del = new Intent(this, EventList.class);
-		        startActivity(del);
+        		//Intent del = new Intent(this, EventList.class);
+		        //startActivity(del);
+		        //TabHost tabHost = (TabHost) findViewById(R.id.tabhost);
+		        //tabHost.setCurrentTab(3);
+        		MainCalenadarActivity.tabHost.setCurrentTab(3);
+		        this.finish();
 		        return true;
 	    	}
 	    	else{
 		    	SimpleCalendarView.db.deleteEvent(eventID);
-		        Intent del = new Intent(this, EventList.class);
-		        startActivity(del);
+		        //Intent del = new Intent(this, EventList.class);
+		        //startActivity(del);
+		        //TabHost tabHost = (TabHost) findViewById(R.id.tabhost);
+		        //tabHost.setCurrentTab(3);
+		        
+		       // ((TabActivity) getParent()).getTabHost().setCurrentTab(3);
+		    	//MainCalenadarActivity ta = (MainCalenadarActivity) this.getParent();
+		    	//TabHost th = ta.getMyTabHost();
+		    	MainCalenadarActivity.tabHost.setCurrentTab(3);
+		        this.finish();
 		        return true;
 		    }
 	    case R.id.edit_event:
 			Intent intent = new Intent(this, EditEventActivity.class);
 			startActivity(intent);
 			
-
+			this.finish();
 			return true;
 			
 	    default:
