@@ -629,7 +629,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
         	if( newStartTime.after(previousStartTime)  &&  newStartTime.before(previousEndTime)  ||
         		newEndTime.after(previousStartTime)    &&  newEndTime.before(previousEndTime)    ||
         		previousStartTime.after(newStartTime)  &&  previousStartTime.before(newEndTime)  ||
-        		previousEndTime.after(newStartTime)  &&  previousEndTime.before(newEndTime) ) {       		   		
+        		previousEndTime.after(newStartTime)    &&  previousEndTime.before(newEndTime) ) {       		   		
         		
         			Log.e("Conflict","Can not insert new event");        			
         			return false;
