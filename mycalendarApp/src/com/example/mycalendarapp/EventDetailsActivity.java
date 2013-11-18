@@ -3,7 +3,9 @@ package com.example.mycalendarapp;
 import java.util.List;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.TabActivity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -19,9 +21,11 @@ public class EventDetailsActivity extends Activity implements OnClickListener{
 	//private MySQLiteHelper db;
 	private TextView[] txtEvent; 
 	private List<Event> allEvents;
+	private List<Event> catEvents;
 	private Event selEvent;
 	private String eventTitle;
 	public static long eventID;
+	public Category delCategory;
 	private int position;
 	private TextView title;
 	private TextView description;
@@ -36,6 +40,7 @@ public class EventDetailsActivity extends Activity implements OnClickListener{
 	private String fromTime;
 	private String toTime;
 	private long Id;
+	private String categoryName;
 	
 	private final int[] daysOfMonth = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 	public void onCreate(Bundle savedInstanceState) {
@@ -137,17 +142,39 @@ public class EventDetailsActivity extends Activity implements OnClickListener{
         			   Log.d("Inside Repeat event:"+ i, "");
         		}
         		
-        		//Intent del = new Intent(this, EventList.class);
-		        //startActivity(del);
-		        //TabHost tabHost = (TabHost) findViewById(R.id.tabhost);
-		        //tabHost.setCurrentTab(3);
-        		MainCalenadarActivity.tabHost.setCurrentTab(3);
-		        this.finish();
-		        return true;
-	    	}
-	    	else{
-		    	SimpleCalendarView.db.deleteEvent(eventID);
+        		catEvents = SimpleCalendarView.db.getAllEventsByCategory(categoryName);
+		    	delCategory = SimpleCalendarView.db.getCategoryID(categoryName);
+		    	if(catEvents.size()==0){
+		    		SimpleCalendarView.db.deleteCategoryByID((int)delCategory.getId());
+		    		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+		    				this);
+		     
+		    			// set title
+		    			alertDialogBuilder.setTitle("Deleting Category");
+		     
+		    			// set dialog message
+		    			alertDialogBuilder
+		    				.setMessage("Repeat Event as well as Category is deleted as there is no Event under this category")
+		    				.setCancelable(false)
+		    				
+		    				.setPositiveButton("Ok",new DialogInterface.OnClickListener() {
+		    					public void onClick(DialogInterface dialog,int id) {
+		    						// if this button is clicked, just close
+		    						// the dialog box and do nothing
+		    						//dialog.cancel();
+		    						MainCalenadarActivity.tabHost.setCurrentTab(0);
+		    				        EventDetailsActivity.this.finish();
+		    					}
+		    				});
+		     
+		    				// create alert dialog
+		    				AlertDialog alertDialog = alertDialogBuilder.create();
+		     
+		    				// show it
+		    				alertDialog.show();
+		    	}
 		        //Intent del = new Intent(this, EventList.class);
+		        //del.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
 		        //startActivity(del);
 		        //TabHost tabHost = (TabHost) findViewById(R.id.tabhost);
 		        //tabHost.setCurrentTab(3);
@@ -155,12 +182,121 @@ public class EventDetailsActivity extends Activity implements OnClickListener{
 		       // ((TabActivity) getParent()).getTabHost().setCurrentTab(3);
 		    	//MainCalenadarActivity ta = (MainCalenadarActivity) this.getParent();
 		    	//TabHost th = ta.getMyTabHost();
-		    	MainCalenadarActivity.tabHost.setCurrentTab(3);
-		        this.finish();
+		    	else{
+		    	AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+	    				this);
+	     
+	    			// set title
+	    			alertDialogBuilder.setTitle("Deleting Event");
+	     
+	    			// set dialog message
+	    			alertDialogBuilder
+	    				.setMessage("Repeat Event is deleted!!")
+	    				.setCancelable(false)
+	    				
+	    				.setPositiveButton("Ok",new DialogInterface.OnClickListener() {
+	    					public void onClick(DialogInterface dialog,int id) {
+	    						// if this button is clicked, just close
+	    						// the dialog box and do nothing
+	    						//dialog.cancel();
+	    						MainCalenadarActivity.tabHost.setCurrentTab(0);
+	    				        EventDetailsActivity.this.finish();
+	    					}
+	    				});
+	     
+	    				// create alert dialog
+	    				AlertDialog alertDialog = alertDialogBuilder.create();
+	     
+	    				// show it
+	    				alertDialog.show();
+		    	//MainCalenadarActivity.tabHost.setCurrentTab(0);
+		        //this.finish();
+		    	}
+        		//Intent del = new Intent(this, EventList.class);
+		        //startActivity(del);
+		        //TabHost tabHost = (TabHost) findViewById(R.id.tabhost);
+		        //tabHost.setCurrentTab(3);
+        		//MainCalenadarActivity.tabHost.setCurrentTab(0);
+		       // this.finish();
+		        return true;
+	    	}
+	    	else{
+		    	SimpleCalendarView.db.deleteEvent(eventID);
+		    	catEvents = SimpleCalendarView.db.getAllEventsByCategory(categoryName);
+		    	delCategory = SimpleCalendarView.db.getCategoryID(categoryName);
+		    	if(catEvents.size()==0){
+		    		SimpleCalendarView.db.deleteCategoryByID((int)delCategory.getId());
+		    		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+		    				this);
+		     
+		    			// set title
+		    			alertDialogBuilder.setTitle("Deleting Category");
+		     
+		    			// set dialog message
+		    			alertDialogBuilder
+		    				.setMessage("Event as well as Category is deleted as there is no Event under this category")
+		    				.setCancelable(false)
+		    				
+		    				.setPositiveButton("Ok",new DialogInterface.OnClickListener() {
+		    					public void onClick(DialogInterface dialog,int id) {
+		    						// if this button is clicked, just close
+		    						// the dialog box and do nothing
+		    						//dialog.cancel();
+		    						MainCalenadarActivity.tabHost.setCurrentTab(0);
+		    				        EventDetailsActivity.this.finish();
+		    					}
+		    				});
+		     
+		    				// create alert dialog
+		    				AlertDialog alertDialog = alertDialogBuilder.create();
+		     
+		    				// show it
+		    				alertDialog.show();
+		    	}
+		        //Intent del = new Intent(this, EventList.class);
+		        //del.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+		        //startActivity(del);
+		        //TabHost tabHost = (TabHost) findViewById(R.id.tabhost);
+		        //tabHost.setCurrentTab(3);
+		        
+		       // ((TabActivity) getParent()).getTabHost().setCurrentTab(3);
+		    	//MainCalenadarActivity ta = (MainCalenadarActivity) this.getParent();
+		    	//TabHost th = ta.getMyTabHost();
+		    	else{
+		    	AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+	    				this);
+	     
+	    			// set title
+	    			alertDialogBuilder.setTitle("Deleting Event");
+	     
+	    			// set dialog message
+	    			alertDialogBuilder
+	    				.setMessage("Event is deleted!!")
+	    				.setCancelable(false)
+	    				
+	    				.setPositiveButton("Ok",new DialogInterface.OnClickListener() {
+	    					public void onClick(DialogInterface dialog,int id) {
+	    						// if this button is clicked, just close
+	    						// the dialog box and do nothing
+	    						//dialog.cancel();
+	    						MainCalenadarActivity.tabHost.setCurrentTab(0);
+	    				        EventDetailsActivity.this.finish();
+	    					}
+	    				});
+	     
+	    				// create alert dialog
+	    				AlertDialog alertDialog = alertDialogBuilder.create();
+	     
+	    				// show it
+	    				alertDialog.show();
+		    	//MainCalenadarActivity.tabHost.setCurrentTab(0);
+		        //this.finish();
+		    	}
 		        return true;
 		    }
 	    case R.id.edit_event:
 			Intent intent = new Intent(this, EditEventActivity.class);
+			//intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
 			startActivity(intent);
 			
 			this.finish();
@@ -206,6 +342,8 @@ public class EventDetailsActivity extends Activity implements OnClickListener{
         repeatEvent = selEvent.getRepeat();
         category = (TextView) findViewById(R.id.textView7);
         category.setText(SimpleCalendarView.db.getCategoryByEvent(eventID).getName().toString());
+        categoryName= SimpleCalendarView.db.getCategoryByEvent(eventID).getName().toString();
+        
         
         status = (TextView) findViewById(R.id.textView9);
         status.setText("Busy");
@@ -248,6 +386,7 @@ public class EventDetailsActivity extends Activity implements OnClickListener{
         
         category = (TextView) findViewById(R.id.textView7);
         category.setText(SimpleCalendarView.db.getCategoryByEvent(allEvents.get(position).getId()).getName().toString());
+        categoryName=SimpleCalendarView.db.getCategoryByEvent(allEvents.get(position).getId()).getName().toString();
         
         status = (TextView) findViewById(R.id.textView9);
         status.setText("Busy");
