@@ -600,8 +600,11 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
         
        return events;
     }
-/////////////////////////// Not Sure....
-	
+	/*
+	 * 
+	 * check conflict before event insert
+	 */
+
 	public boolean checkConflictinEvents(Event newEvent ) throws ParseException{
 		
 		SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm");
@@ -609,12 +612,21 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
 		String sTime = newEvent.getStartTime();
 		String sDate = newEvent.getStartDate();
 		String eTime = newEvent.getEndTime();
-		String eDate = newEvent.getEndDate();		
+		String eDate = newEvent.getEndDate();			
     	
     	Date parsedStartTime = timeFormat.parse(sTime);
     	Timestamp newStartTime = new Timestamp(parsedStartTime.getTime());    	
     	Date parsedEndTime = timeFormat.parse(eTime);
     	Timestamp newEndTime = new Timestamp(parsedEndTime.getTime());
+    	
+    	if(sDate.equalsIgnoreCase(eDate)){
+    		
+    		if(newStartTime.after(newEndTime)){
+    		
+    			Log.e("Illogiacl input","StartTime is greater then EndTime");        			
+    			return false;    		
+    		}
+    	}
 	
 		List<Event> allEvents = getEvent(sDate,eDate);
         for (Event prevEvent : allEvents) {
@@ -631,7 +643,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
         		previousStartTime.after(newStartTime)  &&  previousStartTime.before(newEndTime)  ||
         		previousEndTime.after(newStartTime)    &&  previousEndTime.before(newEndTime) ) {       		   		
         		
-        			Log.e("Conflict","Can not insert new event");        			
+        			Log.e("Conflict with existent event","Can not insert new event");        			
         			return false;
         	}
         	
@@ -643,7 +655,62 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
         return true;   
 				
 	}
+/*
+ *Check before event update
+ */
 	
+public boolean checkConflictinUpdateEvents(Event newEvent ) throws ParseException{
+		
+		SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm");
+		
+		String sTime = newEvent.getStartTime();
+		String sDate = newEvent.getStartDate();
+		String eTime = newEvent.getEndTime();
+		String eDate = newEvent.getEndDate();			
+    	
+    	Date parsedStartTime = timeFormat.parse(sTime);
+    	Timestamp newStartTime = new Timestamp(parsedStartTime.getTime());    	
+    	Date parsedEndTime = timeFormat.parse(eTime);
+    	Timestamp newEndTime = new Timestamp(parsedEndTime.getTime());
+    	
+    	if(sDate.equalsIgnoreCase(eDate)){
+    		
+    		if(newStartTime.after(newEndTime)){
+    		
+    			Log.e("Illogiacl Update","StartTime is greater then EndTime");        			
+    			return false;    		
+    		}
+    	}
+    	
+		List<Event> allEvents = getEvent(sDate,eDate);
+        for (Event prevEvent : allEvents) {
+        	 
+        	Log.d("Event: "+prevEvent.getTitle(),""+ prevEvent.getId()+"  "+prevEvent.getDescription());
+        	
+        	Date parsedPreviousStartTime = timeFormat.parse(prevEvent.getStartTime());
+        	Timestamp previousStartTime = new Timestamp(parsedPreviousStartTime.getTime());    	
+        	Date parsedPreviousEndTime = timeFormat.parse(prevEvent.getEndTime());
+        	Timestamp previousEndTime = new Timestamp(parsedPreviousEndTime.getTime());
+        	
+        	if( newStartTime.after(previousStartTime)  &&  newStartTime.before(previousEndTime)  ||
+        		newEndTime.after(previousStartTime)    &&  newEndTime.before(previousEndTime)    ||
+        		previousStartTime.after(newStartTime)  &&  previousStartTime.before(newEndTime)  ||
+        		previousEndTime.after(newStartTime)  &&  previousEndTime.before(newEndTime) ) {
+        		
+        		if(newEvent.getId()!=prevEvent.getId()){
+        			Log.e("Conflict with existent event","Can not update this event");      		
+        			return false;
+        		}
+        	}        	
+           	 
+        }         
+        return true;   
+				
+	}
+/*
+ * printing the 3rd table
+ */
+		
 	  public void printCATEAVtable(){    	
 	    	
 	    	String selectQuery = "SELECT  * FROM " + TABLE_CATEGORY_EVENT ;
