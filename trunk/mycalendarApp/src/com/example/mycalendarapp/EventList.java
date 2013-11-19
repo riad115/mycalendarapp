@@ -12,11 +12,23 @@ import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.AdapterView.OnItemClickListener;
+// TODO: Auto-generated Javadoc
+
+/**
+ * The Class EventList.
+ */
 public class EventList extends Activity implements OnClickListener{
+	
+	/** The grid view. */
 	private GridView gridView;
+	
+	/** The adapter. */
 	private EventListAdapter adapter;
 //	private MySQLiteHelper db;
-	public void onCreate(Bundle savedInstanceState) {
+	/* (non-Javadoc)
+ * @see android.app.Activity#onCreate(android.os.Bundle)
+ */
+public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
  
         //TextView textview = new TextView(this);
@@ -55,6 +67,10 @@ public class EventList extends Activity implements OnClickListener{
         });
         
 	}
+	
+	/* (non-Javadoc)
+	 * @see android.view.View.OnClickListener#onClick(android.view.View)
+	 */
 	@Override
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
@@ -62,6 +78,9 @@ public class EventList extends Activity implements OnClickListener{
 	}
 	
 	
+	/* (non-Javadoc)
+	 * @see android.app.Activity#onResume()
+	 */
 	@Override
     public void onResume()
     {

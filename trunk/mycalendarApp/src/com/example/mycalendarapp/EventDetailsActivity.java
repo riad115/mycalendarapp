@@ -16,33 +16,87 @@ import android.view.View.OnClickListener;
 import android.widget.TabHost;
 import android.widget.TextView;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class EventDetailsActivity.
+ */
 public class EventDetailsActivity extends Activity implements OnClickListener{
+	
+	/** The list adapter. */
 	private EventListAdapter listAdapter;
 	//private MySQLiteHelper db;
+	/** The txt event. */
 	private TextView[] txtEvent; 
+	
+	/** The all events. */
 	private List<Event> allEvents;
+	
+	/** The cat events. */
 	private List<Event> catEvents;
+	
+	/** The sel event. */
 	private Event selEvent;
+	
+	/** The event title. */
 	private String eventTitle;
+	
+	/** The event id. */
 	public static long eventID;
+	
+	/** The del category. */
 	public Category delCategory;
+	
+	/** The position. */
 	private int position;
+	
+	/** The title. */
 	private TextView title;
+	
+	/** The description. */
 	private TextView description;
+	
+	/** The date. */
 	private TextView date;
+	
+	/** The time. */
 	private TextView time;
+	
+	/** The repeat. */
 	private TextView repeat;
+	
+	/** The category. */
 	private TextView category;
+	
+	/** The status. */
 	private TextView status;
+	
+	/** The repeat event. */
 	private String repeatEvent;
+	
+	/** The from date. */
 	private String fromDate;
+	
+	/** The to date. */
 	private String toDate;
+	
+	/** The from time. */
 	private String fromTime;
+	
+	/** The to time. */
 	private String toTime;
+	
+	/** The Id. */
 	private long Id;
+	
+	/** The category name. */
 	private String categoryName;
 	
+	/** The days of month. */
 	private final int[] daysOfMonth = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+	
+	/* (non-Javadoc)
+	 * @see android.app.Activity#onCreate(android.os.Bundle)
+	 */
 	public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
  
@@ -108,18 +162,28 @@ public class EventDetailsActivity extends Activity implements OnClickListener{
 	}
 	
 	
+	/* (non-Javadoc)
+	 * @see android.app.Activity#onCreateOptionsMenu(android.view.Menu)
+	 */
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.event_details, menu);
 		return true;
 	}
+	
+	/* (non-Javadoc)
+	 * @see android.view.View.OnClickListener#onClick(android.view.View)
+	 */
 	@Override
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
 		
 	}
 	
+	/* (non-Javadoc)
+	 * @see android.app.Activity#onOptionsItemSelected(android.view.MenuItem)
+	 */
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 	    // Handle item selection
@@ -308,6 +372,11 @@ public class EventDetailsActivity extends Activity implements OnClickListener{
 	}
 	
 	
+	/**
+	 * Prints the event details.
+	 *
+	 * @param id the id
+	 */
 	public void printEventDetails(Long id){
 		Log.d("Get ID", id.toString());
 		selEvent = SimpleCalendarView.db.getEvent(id);
@@ -350,6 +419,11 @@ public class EventDetailsActivity extends Activity implements OnClickListener{
 	}
 	
 	
+	/**
+	 * Prints the event details.
+	 *
+	 * @param id the id
+	 */
 	public void printEventDetails(Integer id){
 		Log.d("Get Events", "Getting All Events");
 

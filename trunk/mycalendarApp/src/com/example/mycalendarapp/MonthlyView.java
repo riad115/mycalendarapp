@@ -17,24 +17,56 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class MonthlyView.
+ */
 public class MonthlyView extends Activity implements OnClickListener{
+	
+	/** The Constant tag. */
 	private static final String tag = "MonthlyView";
 
+	/** The calendar to journal button. */
 	private ImageView calendarToJournalButton;
+	
+	/** The selected day month year button. */
 	private Button selectedDayMonthYearButton;
+	
+	/** The current month. */
 	private Button currentMonth;
+	
+	/** The prev month. */
 	private ImageView prevMonth;
+	
+	/** The next month. */
 	private ImageView nextMonth;
+	
+	/** The calendar view. */
 	private GridView calendarView;
+	
+	/** The adapter. */
 	private SimpleCalendarView adapter;
+	
+	/** The _calendar. */
 	private Calendar _calendar;
+	
+	/** The year. */
 	private int month, year;
+	
+	/** The date formatter. */
 	private final DateFormat dateFormatter = new DateFormat();
+	
+	/** The Constant dateTemplate. */
 	private static final String dateTemplate = "MMMM yyyy";
+	
+	/** The date format. */
 	private final SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MMM-yyyy");
 	
 	//public static MySQLiteHelper db;
 	
+	/* (non-Javadoc)
+	 * @see android.app.Activity#onCreate(android.os.Bundle)
+	 */
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.calendar_view);
@@ -74,6 +106,12 @@ public class MonthlyView extends Activity implements OnClickListener{
 		//db.closeDB();
     }
 	
+	/**
+	 * Sets the grid cell adapter to date.
+	 *
+	 * @param month the month
+	 * @param year the year
+	 */
 	private void setGridCellAdapterToDate(int month, int year)
 	{
 		adapter = new SimpleCalendarView(getApplicationContext(), R.id.calendar_day_gridcell, month, year);
@@ -82,6 +120,10 @@ public class MonthlyView extends Activity implements OnClickListener{
 		adapter.notifyDataSetChanged();
 		calendarView.setAdapter(adapter);
 	}
+	
+	/* (non-Javadoc)
+	 * @see android.view.View.OnClickListener#onClick(android.view.View)
+	 */
 	@Override
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
@@ -118,7 +160,13 @@ public class MonthlyView extends Activity implements OnClickListener{
 	  }
 	
 	
-	 public static int eventCount(String date){
+	 /**
+ 	 * Event count.
+ 	 *
+ 	 * @param date the date
+ 	 * @return the int
+ 	 */
+ 	public static int eventCount(String date){
 		
 		 List<Event> allEvents = SimpleCalendarView.db.getEvent(date, date);
 		 

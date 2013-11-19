@@ -3,9 +3,16 @@ package com.example.mycalendarapp;
 import android.test.AndroidTestCase;
 import junit.framework.TestCase;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class WeeklyViewTest.
+ */
 public class WeeklyViewTest extends AndroidTestCase {
 
 	//WeeklyView wkView ;
+	/**
+	 * Testcal top.
+	 */
 	public void testcalTop(){
 		
 		String[] stTime = {Integer.toString(2),Integer.toString(15)};
@@ -16,6 +23,9 @@ public class WeeklyViewTest extends AndroidTestCase {
 	}
 	
 	
+	/**
+	 * Testcal height.
+	 */
 	public void testcalHeight(){
 		String[] stTime = {Integer.toString(2),Integer.toString(15)};
 		String[] eTime = {Integer.toString(2),Integer.toString(15)};

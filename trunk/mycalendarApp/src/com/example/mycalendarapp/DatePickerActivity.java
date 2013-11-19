@@ -16,17 +16,32 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.TextView;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class DatePickerActivity.
+ */
 public class DatePickerActivity extends Activity  implements OnClickListener{
+	
+	/** The Constant tag. */
 	private static final String tag = "Date picker Activity";
 	
+	/** The ok button. */
 	private Button okButton;
+	
+	/** The cancel button. */
 	private Button cancelButton;
+    
+    /** The dp. */
     private DatePicker dp;
 
 	
+    /** The formated date. */
     String formatedDate;
     
 	
+	/* (non-Javadoc)
+	 * @see android.app.Activity#onCreate(android.os.Bundle)
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -44,6 +59,9 @@ public class DatePickerActivity extends Activity  implements OnClickListener{
 		dp = (DatePicker) findViewById(R.id.datePicker1);
 	}
 
+	/* (non-Javadoc)
+	 * @see android.app.Activity#onCreateOptionsMenu(android.view.Menu)
+	 */
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
@@ -51,6 +69,9 @@ public class DatePickerActivity extends Activity  implements OnClickListener{
 		return true;
 	}
 	
+	/* (non-Javadoc)
+	 * @see android.view.View.OnClickListener#onClick(android.view.View)
+	 */
 	@Override
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
