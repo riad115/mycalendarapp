@@ -28,7 +28,7 @@ import android.widget.TextView;
 
 // TODO: Auto-generated Javadoc
 /**
- * The Class DailyView.
+ * The Class DailyView for the daily view of calendar
  */
 public class DailyView extends Activity implements OnClickListener{
 	
@@ -241,7 +241,7 @@ public class DailyView extends Activity implements OnClickListener{
 	}
 	
 	/**
-	 * Prints the daily event.
+	 * Prints the daily event of a particular date
 	 *
 	 * @param date the date
 	 */
@@ -299,7 +299,7 @@ public class DailyView extends Activity implements OnClickListener{
 	 * Find color.
 	 *
 	 * @param color the color
-	 * @return the string
+	 * @return the color code
 	 */
 	public static String findColor(String color){
 		HashMap<String, String> map = new HashMap<String, String>();

@@ -27,7 +27,7 @@ import android.graphics.Color;
 
 // TODO: Auto-generated Javadoc
 /**
- * The Class SimpleCalendarView.
+ * The Class SimpleCalendarView is for the gridview for {@link MonthlyView} class.
  */
 public class SimpleCalendarView extends BaseAdapter implements OnClickListener{
 	

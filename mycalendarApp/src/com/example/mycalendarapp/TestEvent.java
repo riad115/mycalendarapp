@@ -4,7 +4,7 @@ import junit.framework.TestCase;
 
 // TODO: Auto-generated Javadoc
 /**
- * The Class TestEvent.
+ * The Class TestEvent is the test class for {@link Event}.
  */
 public class TestEvent extends TestCase {
 	

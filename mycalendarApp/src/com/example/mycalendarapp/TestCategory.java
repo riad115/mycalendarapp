@@ -4,7 +4,7 @@ import junit.framework.TestCase;
 
 // TODO: Auto-generated Javadoc
 /**
- * The Class TestCategory.
+ * The Class TestCategory is the test class for {@link Category}.
  */
 public class TestCategory extends TestCase {
 	

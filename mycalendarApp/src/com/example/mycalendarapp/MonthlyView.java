@@ -19,7 +19,7 @@ import android.widget.TextView;
 
 // TODO: Auto-generated Javadoc
 /**
- * The Class MonthlyView.
+ * The Class MonthlyView for the monthly view of the calendar.
  */
 public class MonthlyView extends Activity implements OnClickListener{
 	
@@ -107,7 +107,7 @@ public class MonthlyView extends Activity implements OnClickListener{
     }
 	
 	/**
-	 * Sets the grid cell adapter to date.
+	 * Sets the grid cell adapter to date for the selected month.
 	 *
 	 * @param month the month
 	 * @param year the year
@@ -164,7 +164,7 @@ public class MonthlyView extends Activity implements OnClickListener{
  	 * Event count.
  	 *
  	 * @param date the date
- 	 * @return the int
+ 	 * @return the event count of that particular date
  	 */
  	public static int eventCount(String date){
 		

@@ -5,7 +5,7 @@ import junit.framework.TestCase;
 
 // TODO: Auto-generated Javadoc
 /**
- * The Class DailyViewTest.
+ * The Class DailyViewTest for test class for daily view
  */
 public class DailyViewTest extends AndroidTestCase {
 

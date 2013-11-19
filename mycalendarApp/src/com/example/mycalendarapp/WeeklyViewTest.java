@@ -5,7 +5,7 @@ import junit.framework.TestCase;
 
 // TODO: Auto-generated Javadoc
 /**
- * The Class WeeklyViewTest.
+ * The Class WeeklyViewTest is the test class for {@link WeeklyView}.
  */
 public class WeeklyViewTest extends AndroidTestCase {
 

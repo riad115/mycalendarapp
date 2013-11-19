@@ -15,7 +15,7 @@ import android.widget.TimePicker;
 
 // TODO: Auto-generated Javadoc
 /**
- * The Class TimePickerActivity.
+ * The Class TimePickerActivity for selecting time for adding or updating event
  */
 public class TimePickerActivity extends Activity implements OnClickListener {
 	

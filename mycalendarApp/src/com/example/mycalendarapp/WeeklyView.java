@@ -23,7 +23,7 @@ import android.widget.TextView;
 
 // TODO: Auto-generated Javadoc
 /**
- * The Class WeeklyView.
+ * The Class WeeklyView is the weekly view of a particular week in the calendar.
  */
 public class WeeklyView extends Activity implements OnClickListener{
 	
@@ -788,7 +788,7 @@ public class WeeklyView extends Activity implements OnClickListener{
 	 *
 	 * @param startTime the start time
 	 * @param endTime the end time
-	 * @return the int
+	 * @return the height of the event textview
 	 */
 	public static int calHeight(String[] startTime, String[] endTime){
 		int start;
@@ -805,7 +805,7 @@ public class WeeklyView extends Activity implements OnClickListener{
 	 * Cal top.
 	 *
 	 * @param startTime the start time
-	 * @return the int
+	 * @return the top margin of event textview
 	 */
 	public static int calTop(String[] startTime){
 		int start;

@@ -18,7 +18,7 @@ import android.widget.TextView;
 
 // TODO: Auto-generated Javadoc
 /**
- * The Class EventDetailsActivity.
+ * The Class EventDetailsActivity for the detail view of a particular event
  */
 public class EventDetailsActivity extends Activity implements OnClickListener{
 	

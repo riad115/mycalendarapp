@@ -28,7 +28,7 @@ import android.widget.TextView;
 
 // TODO: Auto-generated Javadoc
 /**
- * The Class EventActivity.
+ * The Class EventActivity is for adding event in the calendar
  */
 public class EventActivity extends Activity implements OnClickListener, OnItemSelectedListener {
 	
@@ -499,7 +499,7 @@ public class EventActivity extends Activity implements OnClickListener, OnItemSe
 	        	        		edittext_description.getText().toString(), repeat);
 	        			   checkConflict = checkConflict && SimpleCalendarView.db.checkConflictinEvents(ev);
 	        			   String[] getDate = startDt.split("-");
-	        			   startDt = getDate[0]+"-"+getDate[1]+"-"+Integer.toString(Integer.parseInt(getDate[2])+7);
+	        			   startDt = getDate[0]+"-"+getDate[1]+"-"+TimePickerActivity.padding_str(Integer.parseInt(getDate[2])+7);
 	        		}
 	        		
 	        		if(checkConflict){
@@ -523,7 +523,7 @@ public class EventActivity extends Activity implements OnClickListener, OnItemSe
 		 					
 		 					//this.finish();
 		        			   String[] getDate = start_Dt.split("-");
-		        			   start_Dt = getDate[0]+"-"+getDate[1]+"-"+Integer.toString(Integer.parseInt(getDate[2])+7);
+		        			   start_Dt = getDate[0]+"-"+getDate[1]+"-"+TimePickerActivity.padding_str(Integer.parseInt(getDate[2])+7);
 		        		}
 	        			MainCalenadarActivity.tabHost.setCurrentTab(0);
 	        			this.finish();
