@@ -13,18 +13,36 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.TimePicker;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class TimePickerActivity.
+ */
 public class TimePickerActivity extends Activity implements OnClickListener {
+	
+	/** The Constant tag. */
 	private static final String tag = "Date picker Activity";
 	
+	/** The ok button. */
 	private Button okButton;
+	
+	/** The cancel button. */
 	private Button cancelButton;
+    
+    /** The tp. */
     private TimePicker tp;
 
+    /** The min. */
     int min;
+    
+    /** The hour. */
     int hour;
 	
+    /** The formated time. */
     String formatedTime;
 
+	/* (non-Javadoc)
+	 * @see android.app.Activity#onCreate(android.os.Bundle)
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -41,6 +59,9 @@ public class TimePickerActivity extends Activity implements OnClickListener {
 		tp = (TimePicker) findViewById(R.id.timePicker);
 	}
 
+	/* (non-Javadoc)
+	 * @see android.app.Activity#onCreateOptionsMenu(android.view.Menu)
+	 */
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
@@ -48,6 +69,9 @@ public class TimePickerActivity extends Activity implements OnClickListener {
 		return true;
 	}
 	
+	/* (non-Javadoc)
+	 * @see android.view.View.OnClickListener#onClick(android.view.View)
+	 */
 	@Override
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
@@ -57,7 +81,7 @@ public class TimePickerActivity extends Activity implements OnClickListener {
 			min = tp.getCurrentMinute();
 			hour = tp.getCurrentHour();
 			
-			formatedTime = hour + ":" + min;
+			formatedTime = padding_str(hour) + ":" + padding_str(min);
 			
 			
 			 Log.d(tag, " in ok " + formatedTime);
@@ -103,6 +127,22 @@ public class TimePickerActivity extends Activity implements OnClickListener {
 			Log.d(tag,"Inside Cancel Date Picker");
 		} 
 		
+	}
+	
+	/**
+	 * Padding_str.
+	 *
+	 * @param c the c
+	 * @return the padded string
+	 */
+	public static String padding_str(int c) {
+	        if (c >= 10){
+		           return String.valueOf(c);
+	        }
+	        else{
+			           return "0" + String.valueOf(c);
+	        }
+			    
 	}
 
 }

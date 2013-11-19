@@ -25,6 +25,10 @@ import android.content.Intent;
 import android.graphics.Color;
 
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class SimpleCalendarView.
+ */
 public class SimpleCalendarView extends BaseAdapter implements OnClickListener{
 	
 	
@@ -33,28 +37,74 @@ public class SimpleCalendarView extends BaseAdapter implements OnClickListener{
 	
 	
 	
+	/** The Constant tag. */
 	private static final String tag = "SimpleCalendarView";
+	
+	/** The _context. */
 	private final Context _context;
+	
+	/** The selected day month year button. */
 	private Button selectedDayMonthYearButton;
+	
+	/** The list. */
 	private final List<String> list;
+	
+	/** The monthly event. */
 	private List<Event> monthlyEvent;
+	
+	/** The Constant DAY_OFFSET. */
 	private static final int DAY_OFFSET = 1;
+	
+	/** The weekdays. */
 	private final String[] weekdays = new String[]{"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"};
+	
+	/** The months. */
 	private final String[] months = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
+	
+	/** The days of month. */
 	private final int[] daysOfMonth = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+	
+	/** The days of month leap year. */
 	private final int[] daysOfMonthLeapYear = {31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+	
+	/** The year. */
 	private final int month, year;
+	
+	/** The prev month days. */
 	private int daysInMonth, prevMonthDays;
+	
+	/** The current day of month. */
 	private int currentDayOfMonth;
+	
+	/** The current week day. */
 	private int currentWeekDay;
+	
+	/** The gridcell. */
 	private Button gridcell;
+	
+	/** The num_events_per_day. */
 	private TextView num_events_per_day;
+	
+	/** The events per month map. */
 	private final HashMap eventsPerMonthMap;
+	
+	/** The date formatter. */
 	private final SimpleDateFormat dateFormatter = new SimpleDateFormat("dd-MMM-yyyy");
+	
+	/** The date format s ql. */
 	private final SimpleDateFormat dateFormatSQl = new SimpleDateFormat("yyyy-MM-dd");
 	
+	/** The db. */
 	public static MySQLiteHelper db;
 	
+	/**
+	 * Instantiates a new simple calendar view.
+	 *
+	 * @param context the context
+	 * @param textViewResourceId the text view resource id
+	 * @param month the month
+	 * @param year the year
+	 */
 	public SimpleCalendarView(Context context, int textViewResourceId, int month, int year)
 	{
 		super();
@@ -80,25 +130,51 @@ public class SimpleCalendarView extends BaseAdapter implements OnClickListener{
 		// Find Number of Events
 		eventsPerMonthMap = findNumberOfEventsPerMonth(year, month);
 	}
+	
+	/**
+	 * Gets the month as string.
+	 *
+	 * @param i the i
+	 * @return the month as string
+	 */
 	private String getMonthAsString(int i)
 	{
 		return months[i];
 	}
 
+/**
+ * Gets the week day as string.
+ *
+ * @param i the i
+ * @return the week day as string
+ */
 private String getWeekDayAsString(int i)
 	{
 		return weekdays[i];
 	}
 
+/**
+ * Gets the number of days of month.
+ *
+ * @param i the i
+ * @return the number of days of month
+ */
 private int getNumberOfDaysOfMonth(int i)
 	{
 		return daysOfMonth[i];
 	}
 
+/* (non-Javadoc)
+ * @see android.widget.Adapter#getItem(int)
+ */
 public String getItem(int position)
 {
 	return list.get(position);
 }
+	
+	/* (non-Javadoc)
+	 * @see android.widget.Adapter#getCount()
+	 */
 	@Override
 	public int getCount() {
 		// TODO Auto-generated method stub
@@ -111,12 +187,18 @@ public String getItem(int position)
 		//return null;
 	//}
 
+	/* (non-Javadoc)
+	 * @see android.widget.Adapter#getItemId(int)
+	 */
 	@Override
 	public long getItemId(int position) {
 		// TODO Auto-generated method stub
 		return position;
 	}
 
+	/* (non-Javadoc)
+	 * @see android.widget.Adapter#getView(int, android.view.View, android.view.ViewGroup)
+	 */
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		// TODO Auto-generated method stub
@@ -210,6 +292,11 @@ public String getItem(int position)
 	
 	
 
+	/**
+	 * Gets the current day of month.
+	 *
+	 * @return the current day of month
+	 */
 	private int getCurrentDayOfMonth() {
 		// TODO Auto-generated method stub
 		return currentDayOfMonth;
@@ -217,18 +304,34 @@ public String getItem(int position)
 
 	
 
+	/**
+	 * Sets the current week day.
+	 *
+	 * @param currentWeekDay the new current week day
+	 */
 	private void setCurrentWeekDay(int currentWeekDay) {
 		// TODO Auto-generated method stub
 		this.currentWeekDay =currentWeekDay;
 		
 	}
 	
+	/**
+	 * Gets the current week day.
+	 *
+	 * @return the current week day
+	 */
 	public int getCurrentWeekDay()
 	{
 		return currentWeekDay;
 	}
 	
 
+	/**
+	 * Prints the month.
+	 *
+	 * @param mm the mm
+	 * @param yy the yy
+	 */
 	private void printMonth(int mm, int yy) {
 		// TODO Auto-generated method stub
 		Log.d(tag, "==> printMonth: mm: " + mm + " " + "yy: " + yy);
@@ -404,10 +507,23 @@ public String getItem(int position)
 			}
 	}
 
+	/**
+	 * Sets the current day of month.
+	 *
+	 * @param currentDayOfMonth the new current day of month
+	 */
 	private void setCurrentDayOfMonth(int currentDayOfMonth) {
 		// TODO Auto-generated method stub
 		this.currentDayOfMonth =currentDayOfMonth;
 	}
+	
+	/**
+	 * Find number of events per month.
+	 *
+	 * @param year the year
+	 * @param month the month
+	 * @return the hash map
+	 */
 	private HashMap findNumberOfEventsPerMonth(int year, int month)
 	{
 		HashMap map = new HashMap<String, Integer>();
@@ -427,6 +543,12 @@ public String getItem(int position)
 		return map;
 	}
 	
+	/**
+	 * Find holiday.
+	 *
+	 * @param date the date
+	 * @return true, if successful
+	 */
 	public static boolean findHoliday(String date){
 		HashMap<String, Integer> map= new HashMap<String, Integer>();
 		map.put("2013-09-02", 1);
@@ -463,6 +585,9 @@ public String getItem(int position)
 	}
 	
 
+	/* (non-Javadoc)
+	 * @see android.view.View.OnClickListener#onClick(android.view.View)
+	 */
 	@Override
 	public void onClick(View view) {
 		// TODO Auto-generated method stub

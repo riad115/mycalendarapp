@@ -22,27 +22,63 @@ import android.widget.TabHost;
 import android.widget.TabHost.TabSpec;
 
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class MainCalenadarActivity.
+ */
 public class MainCalenadarActivity extends Activity implements OnClickListener{
+	
+	/** The Constant tag. */
 	private static final String tag = "SimpleCalendarViewActivity";
 
+	/** The calendar to journal button. */
 	private ImageView calendarToJournalButton;
+	
+	/** The selected day month year button. */
 	private Button selectedDayMonthYearButton;
+	
+	/** The current month. */
 	private Button currentMonth;
+	
+	/** The prev month. */
 	private ImageView prevMonth;
+	
+	/** The next month. */
 	private ImageView nextMonth;
+	
+	/** The calendar view. */
 	private GridView calendarView;
+	
+	/** The adapter. */
 	private SimpleCalendarView adapter;
+	
+	/** The _calendar. */
 	private Calendar _calendar;
+	
+	/** The year. */
 	private int month, year;
+	
+	/** The tab host. */
 	public static TabHost tabHost;
+	
+	/** The date formatter. */
 	private final DateFormat dateFormatter = new DateFormat();
+	
+	/** The Constant dateTemplate. */
 	private static final String dateTemplate = "MMMM yyyy";
+	
+	/** The i. */
 	public static int i=0;
+	
+	/** The j. */
 	public static int j =0;
 	
 	//public static MySQLiteHelper db;
 	
 	
+	/* (non-Javadoc)
+	 * @see android.app.Activity#onCreate(android.os.Bundle)
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -95,6 +131,9 @@ public class MainCalenadarActivity extends Activity implements OnClickListener{
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see android.app.Activity#onCreateOptionsMenu(android.view.Menu)
+	 */
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
@@ -112,15 +151,26 @@ public class MainCalenadarActivity extends Activity implements OnClickListener{
 		calendarView.setAdapter(adapter);
 	}*/
 	
+	/**
+	 * Gets the my tab host.
+	 *
+	 * @return the my tab host
+	 */
 	public TabHost getMyTabHost() { return tabHost; }
 	
 
+	/* (non-Javadoc)
+	 * @see android.view.View.OnClickListener#onClick(android.view.View)
+	 */
 	@Override
 	public void onClick(View v) {
 		
 	}
 	
 	
+	/* (non-Javadoc)
+	 * @see android.app.Activity#onOptionsItemSelected(android.view.MenuItem)
+	 */
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 	    // Handle item selection
@@ -135,6 +185,9 @@ public class MainCalenadarActivity extends Activity implements OnClickListener{
 	    }
 	}
 	
+	/* (non-Javadoc)
+	 * @see android.app.Activity#onDestroy()
+	 */
 	@Override
 	public void onDestroy()
 		{

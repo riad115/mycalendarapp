@@ -21,65 +21,186 @@ import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class WeeklyView.
+ */
 public class WeeklyView extends Activity implements OnClickListener{
+	
+	/** The Constant tag. */
 	private static final String tag = "WeeklyView";
+	
+	/** The _calendar. */
 	private Calendar _calendar;
+	
+	/** The current month. */
 	private Button currentMonth;
+	
+	/** The prev month. */
 	private ImageView prevMonth;
+	
+	/** The next month. */
 	private ImageView nextMonth;
+	
+	/** The layout inflater. */
 	private LayoutInflater layoutInflater;
+	
+	/** The sunday relative layout. */
 	private RelativeLayout sundayRelativeLayout;
+	
+	/** The monday relative layout. */
 	private RelativeLayout mondayRelativeLayout;
+	
+	/** The tuesday relative layout. */
 	private RelativeLayout tuesdayRelativeLayout;
+	
+	/** The wednesday relative layout. */
 	private RelativeLayout wednesdayRelativeLayout;
+	
+	/** The thursday relative layout. */
 	private RelativeLayout thursdayRelativeLayout;
+	
+	/** The friday relative layout. */
 	private RelativeLayout fridayRelativeLayout;
+	
+	/** The saturday relative layout. */
 	private RelativeLayout saturdayRelativeLayout;
+	
+	/** The sun date. */
 	private TextView sunDate;
+	
+	/** The mon date. */
 	private TextView monDate;
+	
+	/** The tue date. */
 	private TextView tueDate;
+	
+	/** The wed date. */
 	private TextView wedDate;
+	
+	/** The thu date. */
 	private TextView thuDate;
+	
+	/** The fri date. */
 	private TextView friDate;
+	
+	/** The sat date. */
 	private TextView satDate;
+	
+	/** The sun txt. */
 	private TextView[] sunTxt;
+	
+	/** The mon txt. */
 	private TextView[] monTxt;
+	
+	/** The tue txt. */
 	private TextView[] tueTxt;
+	
+	/** The wed txt. */
 	private TextView[] wedTxt;
+	
+	/** The thu txt. */
 	private TextView[] thuTxt;
+	
+	/** The fri txt. */
 	private TextView[] friTxt;
+	
+	/** The sat txt. */
 	private TextView[] satTxt;
+	
+	/** The sun event. */
 	private List<Event> sunEvent;
+	
+	/** The mon event. */
 	private List<Event> monEvent;
+	
+	/** The tue event. */
 	private List<Event> tueEvent;
+	
+	/** The wed event. */
 	private List<Event> wedEvent;
+	
+	/** The thu event. */
 	private List<Event> thuEvent;
+	
+	/** The fri event. */
 	private List<Event> friEvent;
+	
+	/** The sat event. */
 	private List<Event> satEvent;
+	
+	/** The sun id. */
 	private Long sunId;
+	
+	/** The mon id. */
 	private Long monId;
+	
+	/** The tue id. */
 	private Long tueId;
+	
+	/** The wed id. */
 	private Long wedId;
+	
+	/** The thu id. */
 	private Long thuId;
+	
+	/** The fri id. */
 	private Long friId;
+	
+	/** The sat id. */
 	private Long satId;
+	
+	/** The sunday. */
 	private String sunday;
+	
+	/** The monday. */
 	private String monday;
+	
+	/** The tuesday. */
 	private String tuesday;
+	
+	/** The wednesday. */
 	private String wednesday;
+	
+	/** The thursday. */
 	private String thursday;
+	
+	/** The friday. */
 	private String friday;
+	
+	/** The saturday. */
 	private String saturday;
+	
+	/** The current week. */
 	private TextView currentWeek;
+	
+	/** The week. */
 	private int month, year , week;
+	
+	/** The i. */
 	private int i =0;
+	
+	/** The j. */
 	private int j = 0;
+	
+	/** The min. */
 	private int hour, hourdp, min;
+	
+	/** The Constant dateTemplate. */
 	private static final String dateTemplate = "MMM dd";
+	
+	/** The date format. */
 	private final SimpleDateFormat dateFormat = new SimpleDateFormat("MMM dd");
+	
+	/** The date format1. */
 	private final SimpleDateFormat dateFormat1 = new SimpleDateFormat("dd");
+	
+	/** The date format s ql. */
 	private final SimpleDateFormat dateFormatSQl = new SimpleDateFormat("yyyy-MM-dd");
 
+	/* (non-Javadoc)
+	 * @see android.app.Activity#onCreate(android.os.Bundle)
+	 */
 	public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
  
@@ -167,6 +288,10 @@ public class WeeklyView extends Activity implements OnClickListener{
 		
 		printWeek(sunday, monday, tuesday, wednesday, thursday, friday, saturday);
     }
+	
+	/* (non-Javadoc)
+	 * @see android.view.View.OnClickListener#onClick(android.view.View)
+	 */
 	@Override
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
@@ -315,6 +440,17 @@ public class WeeklyView extends Activity implements OnClickListener{
 	}
 	
 	
+	/**
+	 * Prints the week.
+	 *
+	 * @param sun the sun
+	 * @param mon the mon
+	 * @param tue the tue
+	 * @param wed the wed
+	 * @param thu the thu
+	 * @param fri the fri
+	 * @param sat the sat
+	 */
 	public void printWeek(String sun, String mon, String tue, String wed, String thu, String fri, String sat){
 		int txtView = 0, txtMon=0,txtTue=0,txtWed=0, txtThu=0,txtFri=0, txtSat=0 ;
 		//String[] startTime;
@@ -647,6 +783,13 @@ public class WeeklyView extends Activity implements OnClickListener{
 	}
 	
 	
+	/**
+	 * Cal height.
+	 *
+	 * @param startTime the start time
+	 * @param endTime the end time
+	 * @return the int
+	 */
 	public static int calHeight(String[] startTime, String[] endTime){
 		int start;
 		int end;
@@ -658,6 +801,12 @@ public class WeeklyView extends Activity implements OnClickListener{
 	}
 	
 	
+	/**
+	 * Cal top.
+	 *
+	 * @param startTime the start time
+	 * @return the int
+	 */
 	public static int calTop(String[] startTime){
 		int start;
 		int top;

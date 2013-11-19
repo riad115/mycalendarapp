@@ -26,29 +26,75 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class DailyView.
+ */
 public class DailyView extends Activity implements OnClickListener{
 	
+	/** The Constant tag. */
 	private static final String tag = "DailyView";
+	
+	/** The _calendar. */
 	private Calendar _calendar;
+	
+	/** The current month. */
 	private Button currentMonth;
+	
+	/** The prev month. */
 	private ImageView prevMonth;
+	
+	/** The next month. */
 	private ImageView nextMonth;
+	
+	/** The current date relative layout. */
 	private RelativeLayout currentDateRelativeLayout;
+	
+	/** The layout inflater. */
 	private LayoutInflater layoutInflater;
+	
+	/** The stub. */
 	private ViewStub stub;
+	
+	/** The txt1. */
 	private TextView txt1;
+	
+	/** The dailytxt. */
 	private TextView[] dailytxt;
+	
+	/** The week. */
 	private int month, year , week;
+	
+	/** The i. */
 	private int i =0;
+	
+	/** The j. */
 	private int j =0;
+	
+	/** The min. */
 	private int hour, hourdp, min;
+	
+	/** The id. */
 	private Long id;
+	
+	/** The current date. */
 	private String currentDate;
+	
+	/** The dt. */
 	private Date dt = null;
+	
+	/** The daily event. */
 	private List<Event> dailyEvent;
 	//private MySQLiteHelper db;
+	/** The date format. */
 	private final SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MMM-yyyy");
+	
+	/** The date format s ql. */
 	private final SimpleDateFormat dateFormatSQl = new SimpleDateFormat("yyyy-MM-dd");
+	
+	/* (non-Javadoc)
+	 * @see android.app.Activity#onCreate(android.os.Bundle)
+	 */
 	public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
  
@@ -123,6 +169,10 @@ public class DailyView extends Activity implements OnClickListener{
         }
 		
     }
+	
+	/* (non-Javadoc)
+	 * @see android.view.View.OnClickListener#onClick(android.view.View)
+	 */
 	@Override
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
@@ -190,6 +240,11 @@ public class DailyView extends Activity implements OnClickListener{
 	
 	}
 	
+	/**
+	 * Prints the daily event.
+	 *
+	 * @param date the date
+	 */
 	public void printDailyEvent(String date){
 		int txtView = 0;
 		String[] startTime;
@@ -240,24 +295,31 @@ public class DailyView extends Activity implements OnClickListener{
 	}
 	
 	
+	/**
+	 * Find color.
+	 *
+	 * @param color the color
+	 * @return the string
+	 */
 	public static String findColor(String color){
 		HashMap<String, String> map = new HashMap<String, String>();
 		
-		map.put("Yellow", "#FFFF00");
+		map.put("Yellow", "#E9AB17");
 		map.put("Black", "#000000");
 		map.put("Blue", "#2B65EC");
-		map.put("Red", "#FF0000");
-		map.put("Green","#008000");
+		map.put("Red", "#C11B17");
+		map.put("Green","#4CC552");
 		map.put("Violet", "#8D38C9");
 		map.put("Maroon", "#810541");
 		map.put("Brown", "#806517");
 		map.put("Olive", "#808000");
+		map.put("Orange", "#FF8040");
 		
 		if(map.containsKey(color)){
 			return map.get(color);
 		}
 		else{
-			return "#25383C";
+			return "#848482";
 		}
 		
 	}

@@ -6,12 +6,20 @@ import android.test.AndroidTestCase;
 import android.test.RenamingDelegatingContext;
 import junit.framework.TestCase;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class TestMySQLiteHelper.
+ */
 public class TestMySQLiteHelper extends AndroidTestCase {
 	
+	/** The db test. */
 	private MySQLiteHelper dbTest;
 	
 //	@Before
-	public void setUp() throws Exception{
+	/* (non-Javadoc)
+ * @see android.test.AndroidTestCase#setUp()
+ */
+public void setUp() throws Exception{
 		super.setUp();
 		//Context c = new Activity();
         //RenamingDelegatingContext context = new RenamingDelegatingContext(c, "test_");
@@ -21,6 +29,9 @@ public class TestMySQLiteHelper extends AndroidTestCase {
 		//dbTest.clearDatebase();
     }
 	
+	/**
+	 * Test create get category.
+	 */
 	public void testCreateGetCategory(){
 		
 		int categoryCount = dbTest.getCategoryCount();
@@ -38,6 +49,9 @@ public class TestMySQLiteHelper extends AndroidTestCase {
        
 	}
 	
+	/**
+	 * Test create get event.
+	 */
 	public void testCreateGetEvent() {
 		
 		int eventCount = dbTest.getEventCount();
@@ -54,6 +68,9 @@ public class TestMySQLiteHelper extends AndroidTestCase {
 		
 	}		   
     
+    /**
+     * Test get category by event.
+     */
     public void testGetCategoryByEvent(){
     	
     	 Event event7 = new Event("Proloy","2013-11-08","2013-11-08","22:00","23:45","wanna watch this movie","OFF");	
@@ -64,6 +81,9 @@ public class TestMySQLiteHelper extends AndroidTestCase {
     	assertEquals("Shopping",test.getName());
     }
     
+    /**
+     * Test get eventby id.
+     */
     public void testGetEventbyID(){
     	
     	 Event event6 = new Event("Elysium","2013-11-08","2013-11-08","22:00","23:45","wanna watch this movie","OFF");	
@@ -75,6 +95,9 @@ public class TestMySQLiteHelper extends AndroidTestCase {
     	
     }
     
+    /**
+     * Test get eventby name.
+     */
     public void testGetEventbyName(){
     	
     	 Event event6 = new Event("Thor","2013-11-08","2013-11-08","22:00","23:45","wanna watch this movie","OFF");	
@@ -86,6 +109,9 @@ public class TestMySQLiteHelper extends AndroidTestCase {
     	
     }
    
+    /**
+     * Test update category.
+     */
     public void	testUpdateCategory(){
     	
    	    Category ctg2 = new Category("Important", "BLUE");
@@ -101,6 +127,9 @@ public class TestMySQLiteHelper extends AndroidTestCase {
         
    }
     
+    /**
+     * Test update event.
+     */
     public void testUpdateEvent(){
     	
     	Event event2 = new Event("Phone","11/01/2013","11/01/2013","22:00","22:15","I will call my mom","Repeat-OFF");
@@ -117,6 +146,9 @@ public class TestMySQLiteHelper extends AndroidTestCase {
         assertEquals(event2.getId(),dbTest.getEvent("Call").getId());   
     }
     
+	/**
+	 * Test delete event.
+	 */
 	public void testDeleteEvent(){
 		
 		int eventCount = dbTest.getEventCount();	
@@ -124,6 +156,9 @@ public class TestMySQLiteHelper extends AndroidTestCase {
 		assertEquals(eventCount,dbTest.getEventCount());		
 	}
 	
+	/**
+	 * Test delete category.
+	 */
 	public void testDeleteCategory(){
 		
 		int categoryCount = dbTest.getCategoryCount();
@@ -135,6 +170,9 @@ public class TestMySQLiteHelper extends AndroidTestCase {
 	
 	//public void onCreateTest(S)
 	
+	/* (non-Javadoc)
+	 * @see android.test.AndroidTestCase#tearDown()
+	 */
 	public void tearDown() throws Exception{
 		dbTest.close(); 
         super.tearDown();

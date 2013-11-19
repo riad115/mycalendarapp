@@ -26,53 +26,117 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class EditEventActivity.
+ */
 public class EditEventActivity extends Activity implements OnClickListener, OnItemSelectedListener{
+	
+	/** The Constant tag. */
 	private static final String tag = "EditActivity";
+	
+	/** The to_ date. */
 	public static String to_Date;
+	
+	/** The from_ date. */
 	public static String from_Date;
+	
+	/** The to_ time. */
 	public static String to_Time;
+	
+	/** The from_ time. */
 	public static String from_Time;
 	
+	/** The categary_from_ spinner. */
 	private static String categary_from_Spinner;
+	
+	/** The categary_color. */
 	private static String categary_color;
+	
+	/** The all category. */
 	private static  List<Category> allCategory;
+	
+	/** The spinner array. */
 	private static ArrayList<String> spinnerArray;
 	
+	/** The spinn_repeat. */
 	private Spinner spinn_repeat;
+	
+	/** The repeat. */
 	private String repeat;
+	
+	/** The spinner repeat array. */
 	private static ArrayList<String> spinnerRepeatArray;
 
+	/** The to todays date. */
 	public static Button toTodaysDate;
+	
+	/** The from todays date. */
 	public static Button fromTodaysDate;
 	
+	/** The to current time. */
 	public static Button toCurrentTime;
+	
+	/** The from current time. */
 	public static Button fromCurrentTime;
 	
+	/** The ctg1_id. */
 	public static long ctg1_id;
+	
+	/** The from dt. */
 	private String fromDt;
+	
+	/** The st time. */
 	private String stTime;
+	
+	/** The e time. */
 	private String eTime;
 	
+	/** The spinn. */
 	private Spinner spinn;
+	
+	/** The save button. */
 	private Button saveButton;
+	
+	/** The cancel button. */
 	private Button cancelButton;
 	
+	/** The edittext_event title. */
 	private EditText edittext_eventTitle;
+	
+	/** The edittext_description. */
 	private EditText edittext_description;
 	
+	/** The category_name. */
 	private EditText category_name;
+	
+	/** The spinn_category_color. */
 	private Spinner spinn_category_color;
 	
+	/** The _calendar. */
 	private Calendar _calendar;
+	
+	/** The date formatter. */
 	private final DateFormat dateFormatter = new DateFormat();
+	
+	/** The Constant dateTemplate. */
 	private static final String dateTemplate = "yyyy-MM-dd";
 	
+	/** The event_1. */
 	private Event event_1;
+	
+	/** The ctg. */
 	private static Category ctg;
+	
+	/** The old_ctg. */
 	private static Category old_ctg;
 
+	/** The days of month. */
 	private final int[] daysOfMonth = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 
+	/* (non-Javadoc)
+	 * @see android.app.Activity#onCreate(android.os.Bundle)
+	 */
 	public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         
@@ -180,6 +244,10 @@ public class EditEventActivity extends Activity implements OnClickListener, OnIt
         spinn_category_color.setOnItemSelectedListener(this);
         
     }
+	
+	/* (non-Javadoc)
+	 * @see android.view.View.OnClickListener#onClick(android.view.View)
+	 */
 	@Override
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
@@ -266,8 +334,8 @@ public class EditEventActivity extends Activity implements OnClickListener, OnIt
 		        	        		//edittext_description.getText().toString(), repeat);
 		     			   		ev.setTitle(event_1.getTitle());
 		     			   		ev.setDescription(event_1.getDescription());
-		     			   		ev.setStartDate(event_1.getStartDate());
-		     			   		ev.setEndDate(event_1.getEndDate());
+		     			   		ev.setStartDate(startDt);
+		     			   		ev.setEndDate(startDt);
 		     			   		ev.setStartTime(event_1.getStartTime());
 		     			   		ev.setEndTime(event_1.getEndTime());
 		     			   		ev.setRepeat(event_1.getRepeat());
@@ -299,8 +367,8 @@ public class EditEventActivity extends Activity implements OnClickListener, OnIt
 			        	        		//edittext_description.getText().toString(), repeat);
 		        				ev.setTitle(event_1.getTitle());
 		     			   		ev.setDescription(event_1.getDescription());
-		     			   		ev.setStartDate(event_1.getStartDate());
-		     			   		ev.setEndDate(event_1.getEndDate());
+		     			   		ev.setStartDate(start_Dt);
+		     			   		ev.setEndDate(start_Dt);
 		     			   		ev.setStartTime(event_1.getStartTime());
 		     			   		ev.setEndTime(event_1.getEndTime());
 		     			   		ev.setRepeat(event_1.getRepeat());
@@ -324,6 +392,8 @@ public class EditEventActivity extends Activity implements OnClickListener, OnIt
 			        				   ev = SimpleCalendarView.db.getEvent(id);
 			        			   }
 			        		}
+		        			
+		        			MainCalenadarActivity.tabHost.setCurrentTab(0);
 		        			this.finish();
 		        		}
 		        		
@@ -376,10 +446,10 @@ public class EditEventActivity extends Activity implements OnClickListener, OnIt
 					int update = SimpleCalendarView.db.updateEvent(event_1);
 					Log.d(tag,"Inside edit button: category: "+ SimpleCalendarView.db.getCategoryByEvent(event_1.getId()).getName());
 					
-					Intent list_new = new Intent(this, EventList.class);
-					startActivity(list_new);
+					//Intent list_new = new Intent(this, EventList.class);
+					//startActivity(list_new);
 	    
-					
+					MainCalenadarActivity.tabHost.setCurrentTab(0);
 					this.finish();
 					}
 					else
@@ -421,7 +491,10 @@ public class EditEventActivity extends Activity implements OnClickListener, OnIt
 			
 	}
 	
-	   public void onItemSelected(AdapterView<?> parent, View view, 
+	   /* (non-Javadoc)
+   	 * @see android.widget.AdapterView.OnItemSelectedListener#onItemSelected(android.widget.AdapterView, android.view.View, int, long)
+   	 */
+   	public void onItemSelected(AdapterView<?> parent, View view, 
 	            int pos, long id) {
 	        // An item was selected. You can retrieve the selected item using
 	    	int idnum = parent.getId();
@@ -461,7 +534,10 @@ public class EditEventActivity extends Activity implements OnClickListener, OnIt
 	    	
 	    }
 
-	    public void onNothingSelected(AdapterView<?> parent) {
+	    /* (non-Javadoc)
+    	 * @see android.widget.AdapterView.OnItemSelectedListener#onNothingSelected(android.widget.AdapterView)
+    	 */
+    	public void onNothingSelected(AdapterView<?> parent) {
 	        // Another interface callb{ack
 	    	if(parent.getId() == R.id.spinner1){
 	    	categary_from_Spinner = "Random";

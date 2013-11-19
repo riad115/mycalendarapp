@@ -26,43 +26,94 @@ import android.widget.Spinner;
 import android.widget.EditText;
 import android.widget.TextView;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class EventActivity.
+ */
 public class EventActivity extends Activity implements OnClickListener, OnItemSelectedListener {
+	
+	/** The Constant tag. */
 	private static final String tag = "EventActivity";
+	
+	/** The to_ date. */
 	public static String to_Date;
+	
+	/** The from_ date. */
 	public static String from_Date;
+	
+	/** The to_ time. */
 	public static String to_Time;
+	
+	/** The from_ time. */
 	public static String from_Time;
+	
+	/** The categary_from_ spinner. */
 	private static String categary_from_Spinner;
+	
+	/** The categary_color. */
 	private static String categary_color;
+	
+	/** The all category. */
 	private static  List<Category> allCategory;
+	
+	/** The spinner array. */
 	private static ArrayList<String> spinnerArray;
 	
+	/** The spinn_repeat. */
 	private Spinner spinn_repeat;
+	
+	/** The repeat. */
 	private String repeat;
 	
+	/** The to todays date. */
 	public static Button toTodaysDate;
+	
+	/** The from todays date. */
 	public static Button fromTodaysDate;
 	
+	/** The to current time. */
 	public static Button toCurrentTime;
+	
+	/** The from current time. */
 	public static Button fromCurrentTime;
 	
+	/** The ctg. */
 	private static Category ctg;
+	
+	/** The event2. */
 	public static Event event2; 
 	
+	/** The spinn. */
 	private Spinner spinn;
+	
+	/** The save button. */
 	private Button saveButton;
+	
+	/** The cancel button. */
 	private Button cancelButton;
 	
+	/** The edittext_event title. */
 	private EditText edittext_eventTitle;
+	
+	/** The edittext_description. */
 	private EditText edittext_description;
 	
+	/** The category_name. */
 	private EditText category_name;
+	
+	/** The spinn_category_color. */
 	private Spinner spinn_category_color;
 	
+	/** The _calendar. */
 	private Calendar _calendar;
+	
+	/** The date formatter. */
 	private final DateFormat dateFormatter = new DateFormat();
+	
+	/** The Constant dateTemplate. */
 	private static final String dateTemplate = "yyyy-MM-dd";
 	
+	/** The days of month. */
 	private final int[] daysOfMonth = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 
 	///////////////////////////////////////////////////////////RossY Start
@@ -70,6 +121,9 @@ public class EventActivity extends Activity implements OnClickListener, OnItemSe
 	 //public static MySQLiteHelper db;
 	 
 	////////////////////////////////////////////////////////// RossY End
+	/* (non-Javadoc)
+	 * @see android.app.Activity#onCreate(android.os.Bundle)
+	 */
 	public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         
@@ -212,11 +266,15 @@ public class EventActivity extends Activity implements OnClickListener, OnItemSe
      // Getting all category names
         /*Log.d(" after update", "Getting All categories after update");
  
-        List<Category> allCategoryNew1 = db.getAllCategories();
+        List<Category> allCategoryNew1 = SimpleCalendarView.db.getAllCategories();
         for (Category category : allCategoryNew1) {
         	Log.d("Category Name:"+category.getName(), "ID:"+category.getId()+"Color:"+category.getColor());
-      }*/
+      }
       
+        SimpleCalendarView.db.deleteCategoryByID(77);
+        SimpleCalendarView.db.deleteCategoryByID(78);
+        SimpleCalendarView.db.deleteCategoryByID(79);
+        SimpleCalendarView.db.deleteCategoryByID(80);*/
         /*Event event8 = new Event("ROSS","2013-11-03","2013-11-03","17:00","19:00","Dhumaia beramu!!","OFF");
        long event8_id = SimpleCalendarView.db.createEvent(event8, new long[] { ctg4_id });
        event8.setId(event8_id);*/
@@ -258,6 +316,8 @@ public class EventActivity extends Activity implements OnClickListener, OnItemSe
        db.deleteCategoryByID(2);
        db.deleteCategoryByID(3);
        db.deleteCategoryByID(4);
+       
+       
        
        db.deleteEvent(3);
        db.deleteEvent(4);
@@ -366,6 +426,10 @@ public class EventActivity extends Activity implements OnClickListener, OnItemSe
        // category_color.setText("Color");
 //>>>>>>> .r46
     }
+	
+	/* (non-Javadoc)
+	 * @see android.view.View.OnClickListener#onClick(android.view.View)
+	 */
 	@Override
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
@@ -461,6 +525,7 @@ public class EventActivity extends Activity implements OnClickListener, OnItemSe
 		        			   String[] getDate = start_Dt.split("-");
 		        			   start_Dt = getDate[0]+"-"+getDate[1]+"-"+Integer.toString(Integer.parseInt(getDate[2])+7);
 		        		}
+	        			MainCalenadarActivity.tabHost.setCurrentTab(0);
 	        			this.finish();
 	        		}
 	        		
@@ -506,7 +571,7 @@ public class EventActivity extends Activity implements OnClickListener, OnItemSe
 			        }
 					Log.d(tag,"Inside save button:no conflict ");
 					long event_current_id = SimpleCalendarView.db.createEvent(event_new, new long[] { ctg.getId() });
-					
+					MainCalenadarActivity.tabHost.setCurrentTab(0);
 					this.finish();
 				}
 				else
@@ -551,6 +616,9 @@ public class EventActivity extends Activity implements OnClickListener, OnItemSe
 	}
 	
 	
+    /* (non-Javadoc)
+     * @see android.widget.AdapterView.OnItemSelectedListener#onItemSelected(android.widget.AdapterView, android.view.View, int, long)
+     */
     public void onItemSelected(AdapterView<?> parent, View view, 
             int pos, long id) {
         // An item was selected. You can retrieve the selected item using
@@ -591,6 +659,9 @@ public class EventActivity extends Activity implements OnClickListener, OnItemSe
     	
     }
 
+    /* (non-Javadoc)
+     * @see android.widget.AdapterView.OnItemSelectedListener#onNothingSelected(android.widget.AdapterView)
+     */
     public void onNothingSelected(AdapterView<?> parent) {
   
     	if(parent.getId() == R.id.spinner1){

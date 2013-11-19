@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project default="javadoc">
+    <target name="javadoc">
+        <javadoc access="public" author="true" classpath="C:\Program Files (x86)\Android\android-sdk\platforms\android-18\android.jar" destdir="doc" nodeprecated="false" nodeprecatedlist="false" noindex="false" nonavbar="false" notree="false" source="1.6" sourcefiles="src/com/example/mycalendarapp/EditEventActivity.java" sourcepath="src;gen" splitindex="true" use="true" version="true">
+            <link href="file:/C:/Users/Stigmatized/Desktop/Fall 2013/SW/Project/SWProject/mycalendarApp/doc/"/>
+            <link href="file:/C:/Program Files (x86)/Android/android-sdk/docs/reference/"/>
+        </javadoc>
+    </target>
+</project>
