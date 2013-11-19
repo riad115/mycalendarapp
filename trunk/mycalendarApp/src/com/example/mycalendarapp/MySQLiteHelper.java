@@ -20,7 +20,7 @@ import android.util.Log;
 
 // TODO: Auto-generated Javadoc
 /**
- * The Class MySQLiteHelper.
+ * The Class MySQLiteHelper for all the queries in the database. Mainly for handling the backhand data.
  */
 public class MySQLiteHelper extends SQLiteOpenHelper{
 	

@@ -2,7 +2,7 @@ package com.example.mycalendarapp;
 
 // TODO: Auto-generated Javadoc
 /**
- * The Class Category.
+ * The Class Category for the database table Category
  */
 public class Category {
 

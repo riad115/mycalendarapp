@@ -24,7 +24,7 @@ import android.widget.TabHost.TabSpec;
 
 // TODO: Auto-generated Javadoc
 /**
- * The Class MainCalenadarActivity.
+ * The Class MainCalenadarActivity is the entering point of this calendar app. Tabactivity is implemented here
  */
 public class MainCalenadarActivity extends Activity implements OnClickListener{
 	

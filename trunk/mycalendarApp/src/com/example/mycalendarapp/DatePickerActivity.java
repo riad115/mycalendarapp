@@ -18,7 +18,7 @@ import android.widget.TextView;
 
 // TODO: Auto-generated Javadoc
 /**
- * The Class DatePickerActivity.
+ * The Class DatePickerActivity for selecting date for adding or updating an event
  */
 public class DatePickerActivity extends Activity  implements OnClickListener{
 	

@@ -15,7 +15,7 @@ import android.widget.AdapterView.OnItemClickListener;
 // TODO: Auto-generated Javadoc
 
 /**
- * The Class EventList.
+ * The Class EventList is for list of all the events currently in the calendar.
  */
 public class EventList extends Activity implements OnClickListener{
 	

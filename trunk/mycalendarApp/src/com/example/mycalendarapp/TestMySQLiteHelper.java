@@ -8,7 +8,7 @@ import junit.framework.TestCase;
 
 // TODO: Auto-generated Javadoc
 /**
- * The Class TestMySQLiteHelper.
+ * The Class TestMySQLiteHelper is the test class for {@link MySQLiteHelper}.
  */
 public class TestMySQLiteHelper extends AndroidTestCase {
 	

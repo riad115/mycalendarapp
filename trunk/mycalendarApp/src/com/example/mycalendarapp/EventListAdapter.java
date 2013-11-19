@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 // TODO: Auto-generated Javadoc
 /**
- * The Class EventListAdapter.
+ * The Class EventListAdapter is used for the gridview in {@link EventList} class
  */
 public class EventListAdapter extends BaseAdapter{
 	

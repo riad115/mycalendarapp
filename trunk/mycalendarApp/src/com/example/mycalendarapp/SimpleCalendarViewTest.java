@@ -5,7 +5,7 @@ import junit.framework.TestCase;
 
 // TODO: Auto-generated Javadoc
 /**
- * The Class SimpleCalendarViewTest.
+ * The Class SimpleCalendarViewTest is the test class for {@link SimpleCalendarView}.
  */
 public class SimpleCalendarViewTest extends AndroidTestCase {
 

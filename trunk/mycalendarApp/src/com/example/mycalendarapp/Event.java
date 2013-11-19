@@ -2,7 +2,7 @@ package com.example.mycalendarapp;
 
 // TODO: Auto-generated Javadoc
 /**
- * The Class Event.
+ * The Class Event for the databse table Event
  */
 public class Event {
 	

@@ -28,7 +28,7 @@ import android.widget.TextView;
 
 // TODO: Auto-generated Javadoc
 /**
- * The Class EditEventActivity.
+ * The Class EditEventActivity for editing an event
  */
 public class EditEventActivity extends Activity implements OnClickListener, OnItemSelectedListener{
 	
@@ -326,7 +326,7 @@ public class EditEventActivity extends Activity implements OnClickListener, OnIt
 		        		int selectedDate = Integer.parseInt(getmonth[2]);
 		        		boolean checkConflict=true;
 		        		long id=event_1.getId();
-		        		String startDt= fromDt;
+		        		String startDt= to_Date;
 		        		Event ev =event_1;
 		        		for(int i=selectedDate;i<=daysInMonth;i=i+7){
 		        			//Event ev = new Event(edittext_eventTitle.getText().toString(),
@@ -342,7 +342,7 @@ public class EditEventActivity extends Activity implements OnClickListener, OnIt
 		        				checkConflict = checkConflict && SimpleCalendarView.db.checkConflictinUpdateEvents(ev);
 
 		        			   String[] getDate = startDt.split("-");
-		        			   startDt = getDate[0]+"-"+getDate[1]+"-"+Integer.toString(Integer.parseInt(getDate[2])+7);
+		        			   startDt = getDate[0]+"-"+getDate[1]+"-"+TimePickerActivity.padding_str(Integer.parseInt(getDate[2])+7);
 		        			   id=SimpleCalendarView.db.getRepeatEvent(startDt, startDt, stTime, eTime);
 		        			   if(id!=0){
 		        				   ev = SimpleCalendarView.db.getEvent(id);
@@ -352,7 +352,7 @@ public class EditEventActivity extends Activity implements OnClickListener, OnIt
 		        		ev = event_1;
 		        		
 		        		if(checkConflict){
-		        			String start_Dt = fromDt;
+		        			String start_Dt = to_Date;
 		        			if(EditEventActivity.categary_from_Spinner.equalsIgnoreCase("Add Category"))
 		        			{
 		 			            ctg = new Category(category_name.getText().toString(), EditEventActivity.categary_color);  
@@ -386,7 +386,7 @@ public class EditEventActivity extends Activity implements OnClickListener, OnIt
 			 					
 			 					//this.finish();
 			        			   String[] getDate = start_Dt.split("-");
-			        			   start_Dt = getDate[0]+"-"+getDate[1]+"-"+Integer.toString(Integer.parseInt(getDate[2])+7);
+			        			   start_Dt = getDate[0]+"-"+getDate[1]+"-"+TimePickerActivity.padding_str(Integer.parseInt(getDate[2])+7);
 			        			   id=SimpleCalendarView.db.getRepeatEvent(start_Dt, start_Dt, stTime, eTime);
 			        			   if(id!=0){
 			        				   ev = SimpleCalendarView.db.getEvent(id);
