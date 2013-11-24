@@ -1,6 +1,12 @@
 package com.example.mycalendarapp;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -21,7 +27,11 @@ import android.widget.TextView;
  * The Class EventDetailsActivity for the detail view of a particular event
  */
 public class EventDetailsActivity extends Activity implements OnClickListener{
-	
+	private static final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+	private static final SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+	private Date currentDate;
+	private Date currentTime;
+	private Calendar _calendar;
 	/** The list adapter. */
 	private EventListAdapter listAdapter;
 	//private MySQLiteHelper db;
@@ -36,7 +46,7 @@ public class EventDetailsActivity extends Activity implements OnClickListener{
 	
 	/** The sel event. */
 	private Event selEvent;
-	
+	private List<Event> futureEvents;
 	/** The event title. */
 	private String eventTitle;
 	
@@ -104,7 +114,15 @@ public class EventDetailsActivity extends Activity implements OnClickListener{
         //textview.setText("This is Daily tab");
         setContentView(R.layout.event_details_view);
       //  db = new  MySQLiteHelper(this);
-		
+        futureEvents =new ArrayList<Event>();
+		_calendar = Calendar.getInstance(Locale.getDefault());
+		try {
+			currentDate = dateFormat.parse(dateFormat.format(_calendar.getTime()));
+			currentTime = sdf.parse(sdf.format(_calendar.getTime()));
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		// Getting all Events
 	   /* Log.d("Get Events", "Getting All Events");
 
@@ -131,6 +149,18 @@ public class EventDetailsActivity extends Activity implements OnClickListener{
         	if(activity==3){
         		//eventTitle = extras.getString("EVENT_TITLE");
         		Id = extras.getLong("EVENT_ID");
+        		printEventDetails(Id);
+        	}
+        	
+        	if(activity==11){
+        		//eventTitle = extras.getString("EVENT_TITLE");
+        		Id = extras.getLong("id");
+        		printEventDetails(Id);
+        	}
+        	
+        	if(activity==12){
+        		//eventTitle = extras.getString("EVENT_TITLE");
+        		Id = extras.getLong("id");
         		printEventDetails(Id);
         	}
         	
@@ -429,38 +459,53 @@ public class EventDetailsActivity extends Activity implements OnClickListener{
 
 	    allEvents = SimpleCalendarView.db.getAllEvents();
 	    for (Event event : allEvents) {
-	        Log.d("Event:"+event.getTitle(),"ID:"+ event.getId()+"Description:"+event.getDescription());
+	    	Date eventDate =new Date();
+	    	Date eventTime = new Date();
+	    	try {
+				 eventDate = dateFormat.parse(event.getStartDate());
+				 eventTime = sdf.parse(event.getStartTime());
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	    	
+	    	if(((eventDate.compareTo(currentDate)==0)
+	    			&& (eventTime.compareTo(currentTime)>=0))||(eventDate.compareTo(currentDate)>0)){
+	    	
+	    		futureEvents.add(event);
+	    		Log.d("Event:"+event.getTitle(),"ID:"+ event.getId()+"Description:"+event.getDescription());
+	    	}
 	    }
 	    
 	    Log.d("Event:"+ position, "");
-        eventID = allEvents.get(position).getId();
+        eventID = futureEvents.get(position).getId();
         
 
         title = (TextView) findViewById(R.id.textView1);
-        title.setText(allEvents.get(position).getTitle());
+        title.setText(futureEvents.get(position).getTitle());
         
         description = (TextView) findViewById(R.id.eventDescription);
-        description.setText(allEvents.get(position).getDescription());
+        description.setText(futureEvents.get(position).getDescription());
         
         date = (TextView) findViewById(R.id.textView2);
-        date.setText(allEvents.get(position).getStartDate()+" - "+ allEvents.get(position).getEndDate());
-        fromDate = allEvents.get(position).getStartDate();
-        toDate =allEvents.get(position).getEndDate();
+        date.setText(futureEvents.get(position).getStartDate()+" - "+ futureEvents.get(position).getEndDate());
+        fromDate = futureEvents.get(position).getStartDate();
+        toDate =futureEvents.get(position).getEndDate();
         
         
         time = (TextView) findViewById(R.id.textView3);
-        time.setText(allEvents.get(position).getStartTime()+" - "+allEvents.get(position).getEndTime());
-        fromTime= allEvents.get(position).getStartTime();
-        toTime = allEvents.get(position).getEndTime();
+        time.setText(futureEvents.get(position).getStartTime()+" - "+futureEvents.get(position).getEndTime());
+        fromTime= futureEvents.get(position).getStartTime();
+        toTime = futureEvents.get(position).getEndTime();
         
         
         repeat = (TextView) findViewById(R.id.textView5);
-        repeat.setText(allEvents.get(position).getRepeat());
-        repeatEvent = allEvents.get(position).getRepeat();
+        repeat.setText(futureEvents.get(position).getRepeat());
+        repeatEvent = futureEvents.get(position).getRepeat();
         
         category = (TextView) findViewById(R.id.textView7);
-        category.setText(SimpleCalendarView.db.getCategoryByEvent(allEvents.get(position).getId()).getName().toString());
-        categoryName=SimpleCalendarView.db.getCategoryByEvent(allEvents.get(position).getId()).getName().toString();
+        category.setText(SimpleCalendarView.db.getCategoryByEvent(futureEvents.get(position).getId()).getName().toString());
+        categoryName=SimpleCalendarView.db.getCategoryByEvent(futureEvents.get(position).getId()).getName().toString();
         
         status = (TextView) findViewById(R.id.textView9);
         status.setText("Busy");

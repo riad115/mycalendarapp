@@ -496,6 +496,7 @@ public class WeeklyView extends Activity implements OnClickListener{
 				txtParams1.setMargins(0, top, 0, 0);
 				sunTxt[txtView].setLayoutParams(txtParams1);
 				sunTxt[txtView].setText(event.getTitle());
+				sunTxt[txtView].setTag(Long.toString(event.getId()));
 				//RelativeLayout currentDateRelativeLayout = (RelativeLayout) findViewById(R.id.currentDateRelativeLayout);
 				sundayRelativeLayout.addView(sunTxt[txtView]);
 				sunTxt[txtView].setBackgroundColor(Color.parseColor(DailyView.findColor(color)));
@@ -504,10 +505,11 @@ public class WeeklyView extends Activity implements OnClickListener{
 				    public void onClick(View view) {
 				        // Do something
 				    	//String title = (String)view.getTag();
-				    	System.out.println(sunId);
+				    	Long clickedID = Long.parseLong((String)view.getTag());
+				    	System.out.println(clickedID);
 				    	Intent ev= new Intent(WeeklyView.this, EventDetailsActivity.class);
 				    	ev.putExtra("activity", (int)3);
-				    	ev.putExtra("EVENT_ID", sunId);
+				    	ev.putExtra("EVENT_ID", clickedID);
 			            startActivity(ev); 
 				    }
 				});
@@ -539,6 +541,7 @@ public class WeeklyView extends Activity implements OnClickListener{
 				txtParams1.setMargins(0, top, 0, 0);
 				monTxt[txtMon].setLayoutParams(txtParams1);
 				monTxt[txtMon].setText(event.getTitle());
+				monTxt[txtMon].setTag(Long.toString(event.getId()));
 				//RelativeLayout currentDateRelativeLayout = (RelativeLayout) findViewById(R.id.currentDateRelativeLayout);
 				mondayRelativeLayout.addView(monTxt[txtMon]);
 				monTxt[txtMon].setBackgroundColor(Color.parseColor(DailyView.findColor(color)));
@@ -547,10 +550,11 @@ public class WeeklyView extends Activity implements OnClickListener{
 				    public void onClick(View view) {
 				        // Do something
 				    	//String title = (String)view.getTag();
-				    	System.out.println(monId);
+				    	Long clickedID = Long.parseLong((String)view.getTag());
+				    	System.out.println(clickedID);
 				    	Intent ev= new Intent(WeeklyView.this, EventDetailsActivity.class);
 				    	ev.putExtra("activity", (int)3);
-				    	ev.putExtra("EVENT_ID", monId);
+				    	ev.putExtra("EVENT_ID", clickedID);
 			            startActivity(ev); 
 				    }
 				});
@@ -581,6 +585,7 @@ public class WeeklyView extends Activity implements OnClickListener{
 				txtParams1.setMargins(0, top, 0, 0);
 				tueTxt[txtTue].setLayoutParams(txtParams1);
 				tueTxt[txtTue].setText(event.getTitle());
+				tueTxt[txtTue].setTag(Long.toString(event.getId()));
 				//RelativeLayout currentDateRelativeLayout = (RelativeLayout) findViewById(R.id.currentDateRelativeLayout);
 				tuesdayRelativeLayout.addView(tueTxt[txtTue]);
 				tueTxt[txtTue].setBackgroundColor(Color.parseColor(DailyView.findColor(color)));
@@ -589,10 +594,12 @@ public class WeeklyView extends Activity implements OnClickListener{
 				    public void onClick(View view) {
 				        // Do something
 				    	//String title = (String)view.getTag();
-				    	System.out.println(tueId);
+				    	Long clickedID = Long.parseLong((String)view.getTag());
+
+				    	System.out.println(clickedID);
 				    	Intent ev= new Intent(WeeklyView.this, EventDetailsActivity.class);
 				    	ev.putExtra("activity", (int)3);
-				    	ev.putExtra("EVENT_ID", tueId);
+				    	ev.putExtra("EVENT_ID", clickedID);
 			            startActivity(ev); 
 				    }
 				});
@@ -626,6 +633,7 @@ public class WeeklyView extends Activity implements OnClickListener{
 				txtParams1.setMargins(0, top, 0, 0);
 				wedTxt[txtWed].setLayoutParams(txtParams1);
 				wedTxt[txtWed].setText(event.getTitle());
+				wedTxt[txtWed].setTag(Long.toString(event.getId()));
 				//RelativeLayout currentDateRelativeLayout = (RelativeLayout) findViewById(R.id.currentDateRelativeLayout);
 				wednesdayRelativeLayout.addView(wedTxt[txtWed]);
 				wedTxt[txtWed].setBackgroundColor(Color.parseColor(DailyView.findColor(color)));
@@ -634,10 +642,11 @@ public class WeeklyView extends Activity implements OnClickListener{
 				    public void onClick(View view) {
 				        // Do something
 				    	//String title = (String)view.getTag();
-				    	System.out.println(wedId);
+				    	Long clickedID = Long.parseLong((String)view.getTag());
+				    	System.out.println(clickedID);
 				    	Intent ev= new Intent(WeeklyView.this, EventDetailsActivity.class);
 				    	ev.putExtra("activity", (int)3);
-				    	ev.putExtra("EVENT_ID", wedId);
+				    	ev.putExtra("EVENT_ID", clickedID);
 			            startActivity(ev); 
 				    }
 				});
@@ -670,6 +679,7 @@ public class WeeklyView extends Activity implements OnClickListener{
 				txtParams1.setMargins(0, top, 0, 0);
 				thuTxt[txtThu].setLayoutParams(txtParams1);
 				thuTxt[txtThu].setText(event.getTitle());
+				thuTxt[txtThu].setTag(Long.toString(event.getId()));
 				//RelativeLayout currentDateRelativeLayout = (RelativeLayout) findViewById(R.id.currentDateRelativeLayout);
 				thursdayRelativeLayout.addView(thuTxt[txtThu]);
 				thuTxt[txtThu].setBackgroundColor(Color.parseColor(DailyView.findColor(color)));
@@ -678,10 +688,11 @@ public class WeeklyView extends Activity implements OnClickListener{
 				    public void onClick(View view) {
 				        // Do something
 				    	//String title = (String)view.getTag();
-				    	System.out.println(thuId);
+				    	Long clickedID = Long.parseLong((String)view.getTag());
+				    	System.out.println(clickedID);
 				    	Intent ev= new Intent(WeeklyView.this, EventDetailsActivity.class);
 				    	ev.putExtra("activity", (int)3);
-				    	ev.putExtra("EVENT_ID", thuId);
+				    	ev.putExtra("EVENT_ID", clickedID);
 			            startActivity(ev); 
 				    }
 				});
@@ -715,6 +726,7 @@ public class WeeklyView extends Activity implements OnClickListener{
 				txtParams1.setMargins(0, top, 0, 0);
 				friTxt[txtFri].setLayoutParams(txtParams1);
 				friTxt[txtFri].setText(event.getTitle());
+				friTxt[txtFri].setTag(Long.toString(event.getId()));
 				//RelativeLayout currentDateRelativeLayout = (RelativeLayout) findViewById(R.id.currentDateRelativeLayout);
 				fridayRelativeLayout.addView(friTxt[txtFri]);
 				friTxt[txtFri].setBackgroundColor(Color.parseColor(DailyView.findColor(color)));
@@ -723,10 +735,11 @@ public class WeeklyView extends Activity implements OnClickListener{
 				    public void onClick(View view) {
 				        // Do something
 				    	//String title = (String)view.getTag();
-				    	System.out.println(friId);
+				    	Long clickedID = Long.parseLong((String)view.getTag());
+				    	System.out.println(clickedID);
 				    	Intent ev= new Intent(WeeklyView.this, EventDetailsActivity.class);
 				    	ev.putExtra("activity", (int)3);
-				    	ev.putExtra("EVENT_ID", friId);
+				    	ev.putExtra("EVENT_ID", clickedID);
 			            startActivity(ev); 
 				    }
 				});
@@ -761,6 +774,7 @@ public class WeeklyView extends Activity implements OnClickListener{
 				txtParams1.setMargins(0, top, 0, 0);
 				satTxt[txtSat].setLayoutParams(txtParams1);
 				satTxt[txtSat].setText(event.getTitle());
+				satTxt[txtSat].setTag(Long.toString(event.getId()));
 				//RelativeLayout currentDateRelativeLayout = (RelativeLayout) findViewById(R.id.calendarRelativeLayout);
 				saturdayRelativeLayout.addView(satTxt[txtSat]);
 				//currentDateRelativeLayout.addView(satTxt[txtSat]);
@@ -770,10 +784,11 @@ public class WeeklyView extends Activity implements OnClickListener{
 				    public void onClick(View view) {
 				        // Do something
 				    	//String title = (String)view.getTag();
-				    	System.out.println(satId);
+				    	Long clickedID = Long.parseLong((String)view.getTag());
+				    	System.out.println(clickedID);
 				    	Intent ev= new Intent(WeeklyView.this, EventDetailsActivity.class);
 				    	ev.putExtra("activity", (int)3);
-				    	ev.putExtra("EVENT_ID", satId);
+				    	ev.putExtra("EVENT_ID", clickedID);
 			            startActivity(ev); 
 				    }
 				});

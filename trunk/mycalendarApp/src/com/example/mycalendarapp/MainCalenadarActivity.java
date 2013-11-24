@@ -179,7 +179,16 @@ public class MainCalenadarActivity extends Activity implements OnClickListener{
 	    	Intent ev= new Intent(this, EventActivity.class);
             startActivity(ev); 
 	        return true;
-	    
+	        
+	    case R.id.event_date:
+	    	Intent dt= new Intent(this, EventListByDate.class);
+            startActivity(dt); 
+	        return true;
+	        
+	    case R.id.event_category:
+	    	Intent ct= new Intent(this, EventListByCategory.class);
+            startActivity(ct); 
+	        return true;    
 	    default:
 	        return super.onOptionsItemSelected(item);
 	    }
@@ -191,6 +200,7 @@ public class MainCalenadarActivity extends Activity implements OnClickListener{
 	@Override
 	public void onDestroy()
 		{
+			SimpleCalendarView.db.closeDB();
 			Log.d(tag, "Destroying View ...");
 			super.onDestroy();
 		}
