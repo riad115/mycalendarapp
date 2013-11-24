@@ -118,6 +118,25 @@ public class DatePickerActivity extends Activity  implements OnClickListener{
 			     finish();
 				 
 			 }
+			 
+			 else 	if(getIntent().getStringExtra("Caller").equals("To_Date_search"))
+			 {
+				 EventListByDate.to_Date = formatedDate;
+				 Log.d(tag, " in to_Date " + EventListByDate.to_Date);
+				 EventListByDate.toTodaysDate.setText(EventListByDate.to_Date);
+				 setResult(RESULT_OK,getIntent());
+			     finish();
+				 
+			 }
+			 else 	 if(getIntent().getStringExtra("Caller").equals("From_Date_search"))
+			 {
+				 EventListByDate.from_Date = formatedDate;
+				 Log.d(tag, " in to_Date " + EventListByDate.to_Date);
+				 EventListByDate.fromTodaysDate.setText(EventListByDate.from_Date);
+				 setResult(RESULT_OK,getIntent());
+			     finish();
+				 
+			 }
 
 			 
 		}

@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    
+    <View
+    android:layout_width="fill_parent"
+    android:layout_height="10dip"
+    />
+    <RelativeLayout
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content" >
+
+             <LinearLayout
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:layout_alignParentLeft="true"
+                 android:layout_alignParentTop="true"
+                 android:layout_weight="0.04"
+                 android:orientation="horizontal" >
+
+               <TextView
+		        android:id="@+id/textViewStartDate"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_weight="0.36"
+		        android:text="Start Date: "
+		        android:textAppearance="?android:attr/textAppearanceMedium" />
+            
+                        <Button
+                android:id="@+id/fromTodaysDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.36"
+                android:text="Start Date" />
+
+         </LinearLayout>
+             </RelativeLayout>
+             
+    
+    
+    <RelativeLayout
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content" >
+
+             <LinearLayout
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:layout_alignParentLeft="true"
+                 android:layout_alignParentTop="true"
+                 android:layout_weight="0.04"
+                 android:orientation="horizontal" >
+
+               <TextView
+		        android:id="@+id/textViewEndDate"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_weight="0.36"
+		        android:text="End Date:   "
+		        android:textAppearance="?android:attr/textAppearanceMedium" />
+            
+                        <Button
+                android:id="@+id/toTodaysDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.36"
+                android:text="Todays Date" />
+
+            
+
+        
+          
+
+
+        </LinearLayout>
+             </RelativeLayout>
+<ScrollView android:id="@+id/calendarDateScrollView"
+       android:layout_width="fill_parent"
+       android:layout_height="fill_parent"
+       android:layout_weight="1"
+      
+       android:overScrollMode="never"
+       android:padding="0dp"
+       android:scrollbars="none"
+       android:fadingEdge="none"
+       android:fillViewport="true">
+    
+    <LinearLayout android:orientation="vertical"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content">
+        
+        
+        <GridView
+		android:id="@+id/grid_search_date"
+		android:numColumns="1"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:background="@color/dark_grey"
+		android:horizontalSpacing="1dp"
+		android:verticalSpacing="1dp">
+	</GridView>
+    </LinearLayout>
+    
+</ScrollView>    
+
+</LinearLayout>

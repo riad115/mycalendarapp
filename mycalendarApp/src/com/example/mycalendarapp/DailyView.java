@@ -257,7 +257,7 @@ public class DailyView extends Activity implements OnClickListener{
 		currentDateRelativeLayout.addView(layoutInflater.inflate(R.layout.calendar_zebra, null, false),0 );		
 		dailyEvent =  SimpleCalendarView.db.getEvent(date,date);
 		if(!dailyEvent.isEmpty()){
-			TextView[] dailytxt = new TextView[dailyEvent.size()];
+			 TextView[] dailytxt = new TextView[dailyEvent.size()];
 			for(int i = 0;i<dailyEvent.size();i++ ){
 				dailytxt[i] = new TextView(this);
 			}
@@ -273,6 +273,7 @@ public class DailyView extends Activity implements OnClickListener{
 				txtParams1.setMargins(0, top, 0, 0);
 				dailytxt[txtView].setLayoutParams(txtParams1);
 				dailytxt[txtView].setText(event.getTitle());
+				dailytxt[txtView].setTag(Long.toString(event.getId()));
 				//RelativeLayout currentDateRelativeLayout = (RelativeLayout) findViewById(R.id.currentDateRelativeLayout);
 				currentDateRelativeLayout.addView(dailytxt[txtView]);
 				//dailytxt[txtView].setBackgroundColor(Color.parseColor("#FF0000"));
@@ -282,10 +283,11 @@ public class DailyView extends Activity implements OnClickListener{
 				    public void onClick(View view) {
 				        // Do something
 				    	//String title = (String)view.getTag();
-				    	System.out.println(id);
+				    	Long clickedID = Long.parseLong((String)view.getTag());
+				    	System.out.println(clickedID);
 				    	Intent ev= new Intent(DailyView.this, EventDetailsActivity.class);
 				    	ev.putExtra("activity", (int)2);
-				    	ev.putExtra("EVENT_ID", id);
+				    	ev.putExtra("EVENT_ID", clickedID);
 			            startActivity(ev); 
 				    }
 				});

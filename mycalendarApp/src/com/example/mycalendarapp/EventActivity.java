@@ -347,7 +347,7 @@ public class EventActivity extends Activity implements OnClickListener, OnItemSe
        // db.clearDatebase();
 
         //MainCalenadarActivity.db.closeDB();
-        SimpleCalendarView.db.closeDB();
+        //SimpleCalendarView.db.closeDB();
         
         ////////////////////////////////////////////////////////////////////////////////////// RossY End
         

@@ -6,9 +6,9 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,50 +16,38 @@ import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.TextView;
 
-// TODO: Auto-generated Javadoc
-/**
- * The Class EventListAdapter is used for the gridview in {@link EventList} class
- */
-public class EventListAdapter extends BaseAdapter{
+public class EventListByDateAdapter extends BaseAdapter{
 	private static final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 	private static final SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
-	private Date currentDate;
-	private Date currentTime;
-	private Calendar _calendar;
-	
 	/** The e context. */
 	private Context eContext;
 	//private MySQLiteHelper db;
 	/** The txt event. */
 	private TextView[] txtEvent; 
-	
+	Category ctg;
+	private String startDate;
+	private String endDate;
 	/** The all events. */
+	private final List<Event> dayEvents;
 	private final List<Event> allEvents;
-	private final List<Event> futureEvents;
+	private Date stDate;
+	private Date eDate;
+	private Calendar _calendar;
 	
-	
-	/** The Constant numbers. */
-	static final String[] numbers = new String[] { 
-			"A", "B", "C", "D", "E",
-			"F", "G", "H", "I", "J",
-			"K", "L", "M", "N", "O",
-			"P", "Q", "R", "S", "T",
-			"U", "V", "W", "X", "Y", "Z"};
-	
-	
-	/**
-	 * Instantiates a new event list adapter.
-	 *
-	 * @param c the c
-	 */
-	public EventListAdapter (Context c){
+	public EventListByDateAdapter(Context c, String startDate, String endDate){
 		eContext =c;
+		this.startDate=startDate;
+		this.endDate = endDate;
+		//this.ctg = ctg;
 	//	db = new  MySQLiteHelper(eContext);
-		futureEvents =new ArrayList<Event>();
-		_calendar = Calendar.getInstance(Locale.getDefault());
-		try {
-			currentDate = dateFormat.parse(dateFormat.format(_calendar.getTime()));
-			currentTime = sdf.parse(sdf.format(_calendar.getTime()));
+		
+		// Getting all Events
+	    Log.d("Get Events", "Getting All Events");
+
+	    dayEvents = new ArrayList<Event>();
+	    try {
+			stDate = dateFormat.parse(startDate);
+			eDate = dateFormat.parse(endDate);
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -69,62 +57,47 @@ public class EventListAdapter extends BaseAdapter{
 
 	    allEvents = SimpleCalendarView.db.getAllEvents();
 	    for (Event event : allEvents) {
-	    	Date eventDate =new Date();
-	    	Date eventTime = new Date();
+	    	Date eventStartDate =new Date();
+	    	//Date eventEndDate = new Date();
 	    	try {
-				 eventDate = dateFormat.parse(event.getStartDate());
-				 eventTime = sdf.parse(event.getStartTime());
+				 eventStartDate = dateFormat.parse(event.getStartDate());
+				 //eventEndDate = dateFormat.parse(event.getEndDate());
 			} catch (ParseException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 	    	
-	    	if(((eventDate.compareTo(currentDate)==0)
-	    			&& (eventTime.compareTo(currentTime)>=0))||(eventDate.compareTo(currentDate)>0)){
+	    	if(((eventStartDate.compareTo(stDate)>=0)
+	    			&& (eventStartDate.compareTo(eDate)<=0))){
 	    	
-	    		futureEvents.add(event);
+	    		dayEvents.add(event);
 	    		Log.d("Event:"+event.getTitle(),"ID:"+ event.getId()+"Description:"+event.getDescription());
 	    	}
 	    }
+	   
 	    
 	}
-	
-	/* (non-Javadoc)
-	 * @see android.widget.Adapter#getCount()
-	 */
 	@Override
 	public int getCount() {
 		// TODO Auto-generated method stub
-		return futureEvents.size();
+		return dayEvents.size();
 	}
 
-	/* (non-Javadoc)
-	 * @see android.widget.Adapter#getItem(int)
-	 */
 	@Override
 	public Object getItem(int position) {
 		// TODO Auto-generated method stub
-		return futureEvents.get(position);
+		return dayEvents.get(position);
 	}
 
-	/* (non-Javadoc)
-	 * @see android.widget.Adapter#getItemId(int)
-	 */
 	@Override
 	public long getItemId(int position) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
-	/* (non-Javadoc)
-	 * @see android.widget.Adapter#getView(int, android.view.View, android.view.ViewGroup)
-	 */
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		// TODO Auto-generated method stub
-		
-	    
-	    txtEvent = new TextView[futureEvents.size()];
+		txtEvent = new TextView[dayEvents.size()];
 	    
 	    /*for(int i = 0;i<allEvents.size();i++){
 	    	txtEvent[i] = new TextView(eContext);
@@ -133,8 +106,11 @@ public class EventListAdapter extends BaseAdapter{
 	    	}*/
 	    
 		TextView txt1 = new TextView(eContext);
-		txt1.setText(futureEvents.get(position).getTitle());
+		txt1.setText(dayEvents.get(position).getTitle());
 		txt1.setLayoutParams(new GridView.LayoutParams(GridView.LayoutParams.MATCH_PARENT, GridView.LayoutParams.WRAP_CONTENT));
+		txt1.setBackgroundColor(Color.parseColor("#FFFFFF"));
+		txt1.setTextColor(Color.parseColor("#000000"));
+		txt1.setTag(Long.toString(dayEvents.get(position).getId()));
 		return txt1;
 	}
 

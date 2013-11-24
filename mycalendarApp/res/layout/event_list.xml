@@ -4,6 +4,33 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@drawable/bg" >
+    <View
+    android:layout_width="fill_parent"
+    android:layout_height="10dip"
+    />
+
+
+	
+
+	<LinearLayout
+		
+		android:orientation="horizontal"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content">
+
+		
+		<Button
+			android:id="@+id/futureEvent"
+			android:layout_weight="0.6"
+			android:textColor="#FFFFFF"
+			android:textAppearance="?android:attr/textAppearanceMedium"
+			android:background="@drawable/calendar_bar"
+			android:text="Future Events"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content">
+		</Button>
+		
+	</LinearLayout>
     
 <ScrollView android:id="@+id/calendarScrollView"
        android:layout_width="fill_parent"

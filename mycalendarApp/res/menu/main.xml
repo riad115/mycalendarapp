@@ -12,5 +12,17 @@
         android:orderInCategory="100"
         android:showAsAction="never"
         android:title="@string/event_add"/>
+    
+    <item
+        android:id="@+id/event_date"
+        android:orderInCategory="100"
+        android:showAsAction="never"
+        android:title="@string/event_date"/>
+    
+    <item
+        android:id="@+id/event_category"
+        android:orderInCategory="100"
+        android:showAsAction="never"
+        android:title="@string/event_category"/>
 
 </menu>
